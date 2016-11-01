@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SkdAdminClient;
 
 namespace SkdAdminClient
 {
@@ -34,8 +35,9 @@ namespace SkdAdminClient
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("确定退出？", "提示", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
+            
+            bool result = XMessageBox.ShowDialog("确定退出？","提示",true);
+            if (result )
             {
                 Application.Current.Shutdown();
             }
@@ -43,6 +45,30 @@ namespace SkdAdminClient
             {
                 e.Cancel = true;
             }
+        }
+
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void TxtUserName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (TxtUserName.Text.Trim()=="") return;
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+                TxtPwd.Focus();
+        }
+
+        private void TxtPwd_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (TxtPwd.Password.Trim()=="") return;
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+                BtnLogin.Focus();
+        }
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

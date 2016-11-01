@@ -15,6 +15,145 @@
     WindowStartupLocation="CenterScreen"
     WindowStyle="None"
     mc:Ignorable="d">
+    <Window.Resources>
+        <!--  窗体关闭按钮  -->
+        <Style x:Key="TopRightCloseButtonStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Grid>
+                            <Canvas>
+                                <Ellipse
+                                    x:Name="elps"
+                                    Width="35"
+                                    Height="35"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Stroke="ForestGreen" />
+                                <!--  Fill="ForestGreen"  -->
+                                <Path
+                                    x:Name="pth_cross"
+                                    Canvas.Left="0"
+                                    Canvas.Top="0"
+                                    Width="30"
+                                    Height="30"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Data="M10.909415,0 L14.909415,0 14.909415,10.202308 25,10.202308 25,14.202307 14.909415,14.202307 14.909415,25 10.909415,25 10.909415,14.202307 0,14.202307 0,10.202308 10.909415,10.202308 z"
+                                    Fill="ForestGreen"
+                                    RenderTransformOrigin="0.750,0.550"
+                                    Stretch="Fill">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <ScaleTransform />
+                                            <SkewTransform />
+                                            <RotateTransform Angle="-45" />
+                                            <TranslateTransform X="3.226" Y="-3.616" />
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+                                <ContentPresenter
+                                    x:Name="contentPresenter"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Canvas>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True" />
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="elps" Property="Stroke" Value="#2CA1F7" />
+                                <Setter TargetName="pth_cross" Property="StrokeThickness" Value="1.5" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="elps" Property="Fill">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.443,1.22">
+                                            <LinearGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterX="0.5" CenterY="0.5" />
+                                                    <SkewTransform CenterX="0.5" CenterY="0.5" />
+                                                    <RotateTransform Angle="-50" CenterX="0.5" CenterY="0.5" />
+                                                    <TranslateTransform />
+                                                </TransformGroup>
+                                            </LinearGradientBrush.RelativeTransform>
+                                            <GradientStop Offset="1" Color="ForestGreen" />
+                                            <GradientStop Offset="0" Color="#2CA1F7" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="contentPresenter" Property="Margin" Value="5,5,0,0" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False" />
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+
+
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Button按钮样式*提交  -->
+        <Style x:Key="ButtonStylePopupLogin" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontFamily" Value="斯柯达体" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Margin" Value="18,45,0,0" />
+            <Setter Property="Background" Value="ForestGreen" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="Chrome"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8,8,8,8"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Chrome" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="ForestGreen" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Chrome" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="ForestGreen" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" Value="{StaticResource GlobalDisableColor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="217*" />
@@ -29,6 +168,16 @@
             <ColumnDefinition Width="92" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
+        <ToggleButton
+            Grid.Row="0"
+            Grid.Column="4"
+            Width="31"
+            Height="31"
+            Margin="369,17,0,0"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Top"
+            Click="ToggleButton_Click"
+            Style="{StaticResource TopRightCloseButtonStyle}" />
         <Button
             x:Name="BtnLogin"
             Grid.Row="1"
@@ -36,15 +185,12 @@
             Grid.Column="3"
             Width="64"
             Height="62"
-            Margin="18,45,0,0"
+            Margin="17,44,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Background="#FF13B413"
-            BorderThickness="0"
+            Click="BtnLogin_Click"
             Content="登录"
-            FontFamily="斯柯达体"
-            FontSize="15"
-            Foreground="White"/>
+            Style="{StaticResource ButtonStylePopupLogin}" />
         <TextBox
             x:Name="TxtUserName"
             Grid.Row="1"
@@ -54,9 +200,9 @@
             Margin="7,44,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Text="TextBox"
+            KeyDown="TxtUserName_KeyDown"
             TextWrapping="Wrap" />
-        <TextBox
+        <PasswordBox
             x:Name="TxtPwd"
             Grid.Row="2"
             Grid.Column="2"
@@ -65,19 +211,7 @@
             Margin="7,7,0,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Text="TextBox"
-            TextWrapping="Wrap" />
-        <Ellipse
-            Grid.Row="0"
-            Grid.Column="4"
-            Width="31"
-            Height="31"
-            Margin="371,20,0,0"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Top"
-            Stroke="Green"
-            StrokeThickness="1" />
-
+            KeyDown="TxtPwd_KeyDown" />
         <Grid.Background>
             <ImageBrush ImageSource="Image\login.jpg" />
         </Grid.Background>

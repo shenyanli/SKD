@@ -1,0 +1,231 @@
+﻿<Window
+    x:Class="SkdAdminClient.Controls.XMessageBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="XMessageBox"
+    Width="550"
+    MinHeight="280"
+    MaxHeight="{Binding Path=Height, Source={x:Static SystemParameters.WorkArea}}"
+    AllowsTransparency="True"
+    Background="Transparent"
+    PreviewKeyUp="Window_PreviewKeyUp"
+    ResizeMode="NoResize"
+    SizeToContent="Height"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <!--  Button按钮样式*提交  -->
+        <Style x:Key="ButtonStylePopupConfirm" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontFamily" Value="斯柯达体" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Margin" Value="20,5" />
+            <Setter Property="Background" Value="ForestGreen" />
+            <Setter Property="MinWidth" Value="100" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="Chrome"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Chrome" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#2CA1F7" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Chrome" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FF424242" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" Value="{StaticResource GlobalDisableColor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!--  Button按钮样式*退出  -->
+        <Style x:Key="ButtonStylePopupExit" TargetType="{x:Type Button}">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontFamily" Value="斯柯达体" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="Margin" Value="20,5" />
+            <Setter Property="Background" Value="ForestGreen" />
+            <Setter Property="MinWidth" Value="100" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="Chrome"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Chrome" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#777777" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <ColorAnimationUsingKeyFrames Storyboard.TargetName="Chrome" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                                <EasingColorKeyFrame KeyTime="0:0:0.1" Value="#FF424242" />
+                                            </ColorAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" Value="{StaticResource GlobalDisableColor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Rectangle Margin="10" Fill="WhiteSmoke">
+            <Rectangle.Effect>
+                <DropShadowEffect
+                    BlurRadius="15"
+                    Direction="-90"
+                    RenderingBias="Quality"
+                    ShadowDepth="2" />
+            </Rectangle.Effect>
+        </Rectangle>
+        <Grid Margin="10" Background="Transparent">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50*" />
+                <RowDefinition Height="25*" />
+                <RowDefinition Height="80*" />
+                <RowDefinition Height="25*" />
+                <RowDefinition Height="80*" />
+            </Grid.RowDefinitions>
+            <Border MouseLeftButtonDown="borderCaption_MouseLeftButtonDown">
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="Green" />
+                        <GradientStop Offset="0.05" Color="WhiteSmoke" />
+                        <GradientStop Offset="0.95" Color="WhiteSmoke" />
+                        <GradientStop Offset="1" Color="Green" />
+                    </LinearGradientBrush>
+                </Border.Background>
+                <TextBlock
+                    Name="TxtCaption"
+                    Margin="10,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontFamily="斯柯达体"
+                    FontSize="20"
+                    Foreground="ForestGreen"
+                    Text="提示" />
+            </Border>
+            <Border Grid.Row="2" Margin="10">
+                <TextBlock
+                    Name="TxtText"
+                    Margin="5"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="20"
+                    Text="-"
+                    TextWrapping="Wrap" />
+            </Border>
+            <Border Grid.Row="4" Margin="10">
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+                    <Button
+                        Name="BtnConfirm"
+                        Width="180"
+                        Click="btnConfirm_Click"
+                        Content="确认"
+                        FontSize="20"
+                        IsDefault="True"
+                        Style="{StaticResource ButtonStylePopupConfirm}">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Offset="0" Color="WhiteSmoke" />
+                                <GradientStop Offset="0.05" Color="ForestGreen" />
+                                <GradientStop Offset="0.95" Color="ForestGreen" />
+                                <GradientStop Offset="1" Color="WhiteSmoke" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Button
+                        Name="BtnCancel"
+                        Width="180"
+                        Click="btnCancel_Click"
+                        Content="取消"
+                        FontSize="20"
+                        IsCancel="True"
+                        Style="{StaticResource ButtonStylePopupExit}">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                <GradientStop Offset="0" Color="WhiteSmoke" />
+                                <GradientStop Offset="0.05" Color="ForestGreen" />
+                                <GradientStop Offset="0.95" Color="ForestGreen" />
+                                <GradientStop Offset="1" Color="WhiteSmoke" />
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>
