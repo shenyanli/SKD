@@ -33,7 +33,7 @@ namespace SkdAdminClient
 
             var result = Application.Current.Dispatcher.Invoke(new Func<bool?>(() =>
             {
-                var winBox = new Controls.XMessageBox();
+                var winBox = new Control.XMessageBox();
                 winBox.Owner = Application.Current.Windows.Cast<Window>().FirstOrDefault(ww => ww.IsActive);
                 return winBox.ShowDialog(dialogText, dialogCaption, dialogConfirmCancleButton);
             })) as bool?;
@@ -43,7 +43,7 @@ namespace SkdAdminClient
     }
 }
 
-namespace SkdAdminClient.Controls
+namespace SkdAdminClient.Control
 {
     /// <summary>
     /// 自定义模态窗口

@@ -1,0 +1,419 @@
+﻿<Page
+    x:Class="SkdAdminClient.View.PageProgressDetail"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:SkdAdminClient"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    x:Name="学员进度信息"
+    Title="PageLogin"
+    Height="580"
+    FontFamily="斯柯达体"
+    FontSize="15"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <Style x:Key="DetailButton" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="ButtonBorder"
+                            Background="#E0EEE0"
+                            BorderThickness="3"
+                            CornerRadius="4"
+                            Cursor="Hand"
+                            RenderTransformOrigin="0.5,0.5">
+                            <Grid>
+                                <ContentPresenter
+                                    x:Name="ButtonContentPresenter"
+                                    Grid.Row="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Expander
+            x:Name="Expander"
+            Grid.Row="1"
+            Margin="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Foreground="ForestGreen"
+            Header="检索信息"
+            IsExpanded="True">
+            <Expander.Background>
+                <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0.815" Color="#FFD4F8D4" />
+                    <GradientStop Color="White" />
+                </LinearGradientBrush>
+            </Expander.Background>
+            <Grid
+                Name="ExpanderGrid"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+                <!--<Grid.Background>
+                    <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0.815" Color="LightGreen" />
+                        <GradientStop Color="White" />
+                    </LinearGradientBrush>
+                </Grid.Background>-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    MinWidth="100"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="学员姓名：" />
+                <TextBox
+                    x:Name="TxtUserName"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Width="150"
+                    MinWidth="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource TextBoxStyle}"
+                    TextWrapping="Wrap" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="完成状态：" />
+                <ComboBox
+                    x:Name="Status"
+                    Grid.Row="1"
+                    Grid.Column="4"
+                    MinWidth="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsReadOnly="True"
+                    SelectionChanged="Status_SelectionChanged" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    MinWidth="100"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="学员账户:" />
+                <TextBox
+                    x:Name="TxtUserAccount"
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    Width="150"
+                    MinWidth="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Style="{DynamicResource TextBoxStyle}"
+                    TextWrapping="Wrap" />
+                <Label
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    MinWidth="100"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="课程名称：" />
+                <CheckBox
+                    x:Name="ChkTime"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    MinWidth="100"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="学习时间：" />
+                <CheckBox
+                    x:Name="ChkFinishTime"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    MinWidth="100"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="完成时间：" />
+                <ComboBox
+                    x:Name="CboCourseName"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    MinWidth="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsReadOnly="True" />
+                <DatePicker
+                    x:Name="TxtBeginDate"
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    Width="150"
+                    MinWidth="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+                <DatePicker
+                    x:Name="TxtBeginFinishDate"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Width="150"
+                    MinWidth="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+                <DatePicker
+                    x:Name="TxtEndFinishDate"
+                    Grid.Row="3"
+                    Grid.Column="4"
+                    Width="150"
+                    MinWidth="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Width="18"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="~" />
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Width="18"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="~" />
+                <DatePicker
+                    x:Name="TxtEndDate"
+                    Grid.Row="2"
+                    Grid.Column="4"
+                    Width="150"
+                    MinWidth="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+                <Button
+                    x:Name="BtnQuery"
+                    Grid.Row="0"
+                    Grid.Column="7"
+                    Width="118"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="BtnQuery_Click"
+                    Content="检索"
+                    Style="{DynamicResource GlassButton}" />
+                <Button
+                    x:Name="BtnClear"
+                    Grid.Row="1"
+                    Grid.Column="7"
+                    Width="118"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="BtnClear_Click"
+                    Content="清除"
+                    Style="{DynamicResource GlassButton}" />
+                <ComboBox
+                    x:Name="CbxVender"
+                    Grid.Row="0"
+                    Grid.Column="6"
+                    Width="250"
+                    MinWidth="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="5"
+                    MinWidth="100"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="经销商：" />
+                <Button
+                    x:Name="BtnExport"
+                    Grid.Row="2"
+                    Grid.Column="7"
+                    Width="118"
+                    Height="40"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Click="BtnExport_Click"
+                    Content="导出"
+                    Style="{DynamicResource GlassButton}" />
+            </Grid>
+
+        </Expander>
+
+        <DataGrid
+            x:Name="DgvProgressDetail"
+            Grid.Row="2"
+            Grid.Column="0"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            CanUserReorderColumns="False"
+            ClipboardCopyMode="ExcludeHeader"
+            Foreground="ForestGreen"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding Rbo}"
+                    CanUserReorder="True"
+                    CanUserResize="True"
+                    CanUserSort="True"
+                    Header="RBO"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding Vender}"
+                    CanUserReorder="True"
+                    CanUserResize="True"
+                    CanUserSort="True"
+                    Header="经销商"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding UserName}"
+                    CanUserResize="True"
+                    CanUserSort="True"
+                    Header="学员姓名"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding UserAccount}"
+                    CanUserReorder="True"
+                    Header="学员账户"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding CourseName}"
+                    CanUserReorder="True"
+                    Header="课程名称"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding Status}"
+                    CanUserReorder="True"
+                    Header="完成状态"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding Scheduel}"
+                    CanUserReorder="True"
+                    Header="当前进度"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding Score}"
+                    CanUserReorder="True"
+                    Header="测试得分"
+                    IsReadOnly="True" />
+                <DataGridTemplateColumn MinWidth="90" Header="测试详情">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                MinWidth="80"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Click="ButtonTest_Click"
+                                Content="详情"
+                                Style="{StaticResource DetailButton}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding TrainningRecord}"
+                    CanUserReorder="True"
+                    Header="虚拟实训"
+                    IsReadOnly="True" />
+                <DataGridTemplateColumn MinWidth="90" Header="虚拟实训详情">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                MinWidth="80"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Click="ButtonTrainningRecord_Click"
+                                Content="详情"
+                                IsEnabled="{Binding HaveTrainningRecord}"
+                                Style="{StaticResource DetailButton}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding TotalStamps}"
+                    CanUserReorder="True"
+                    Header="学习总次数"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    Width="90"
+                    Binding="{Binding TotalMinutes}"
+                    CanUserReorder="True"
+                    Header="学习总时长"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding BeginDate}"
+                    CanUserReorder="True"
+                    Header="上次学习开始时间"
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    MinWidth="90"
+                    Binding="{Binding EndDate}"
+                    CanUserReorder="True"
+                    Header="上次学习结束时间"
+                    IsReadOnly="True" />
+                <DataGridTemplateColumn MinWidth="90" Header="学习历史记录">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button
+                                MinWidth="80"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Click="ButtonCourseStudyDetail_Click"
+                                Content="详情"
+                                Style="{StaticResource DetailButton}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Grid
+            Grid.Row="0"
+            Grid.Column="0"
+            Background="#FFD4FFD4" />
+
+    </Grid>
+</Page>

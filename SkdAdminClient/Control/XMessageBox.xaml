@@ -1,10 +1,9 @@
 ﻿<Window
-    x:Class="SkdAdminClient.Controls.XMessageBox"
+    x:Class="SkdAdminClient.Control.XMessageBox"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="XMessageBox"
     Width="550"
     MinHeight="280"
     MaxHeight="{Binding Path=Height, Source={x:Static SystemParameters.WorkArea}}"
@@ -23,7 +22,17 @@
             <Setter Property="FontFamily" Value="斯柯达体" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="Margin" Value="20,5" />
-            <Setter Property="Background" Value="ForestGreen" />
+            <!--<Setter Property="Background" Value="ForestGreen" />-->
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="WhiteSmoke" />
+                        <GradientStop Offset="0.05" Color="#32CD32" />
+                        <GradientStop Offset="0.95" Color="ForestGreen" />
+                        <GradientStop Offset="1" Color="WhiteSmoke" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
             <Setter Property="MinWidth" Value="100" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Cursor" Value="Hand" />
@@ -39,6 +48,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5"
                             SnapsToDevicePixels="true">
                             <ContentPresenter
                                 Margin="{TemplateBinding Padding}"
@@ -67,11 +77,11 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                         </Border>
-                        <ControlTemplate.Triggers>
+                        <!--<ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Background" Value="{StaticResource GlobalDisableColor}" />
                             </Trigger>
-                        </ControlTemplate.Triggers>
+                        </ControlTemplate.Triggers>-->
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -83,7 +93,17 @@
             <Setter Property="FontFamily" Value="斯柯达体" />
             <Setter Property="FocusVisualStyle" Value="{x:Null}" />
             <Setter Property="Margin" Value="20,5" />
-            <Setter Property="Background" Value="ForestGreen" />
+            <!--<Setter Property="Background" Value="ForestGreen" />-->
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="WhiteSmoke" />
+                        <GradientStop Offset="0.05" Color="#32CD32" />
+                        <GradientStop Offset="0.95" Color="ForestGreen" />
+                        <GradientStop Offset="1" Color="WhiteSmoke" />
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
             <Setter Property="MinWidth" Value="100" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="Cursor" Value="Hand" />
@@ -99,6 +119,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="5"
                             SnapsToDevicePixels="true">
                             <ContentPresenter
                                 Margin="{TemplateBinding Padding}"
@@ -127,11 +148,11 @@
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
                         </Border>
-                        <ControlTemplate.Triggers>
+                        <!--<ControlTemplate.Triggers>
                             <Trigger Property="IsEnabled" Value="false">
                                 <Setter Property="Background" Value="{StaticResource GlobalDisableColor}" />
                             </Trigger>
-                        </ControlTemplate.Triggers>
+                        </ControlTemplate.Triggers>-->
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -197,16 +218,7 @@
                         Content="确认"
                         FontSize="20"
                         IsDefault="True"
-                        Style="{StaticResource ButtonStylePopupConfirm}">
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                <GradientStop Offset="0" Color="WhiteSmoke" />
-                                <GradientStop Offset="0.05" Color="ForestGreen" />
-                                <GradientStop Offset="0.95" Color="ForestGreen" />
-                                <GradientStop Offset="1" Color="WhiteSmoke" />
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
+                        Style="{StaticResource ButtonStylePopupConfirm}" />
                     <Button
                         Name="BtnCancel"
                         Width="180"
@@ -214,16 +226,7 @@
                         Content="取消"
                         FontSize="20"
                         IsCancel="True"
-                        Style="{StaticResource ButtonStylePopupExit}">
-                        <Button.Background>
-                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                <GradientStop Offset="0" Color="WhiteSmoke" />
-                                <GradientStop Offset="0.05" Color="ForestGreen" />
-                                <GradientStop Offset="0.95" Color="ForestGreen" />
-                                <GradientStop Offset="1" Color="WhiteSmoke" />
-                            </LinearGradientBrush>
-                        </Button.Background>
-                    </Button>
+                        Style="{StaticResource ButtonStylePopupExit}" />
                 </StackPanel>
             </Border>
         </Grid>

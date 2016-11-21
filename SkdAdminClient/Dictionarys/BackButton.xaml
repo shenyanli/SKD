@@ -1,0 +1,71 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation">
+
+    <Style x:Key="LeftArrowButton" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="Root">
+                        <Ellipse
+                            x:Name="Ellipse"
+                            Width="40"
+                            Height="40"
+                            Fill="Transparent"
+                            Stroke="ForestGreen"
+                            StrokeThickness="2" />
+                        <Path
+                            x:Name="Arrow"
+                            Width="20"
+                            Height="20"
+                            Data="M1,9 L29,9 M8,1 L1,9 8,16"
+                            Stroke="ForestGreen"
+                            StrokeThickness="2.5" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Ellipse" Property="Fill" Value="LimeGreen" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="RightArrowButton" TargetType="Button">
+        <Setter Property="Width" Value="32" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="Margin" Value="10" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid x:Name="Root">
+                        <Ellipse
+                            x:Name="Ellipse"
+                            Width="32"
+                            Height="32"
+                            Fill="Transparent"
+                            Stroke="ForestGreen"
+                            StrokeThickness="2" />
+                        <Path
+                            x:Name="Arrow"
+                            Width="16"
+                            Height="16"
+                            Data="M1,8 L15,8 M8,1 L15,8 8,15"
+                            Stroke="ForestGreen"
+                            StrokeThickness="2.5" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="Ellipse" Property="Stroke" Value="LimeGreen" />
+                            <Setter TargetName="Arrow" Property="Stroke" Value="LimeGreen" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
