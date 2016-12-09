@@ -5,9 +5,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using SkdAdminClient.Moudle;
+
 using SkdAdminClient.SkdWebService;
 using SkdAdminClient.Tool;
+using SkdAdminModel;
 
 namespace SkdAdminClient.View
 {
@@ -16,20 +17,22 @@ namespace SkdAdminClient.View
     /// </summary>
     public partial class PageLoginDetail : Page
     {
+        public BindLoginTotal LoginTotal;
+        public PageLoginTotal ParentPage;
         private DataTable _dt = new DataTable();
         public Frame Frame ;
-        List<LoginDetail> loginDetails = new List<LoginDetail>();
-        public PageLoginDetail( Frame frame)
+        public PageMainNew PageMainNew;
+        List<BindLoginDetail> loginDetails = new List<BindLoginDetail>();// new List<LoginDetail>();
+        public PageLoginDetail( )
         {
             InitializeComponent();
-            Frame = frame;
             TxtBeginDate.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
             TxtEndDate.Text= DateTime.Now.ToString("yyyy-MM-dd");
         }
 
         private void BtnQuery_Click(object sender, RoutedEventArgs e)
         {
-            string vender = CbxVender.Text.Trim();
+            string vender = CbxVender.Text.Trim() ;
             string userAccount = TxtUserAccount.Text.Trim().ToLower();
             string userName = TxtUserName.Text.Trim();
             string loginDateBegin ="";
@@ -47,7 +50,7 @@ namespace SkdAdminClient.View
             loginDetails.Clear();
             foreach (DataRow row in _dt.Rows)
             {
-                LoginDetail l = new LoginDetail();
+                BindLoginDetail l = new BindLoginDetail();
                 l.Vender = row["OrganizationName"].ToString();
                 l.UserAccount= row["userAccount"].ToString();
                 l.UserName= row["userName"].ToString();
@@ -60,7 +63,7 @@ namespace SkdAdminClient.View
                 loginDetails.Add(l);
             }
             DgvLoginTotal.ItemsSource = null;
-            DgvLoginTotal.ItemsSource = loginDetails;
+            DgvLoginTotal.ItemsSource = loginDetails.OrderByDescending(x=>x.LoginDate);
             XMessageBox.ShowDialog("查询已完成！", "提示");
         }
 
@@ -98,21 +101,67 @@ namespace SkdAdminClient.View
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            TbTitle.Text = Name;
             SkdServiceSoapClient skdServiceSoapClient = new SkdServiceSoapClient();
             List<string> orgList = skdServiceSoapClient.GetOrgList().ToList();
             orgList.Insert(0, "");
             CbxVender.ItemsSource = orgList;
+            if (GolableData.PrivilegeLevel < Privilege.VenderAdmin)
+            {
+                CbxVender.Text = GolableData.Vender;
+                CbxVender.IsEnabled = false;
+                TxtUserName.Text = GolableData.UserName;
+                TxtUserName.IsEnabled = false;
+                TxtUserAccount.Text = GolableData.UserAccount;
+                TxtUserAccount.IsEnabled = false;
+
+            }
+            if (GolableData.PrivilegeLevel == Privilege.VenderAdmin)
+            {
+                CbxVender.Text = GolableData.Vender;
+                CbxVender.IsEnabled = false;
+            }
+            if (LoginTotal != null)
+            {
+                TxtUserName.Text = LoginTotal.UserName;
+                TxtUserAccount.Text = LoginTotal.UserAccount;
+                TxtUserName.IsEnabled = false;
+                TxtUserAccount.IsEnabled = false;
+                BtnBack.Visibility = Visibility.Visible;
+                BtnClear.Visibility = Visibility.Hidden;
+                BtnQuery_Click(null,null);
+            }
         }
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
             ChkTime.IsChecked = false;
-            TxtUserAccount.Text = "";
-            TxtUserName.Text = "";
-            CbxVender.Text = "";
+
             TxtBeginDate.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
             TxtEndDate.Text= DateTime.Now.ToString("yyyy-MM-dd");
             DgvLoginTotal.ItemsSource = null;
+            if (GolableData.PrivilegeLevel > Privilege.VenderAdmin)
+            {
+                CbxVender.Text = "";
+                CbxVender.IsEnabled = true;
+            }
+            if (GolableData.PrivilegeLevel > Privilege.Student)
+            {
+                TxtUserName.Text = "";
+                TxtUserName.IsEnabled = true;
+                TxtUserAccount.Text = "";
+                TxtUserAccount.IsEnabled = true;
+            }
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Content = PageMainNew;
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Content = ParentPage;
         }
     }
 }

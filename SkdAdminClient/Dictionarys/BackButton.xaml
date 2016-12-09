@@ -14,7 +14,7 @@
                             Width="40"
                             Height="40"
                             Fill="Transparent"
-                            Stroke="ForestGreen"
+                            Stroke="#FF60A917"
                             StrokeThickness="2" />
                         <Path
                             x:Name="Arrow"

@@ -32,13 +32,7 @@ namespace SkdAdminClient.Control
             {
                 Application.Current.Shutdown();
             }
-            //else
-            //{
-            //    e.Cancel = true;
-            //}
-            //ToggleButton button = sender as ToggleButton;
-            //Window targetWindow = Window.GetWindow(button);
-            //targetWindow.Close();
+
         }
     }
 }

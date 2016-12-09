@@ -5,9 +5,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SkdAdminClient"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="登录详细信息"
+    x:Name="登录信息历史记录报表"
     Title="PageLogin"
-    Height="580"
     FontFamily="斯柯达体"
     FontSize="15"
     Loaded="Page_Loaded"
@@ -16,7 +15,7 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="80" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -26,15 +25,10 @@
             Margin="0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
-            Foreground="ForestGreen"
+            Background="#9960A917"
             Header="检索信息"
             IsExpanded="True">
-            <Expander.Background>
-                <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Offset="0.815" Color="#FFD4F8D4" />
-                    <GradientStop Color="White" />
-                </LinearGradientBrush>
-            </Expander.Background>
+
             <Grid
                 Name="ExpanderGrid"
                 HorizontalAlignment="Stretch"
@@ -75,7 +69,6 @@
                     MinWidth="150"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Style="{DynamicResource TextBoxStyle}"
                     TextWrapping="Wrap" />
                 <Label
                     Grid.Row="0"
@@ -93,7 +86,6 @@
                     MinWidth="150"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Style="{DynamicResource TextBoxStyle}"
                     TextWrapping="Wrap" />
                 <CheckBox
                     x:Name="ChkTime"
@@ -103,7 +95,9 @@
                     MinWidth="100"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="登录时间：" />
+                    Content="登录时间："
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
                 <DatePicker
                     x:Name="TxtBeginDate"
                     Grid.Row="1"
@@ -111,7 +105,9 @@
                     Width="150"
                     MinWidth="150"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
                 <Label
                     Grid.Row="1"
                     Grid.Column="3"
@@ -126,29 +122,53 @@
                     Width="150"
                     MinWidth="150"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
                 <Button
                     x:Name="BtnQuery"
                     Grid.Row="0"
                     Grid.Column="7"
                     Width="118"
-                    Height="40"
+                    Margin="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    BorderThickness="0"
                     Click="BtnQuery_Click"
                     Content="检索"
-                    Style="{DynamicResource GlassButton}" />
+                    FontFamily="斯柯达体"
+                    FontSize="15"
+                    Style="{DynamicResource AccentedSquareButtonStyle}" />
                 <Button
                     x:Name="BtnClear"
                     Grid.Row="1"
                     Grid.Column="7"
                     Width="118"
-                    Height="40"
+                    Margin="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    BorderThickness="0"
                     Click="BtnClear_Click"
                     Content="清除"
-                    Style="{DynamicResource GlassButton}" />
+                    FontFamily="斯柯达体"
+                    FontSize="15"
+                    Style="{DynamicResource AccentedSquareButtonStyle}" />
+
+                <Button
+                    x:Name="BtnBack"
+                    Grid.Row="1"
+                    Grid.Column="7"
+                    Width="118"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    BorderThickness="0"
+                    Click="BtnBack_Click"
+                    Content="返回"
+                    FontFamily="斯柯达体"
+                    FontSize="15"
+                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                    ToolTip="返回上一页"
+                    Visibility="Collapsed" />
                 <ComboBox
                     x:Name="CbxVender"
                     Grid.Row="0"
@@ -170,12 +190,15 @@
                     Grid.Row="1"
                     Grid.Column="6"
                     Width="118"
-                    Height="40"
+                    Margin="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    BorderThickness="0"
                     Click="BtnExport_Click"
                     Content="导出"
-                    Style="{DynamicResource GlassButton}" />
+                    FontFamily="斯柯达体"
+                    FontSize="15"
+                    Style="{DynamicResource AccentedSquareButtonStyle}" />
             </Grid>
 
         </Expander>
@@ -191,7 +214,7 @@
             CanUserDeleteRows="False"
             CanUserReorderColumns="False"
             ClipboardCopyMode="ExcludeHeader"
-            Foreground="ForestGreen">
+            GridLinesVisibility="All">
             <DataGrid.Columns>
                 <DataGridTextColumn
                     MinWidth="120"
@@ -232,17 +255,33 @@
                     IsReadOnly="True" />
             </DataGrid.Columns>
         </DataGrid>
-        <Grid
-            Grid.Row="0"
-            Grid.Column="0"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch">
-            <Grid.Background>
-                <RadialGradientBrush>
-                    <GradientStop Offset="1" Color="#FFD4FFD4" />
-                </RadialGradientBrush>
-            </Grid.Background>
-
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="80" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Name="TbTitle"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="25"
+                Foreground="ForestGreen" />
+            <Button
+                x:Name="BackButton"
+                Grid.Row="0"
+                Grid.Column="0"
+                Width="50"
+                Height="50"
+                VerticalContentAlignment="Center"
+                x:FieldModifier="public"
+                Click="BackButton_Click"
+                Content="返回"
+                FontSize="20"
+                Style="{DynamicResource LeftArrowButton}"
+                ToolTip="返回主屏幕" />
         </Grid>
 
     </Grid>

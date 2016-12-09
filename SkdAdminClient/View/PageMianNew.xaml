@@ -1,0 +1,285 @@
+﻿<Page
+    x:Class="SkdAdminClient.View.PageMainNew"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:local="clr-namespace:SkdAdminClient.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="PageMianNew"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+
+
+            <Style x:Key="LargeTileStyle" TargetType="controls:Tile">
+                <Setter Property="Height" Value="125" />
+                <Setter Property="TitleFontSize" Value="14" />
+                <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
+                <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
+                <Setter Property="Width" Value="290" />
+            </Style>
+
+
+            <!--  原型Button  -->
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <!--  定义视觉树  -->
+                            <Grid>
+                                <!--  绘制外圆  -->
+                                <Ellipse
+                                    x:Name="ellipse"
+                                    Width="50"
+                                    Height="50"
+                                    Stroke="White">
+                                    <Ellipse.Fill>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.443,1.22">
+                                            <LinearGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterX="0.5" CenterY="0.5" />
+                                                    <SkewTransform CenterX="0.5" CenterY="0.5" />
+                                                    <RotateTransform Angle="-20" CenterX="0.5" CenterY="0.5" />
+                                                    <TranslateTransform />
+                                                </TransformGroup>
+                                            </LinearGradientBrush.RelativeTransform>
+                                            <GradientStop Offset="0" Color="#C31D" />
+                                            <GradientStop Offset="1" Color="White" />
+                                        </LinearGradientBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <!--  绘制内圆  -->
+                                <Ellipse
+                                    Width="40"
+                                    Height="40"
+                                    Stroke="{x:Null}">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="Images/btnBack.png" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <ContentPresenter
+                                    x:Name="contentPresenter"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Grid>
+                            <!--  定义触发器  -->
+                            <ControlTemplate.Triggers>
+                                <!--  设置按钮响应事件  -->
+                                <Trigger Property="IsFocused" Value="True" />
+                                <Trigger Property="IsDefaulted" Value="True" />
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ellipse" Property="Stroke" Value="Wheat" />
+                                    <Setter TargetName="ellipse" Property="StrokeThickness" Value="1.5" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="ellipse" Property="Fill">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.443,1.22">
+                                                <LinearGradientBrush.RelativeTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform CenterX="0.2" CenterY="0.2" />
+                                                        <SkewTransform CenterX="0.2" CenterY="0.2" />
+                                                        <RotateTransform Angle="-20" CenterX="0.2" CenterY="0.2" />
+                                                        <TranslateTransform />
+                                                    </TransformGroup>
+                                                </LinearGradientBrush.RelativeTransform>
+                                                <GradientStop Offset="1" Color="#FF707070" />
+                                                <GradientStop Offset="0" Color="White" />
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter TargetName="contentPresenter" Property="Margin" Value="5,5,0,0" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False" />
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+        </ResourceDictionary>
+    </Page.Resources>
+    <Grid>
+        <!--  主题部分  -->
+        <ScrollViewer
+            x:Name="ScrollViewerMain"
+            Grid.Row="0"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Disabled"
+            Visibility="Visible">
+            <Grid Background="AliceBlue">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="4*" />
+                </Grid.RowDefinitions>
+                <!--  公司LOGO  -->
+                <Grid x:Name="GridTitle" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        FontSize="30"
+                        Foreground="ForestGreen"
+                        Text="斯柯达网络电子课件统计平台" />
+                </Grid>
+
+                <!--  导航菜单  -->
+                <WrapPanel
+                    Grid.Row="1"
+                    Width="1200"
+                    Height="530"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch">
+                    <controls:Tile
+                        x:Name="ButtonLoginTotal"
+                        Title="登录总体信息"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="PaleVioletRed"
+                        Click="ButtonLoginTotal_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="Account" />
+                    </controls:Tile>
+                    <controls:Tile
+                        Name="ButtonProgressDetail"
+                        Title="学员进度信息"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="BurlyWood"
+                        Click="ButtonProgressDetail_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="Pandora" />
+                    </controls:Tile>
+                    <controls:Tile
+                        Name="BtnTestCount"
+                        Title="测试题分析"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="DimGray"
+                        Click="BtnTestCount_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="Table" />
+                    </controls:Tile>
+                    <controls:Tile
+                        Name="BtnTrainningRecordCount"
+                        Title="虚拟实训分析"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="#D2691E"
+                        Click="BtnTrainningRecordCount_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="ThumbUpOutline" />
+                    </controls:Tile>
+                    <controls:Tile
+                        Name="BtnCourseAddUp"
+                        Title="课程通过率"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="#FF842D"
+                        Click="BtnCourseAddUp_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="MailRu" />
+                    </controls:Tile>
+
+                    <controls:Tile
+                        Name="BtnCourseStudyDetail"
+                        Title="学习历史记录"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="Red"
+                        Click="BtnCourseStudyDetail_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="History" />
+                    </controls:Tile>
+                    <controls:Tile
+                        Name="ButtonTrainningRecord"
+                        Title="虚拟实训历史记录"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="Green"
+                        Click="ButtonTrainningRecord_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="CodeGreaterThanOrEqual" />
+                    </controls:Tile>
+                    <controls:Tile
+                        Name="ButtonLoginDetail"
+                        Title="登录历史记录"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="Sienna"
+                        Click="ButtonLoginDetail_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="AccountMultiple" />
+                    </controls:Tile>
+                    <controls:Tile
+                        Name="BtnVenderCount"
+                        Title="经销商通过率"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="LimeGreen"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="Margin" />
+
+                    </controls:Tile>
+
+                    <controls:Tile
+                        Name="BtnFeedBack"
+                        Title="课件反馈报表"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="DeepSkyBlue"
+                        Click="BtnFeedBack_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="MailRu" />
+
+                    </controls:Tile>
+                </WrapPanel>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

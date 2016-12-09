@@ -16,6 +16,33 @@ namespace SkdAdminClient.SkdWebService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SkdWebService.SkdServiceSoap")]
     public interface SkdServiceSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetFeedBackInfo", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        byte[][] GetFeedBackInfo(string courseName, string userAccount, string userName, string vender, string beginDate, string endDate);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetFeedBackInfo", ReplyAction="*")]
+        System.IAsyncResult BeginGetFeedBackInfo(string courseName, string userAccount, string userName, string vender, string beginDate, string endDate, System.AsyncCallback callback, object asyncState);
+        
+        byte[][] EndGetFeedBackInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/FinishUpdateData", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        void FinishUpdateData();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/FinishUpdateData", ReplyAction="*")]
+        System.IAsyncResult BeginFinishUpdateData(System.AsyncCallback callback, object asyncState);
+        
+        void EndFinishUpdateData(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/NeedUpdateData", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        bool NeedUpdateData();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/NeedUpdateData", ReplyAction="*")]
+        System.IAsyncResult BeginNeedUpdateData(System.AsyncCallback callback, object asyncState);
+        
+        bool EndNeedUpdateData(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/Login", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         bool Login(string userAccount, string pwd);
@@ -24,6 +51,24 @@ namespace SkdAdminClient.SkdWebService {
         System.IAsyncResult BeginLogin(string userAccount, string pwd, System.AsyncCallback callback, object asyncState);
         
         bool EndLogin(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetPrivelegeInfo", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string GetPrivelegeInfo(string userAccount);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetPrivelegeInfo", ReplyAction="*")]
+        System.IAsyncResult BeginGetPrivelegeInfo(string userAccount, System.AsyncCallback callback, object asyncState);
+        
+        string EndGetPrivelegeInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetVenders", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string[] GetVenders(string vender);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetVenders", ReplyAction="*")]
+        System.IAsyncResult BeginGetVenders(string vender, System.AsyncCallback callback, object asyncState);
+        
+        string[] EndGetVenders(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetLoginTotalTable", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -97,14 +142,41 @@ namespace SkdAdminClient.SkdWebService {
         
         string[] EndGetCourseName(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetMaxScoreTrainning", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataTable GetMaxScoreTrainning(string vender, string courseName, string recordName);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetMaxScoreTrainning", ReplyAction="*")]
+        System.IAsyncResult BeginGetMaxScoreTrainning(string vender, string courseName, string recordName, System.AsyncCallback callback, object asyncState);
+        
+        System.Data.DataTable EndGetMaxScoreTrainning(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTrainningRecord", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
-        System.Data.DataTable GetTrainningRecord(string userName, string userAccount, string courseName, string beginDate, string endDate);
+        System.Data.DataTable GetTrainningRecord(string[] sysIdList, string vender, string userName, string userAccount, string courseName, string beginDate, string endDate);
         
         [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetTrainningRecord", ReplyAction="*")]
-        System.IAsyncResult BeginGetTrainningRecord(string userName, string userAccount, string courseName, string beginDate, string endDate, System.AsyncCallback callback, object asyncState);
+        System.IAsyncResult BeginGetTrainningRecord(string[] sysIdList, string vender, string userName, string userAccount, string courseName, string beginDate, string endDate, System.AsyncCallback callback, object asyncState);
         
         System.Data.DataTable EndGetTrainningRecord(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTrainningBaseInfo", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataTable GetTrainningBaseInfo(string courseName, string recordName);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetTrainningBaseInfo", ReplyAction="*")]
+        System.IAsyncResult BeginGetTrainningBaseInfo(string courseName, string recordName, System.AsyncCallback callback, object asyncState);
+        
+        System.Data.DataTable EndGetTrainningBaseInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetDistinctRecoordName", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string[] GetDistinctRecoordName(string courseName);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetDistinctRecoordName", ReplyAction="*")]
+        System.IAsyncResult BeginGetDistinctRecoordName(string courseName, System.AsyncCallback callback, object asyncState);
+        
+        string[] EndGetDistinctRecoordName(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTime", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
@@ -114,10 +186,102 @@ namespace SkdAdminClient.SkdWebService {
         System.IAsyncResult BeginGetTime(System.AsyncCallback callback, object asyncState);
         
         string EndGetTime(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetTestCount", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        System.Data.DataTable GetTestCount(string courseName, string vender, string userName, string userAccount);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetTestCount", ReplyAction="*")]
+        System.IAsyncResult BeginGetTestCount(string courseName, string vender, string userName, string userAccount, System.AsyncCallback callback, object asyncState);
+        
+        System.Data.DataTable EndGetTestCount(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/InsertNewUser", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        bool InsertNewUser(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/InsertNewUser", ReplyAction="*")]
+        System.IAsyncResult BeginInsertNewUser(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status, System.AsyncCallback callback, object asyncState);
+        
+        bool EndInsertNewUser(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UpdateUserInfo", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        bool UpdateUserInfo(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/UpdateUserInfo", ReplyAction="*")]
+        System.IAsyncResult BeginUpdateUserInfo(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status, System.AsyncCallback callback, object asyncState);
+        
+        bool EndUpdateUserInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/InsertNewOrg", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        bool InsertNewOrg(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/InsertNewOrg", ReplyAction="*")]
+        System.IAsyncResult BeginInsertNewOrg(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status, System.AsyncCallback callback, object asyncState);
+        
+        bool EndInsertNewOrg(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/UpdateOrgInfo", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        bool UpdateOrgInfo(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/UpdateOrgInfo", ReplyAction="*")]
+        System.IAsyncResult BeginUpdateOrgInfo(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status, System.AsyncCallback callback, object asyncState);
+        
+        bool EndUpdateOrgInfo(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/InsertNewMap", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        bool InsertNewMap(string userId, string userAccount, string courseName);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/InsertNewMap", ReplyAction="*")]
+        System.IAsyncResult BeginInsertNewMap(string userId, string userAccount, string courseName, System.AsyncCallback callback, object asyncState);
+        
+        bool EndInsertNewMap(System.IAsyncResult result);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface SkdServiceSoapChannel : SkdAdminClient.SkdWebService.SkdServiceSoap, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetFeedBackInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetFeedBackInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public byte[][] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((byte[][])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class NeedUpdateDataCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public NeedUpdateDataCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -135,6 +299,44 @@ namespace SkdAdminClient.SkdWebService {
             get {
                 base.RaiseExceptionIfNecessary();
                 return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetPrivelegeInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetPrivelegeInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetVendersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetVendersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string[])(this.results[0]));
             }
         }
     }
@@ -293,6 +495,25 @@ namespace SkdAdminClient.SkdWebService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetMaxScoreTrainningCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetMaxScoreTrainningCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Data.DataTable Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class GetTrainningRecordCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -306,6 +527,44 @@ namespace SkdAdminClient.SkdWebService {
             get {
                 base.RaiseExceptionIfNecessary();
                 return ((System.Data.DataTable)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetTrainningBaseInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetTrainningBaseInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Data.DataTable Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetDistinctRecoordNameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetDistinctRecoordNameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string[])(this.results[0]));
             }
         }
     }
@@ -331,13 +590,157 @@ namespace SkdAdminClient.SkdWebService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetTestCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetTestCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public System.Data.DataTable Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((System.Data.DataTable)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class InsertNewUserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public InsertNewUserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class UpdateUserInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public UpdateUserInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class InsertNewOrgCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public InsertNewOrgCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class UpdateOrgInfoCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public UpdateOrgInfoCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class InsertNewMapCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public InsertNewMapCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public bool Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class SkdServiceSoapClient : System.ServiceModel.ClientBase<SkdAdminClient.SkdWebService.SkdServiceSoap>, SkdAdminClient.SkdWebService.SkdServiceSoap {
+        
+        private BeginOperationDelegate onBeginGetFeedBackInfoDelegate;
+        
+        private EndOperationDelegate onEndGetFeedBackInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetFeedBackInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginFinishUpdateDataDelegate;
+        
+        private EndOperationDelegate onEndFinishUpdateDataDelegate;
+        
+        private System.Threading.SendOrPostCallback onFinishUpdateDataCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginNeedUpdateDataDelegate;
+        
+        private EndOperationDelegate onEndNeedUpdateDataDelegate;
+        
+        private System.Threading.SendOrPostCallback onNeedUpdateDataCompletedDelegate;
         
         private BeginOperationDelegate onBeginLoginDelegate;
         
         private EndOperationDelegate onEndLoginDelegate;
         
         private System.Threading.SendOrPostCallback onLoginCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetPrivelegeInfoDelegate;
+        
+        private EndOperationDelegate onEndGetPrivelegeInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetPrivelegeInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetVendersDelegate;
+        
+        private EndOperationDelegate onEndGetVendersDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetVendersCompletedDelegate;
         
         private BeginOperationDelegate onBeginGetLoginTotalTableDelegate;
         
@@ -387,17 +790,71 @@ namespace SkdAdminClient.SkdWebService {
         
         private System.Threading.SendOrPostCallback onGetCourseNameCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetMaxScoreTrainningDelegate;
+        
+        private EndOperationDelegate onEndGetMaxScoreTrainningDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetMaxScoreTrainningCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetTrainningRecordDelegate;
         
         private EndOperationDelegate onEndGetTrainningRecordDelegate;
         
         private System.Threading.SendOrPostCallback onGetTrainningRecordCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetTrainningBaseInfoDelegate;
+        
+        private EndOperationDelegate onEndGetTrainningBaseInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetTrainningBaseInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetDistinctRecoordNameDelegate;
+        
+        private EndOperationDelegate onEndGetDistinctRecoordNameDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetDistinctRecoordNameCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetTimeDelegate;
         
         private EndOperationDelegate onEndGetTimeDelegate;
         
         private System.Threading.SendOrPostCallback onGetTimeCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetTestCountDelegate;
+        
+        private EndOperationDelegate onEndGetTestCountDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetTestCountCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginInsertNewUserDelegate;
+        
+        private EndOperationDelegate onEndInsertNewUserDelegate;
+        
+        private System.Threading.SendOrPostCallback onInsertNewUserCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginUpdateUserInfoDelegate;
+        
+        private EndOperationDelegate onEndUpdateUserInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onUpdateUserInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginInsertNewOrgDelegate;
+        
+        private EndOperationDelegate onEndInsertNewOrgDelegate;
+        
+        private System.Threading.SendOrPostCallback onInsertNewOrgCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginUpdateOrgInfoDelegate;
+        
+        private EndOperationDelegate onEndUpdateOrgInfoDelegate;
+        
+        private System.Threading.SendOrPostCallback onUpdateOrgInfoCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginInsertNewMapDelegate;
+        
+        private EndOperationDelegate onEndInsertNewMapDelegate;
+        
+        private System.Threading.SendOrPostCallback onInsertNewMapCompletedDelegate;
         
         public SkdServiceSoapClient() {
         }
@@ -418,7 +875,17 @@ namespace SkdAdminClient.SkdWebService {
                 base(binding, remoteAddress) {
         }
         
+        public event System.EventHandler<GetFeedBackInfoCompletedEventArgs> GetFeedBackInfoCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> FinishUpdateDataCompleted;
+        
+        public event System.EventHandler<NeedUpdateDataCompletedEventArgs> NeedUpdateDataCompleted;
+        
         public event System.EventHandler<LoginCompletedEventArgs> LoginCompleted;
+        
+        public event System.EventHandler<GetPrivelegeInfoCompletedEventArgs> GetPrivelegeInfoCompleted;
+        
+        public event System.EventHandler<GetVendersCompletedEventArgs> GetVendersCompleted;
         
         public event System.EventHandler<GetLoginTotalTableCompletedEventArgs> GetLoginTotalTableCompleted;
         
@@ -436,9 +903,182 @@ namespace SkdAdminClient.SkdWebService {
         
         public event System.EventHandler<GetCourseNameCompletedEventArgs> GetCourseNameCompleted;
         
+        public event System.EventHandler<GetMaxScoreTrainningCompletedEventArgs> GetMaxScoreTrainningCompleted;
+        
         public event System.EventHandler<GetTrainningRecordCompletedEventArgs> GetTrainningRecordCompleted;
         
+        public event System.EventHandler<GetTrainningBaseInfoCompletedEventArgs> GetTrainningBaseInfoCompleted;
+        
+        public event System.EventHandler<GetDistinctRecoordNameCompletedEventArgs> GetDistinctRecoordNameCompleted;
+        
         public event System.EventHandler<GetTimeCompletedEventArgs> GetTimeCompleted;
+        
+        public event System.EventHandler<GetTestCountCompletedEventArgs> GetTestCountCompleted;
+        
+        public event System.EventHandler<InsertNewUserCompletedEventArgs> InsertNewUserCompleted;
+        
+        public event System.EventHandler<UpdateUserInfoCompletedEventArgs> UpdateUserInfoCompleted;
+        
+        public event System.EventHandler<InsertNewOrgCompletedEventArgs> InsertNewOrgCompleted;
+        
+        public event System.EventHandler<UpdateOrgInfoCompletedEventArgs> UpdateOrgInfoCompleted;
+        
+        public event System.EventHandler<InsertNewMapCompletedEventArgs> InsertNewMapCompleted;
+        
+        public byte[][] GetFeedBackInfo(string courseName, string userAccount, string userName, string vender, string beginDate, string endDate) {
+            return base.Channel.GetFeedBackInfo(courseName, userAccount, userName, vender, beginDate, endDate);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetFeedBackInfo(string courseName, string userAccount, string userName, string vender, string beginDate, string endDate, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetFeedBackInfo(courseName, userAccount, userName, vender, beginDate, endDate, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public byte[][] EndGetFeedBackInfo(System.IAsyncResult result) {
+            return base.Channel.EndGetFeedBackInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetFeedBackInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string courseName = ((string)(inValues[0]));
+            string userAccount = ((string)(inValues[1]));
+            string userName = ((string)(inValues[2]));
+            string vender = ((string)(inValues[3]));
+            string beginDate = ((string)(inValues[4]));
+            string endDate = ((string)(inValues[5]));
+            return this.BeginGetFeedBackInfo(courseName, userAccount, userName, vender, beginDate, endDate, callback, asyncState);
+        }
+        
+        private object[] OnEndGetFeedBackInfo(System.IAsyncResult result) {
+            byte[][] retVal = this.EndGetFeedBackInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetFeedBackInfoCompleted(object state) {
+            if ((this.GetFeedBackInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetFeedBackInfoCompleted(this, new GetFeedBackInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetFeedBackInfoAsync(string courseName, string userAccount, string userName, string vender, string beginDate, string endDate) {
+            this.GetFeedBackInfoAsync(courseName, userAccount, userName, vender, beginDate, endDate, null);
+        }
+        
+        public void GetFeedBackInfoAsync(string courseName, string userAccount, string userName, string vender, string beginDate, string endDate, object userState) {
+            if ((this.onBeginGetFeedBackInfoDelegate == null)) {
+                this.onBeginGetFeedBackInfoDelegate = new BeginOperationDelegate(this.OnBeginGetFeedBackInfo);
+            }
+            if ((this.onEndGetFeedBackInfoDelegate == null)) {
+                this.onEndGetFeedBackInfoDelegate = new EndOperationDelegate(this.OnEndGetFeedBackInfo);
+            }
+            if ((this.onGetFeedBackInfoCompletedDelegate == null)) {
+                this.onGetFeedBackInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetFeedBackInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetFeedBackInfoDelegate, new object[] {
+                        courseName,
+                        userAccount,
+                        userName,
+                        vender,
+                        beginDate,
+                        endDate}, this.onEndGetFeedBackInfoDelegate, this.onGetFeedBackInfoCompletedDelegate, userState);
+        }
+        
+        public void FinishUpdateData() {
+            base.Channel.FinishUpdateData();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginFinishUpdateData(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginFinishUpdateData(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public void EndFinishUpdateData(System.IAsyncResult result) {
+            base.Channel.EndFinishUpdateData(result);
+        }
+        
+        private System.IAsyncResult OnBeginFinishUpdateData(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginFinishUpdateData(callback, asyncState);
+        }
+        
+        private object[] OnEndFinishUpdateData(System.IAsyncResult result) {
+            this.EndFinishUpdateData(result);
+            return null;
+        }
+        
+        private void OnFinishUpdateDataCompleted(object state) {
+            if ((this.FinishUpdateDataCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.FinishUpdateDataCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void FinishUpdateDataAsync() {
+            this.FinishUpdateDataAsync(null);
+        }
+        
+        public void FinishUpdateDataAsync(object userState) {
+            if ((this.onBeginFinishUpdateDataDelegate == null)) {
+                this.onBeginFinishUpdateDataDelegate = new BeginOperationDelegate(this.OnBeginFinishUpdateData);
+            }
+            if ((this.onEndFinishUpdateDataDelegate == null)) {
+                this.onEndFinishUpdateDataDelegate = new EndOperationDelegate(this.OnEndFinishUpdateData);
+            }
+            if ((this.onFinishUpdateDataCompletedDelegate == null)) {
+                this.onFinishUpdateDataCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnFinishUpdateDataCompleted);
+            }
+            base.InvokeAsync(this.onBeginFinishUpdateDataDelegate, null, this.onEndFinishUpdateDataDelegate, this.onFinishUpdateDataCompletedDelegate, userState);
+        }
+        
+        public bool NeedUpdateData() {
+            return base.Channel.NeedUpdateData();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginNeedUpdateData(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginNeedUpdateData(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndNeedUpdateData(System.IAsyncResult result) {
+            return base.Channel.EndNeedUpdateData(result);
+        }
+        
+        private System.IAsyncResult OnBeginNeedUpdateData(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginNeedUpdateData(callback, asyncState);
+        }
+        
+        private object[] OnEndNeedUpdateData(System.IAsyncResult result) {
+            bool retVal = this.EndNeedUpdateData(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnNeedUpdateDataCompleted(object state) {
+            if ((this.NeedUpdateDataCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.NeedUpdateDataCompleted(this, new NeedUpdateDataCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void NeedUpdateDataAsync() {
+            this.NeedUpdateDataAsync(null);
+        }
+        
+        public void NeedUpdateDataAsync(object userState) {
+            if ((this.onBeginNeedUpdateDataDelegate == null)) {
+                this.onBeginNeedUpdateDataDelegate = new BeginOperationDelegate(this.OnBeginNeedUpdateData);
+            }
+            if ((this.onEndNeedUpdateDataDelegate == null)) {
+                this.onEndNeedUpdateDataDelegate = new EndOperationDelegate(this.OnEndNeedUpdateData);
+            }
+            if ((this.onNeedUpdateDataCompletedDelegate == null)) {
+                this.onNeedUpdateDataCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnNeedUpdateDataCompleted);
+            }
+            base.InvokeAsync(this.onBeginNeedUpdateDataDelegate, null, this.onEndNeedUpdateDataDelegate, this.onNeedUpdateDataCompletedDelegate, userState);
+        }
         
         public bool Login(string userAccount, string pwd) {
             return base.Channel.Login(userAccount, pwd);
@@ -490,6 +1130,106 @@ namespace SkdAdminClient.SkdWebService {
             base.InvokeAsync(this.onBeginLoginDelegate, new object[] {
                         userAccount,
                         pwd}, this.onEndLoginDelegate, this.onLoginCompletedDelegate, userState);
+        }
+        
+        public string GetPrivelegeInfo(string userAccount) {
+            return base.Channel.GetPrivelegeInfo(userAccount);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetPrivelegeInfo(string userAccount, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetPrivelegeInfo(userAccount, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string EndGetPrivelegeInfo(System.IAsyncResult result) {
+            return base.Channel.EndGetPrivelegeInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetPrivelegeInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string userAccount = ((string)(inValues[0]));
+            return this.BeginGetPrivelegeInfo(userAccount, callback, asyncState);
+        }
+        
+        private object[] OnEndGetPrivelegeInfo(System.IAsyncResult result) {
+            string retVal = this.EndGetPrivelegeInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetPrivelegeInfoCompleted(object state) {
+            if ((this.GetPrivelegeInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetPrivelegeInfoCompleted(this, new GetPrivelegeInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetPrivelegeInfoAsync(string userAccount) {
+            this.GetPrivelegeInfoAsync(userAccount, null);
+        }
+        
+        public void GetPrivelegeInfoAsync(string userAccount, object userState) {
+            if ((this.onBeginGetPrivelegeInfoDelegate == null)) {
+                this.onBeginGetPrivelegeInfoDelegate = new BeginOperationDelegate(this.OnBeginGetPrivelegeInfo);
+            }
+            if ((this.onEndGetPrivelegeInfoDelegate == null)) {
+                this.onEndGetPrivelegeInfoDelegate = new EndOperationDelegate(this.OnEndGetPrivelegeInfo);
+            }
+            if ((this.onGetPrivelegeInfoCompletedDelegate == null)) {
+                this.onGetPrivelegeInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetPrivelegeInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetPrivelegeInfoDelegate, new object[] {
+                        userAccount}, this.onEndGetPrivelegeInfoDelegate, this.onGetPrivelegeInfoCompletedDelegate, userState);
+        }
+        
+        public string[] GetVenders(string vender) {
+            return base.Channel.GetVenders(vender);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetVenders(string vender, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetVenders(vender, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string[] EndGetVenders(System.IAsyncResult result) {
+            return base.Channel.EndGetVenders(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetVenders(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string vender = ((string)(inValues[0]));
+            return this.BeginGetVenders(vender, callback, asyncState);
+        }
+        
+        private object[] OnEndGetVenders(System.IAsyncResult result) {
+            string[] retVal = this.EndGetVenders(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetVendersCompleted(object state) {
+            if ((this.GetVendersCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetVendersCompleted(this, new GetVendersCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetVendersAsync(string vender) {
+            this.GetVendersAsync(vender, null);
+        }
+        
+        public void GetVendersAsync(string vender, object userState) {
+            if ((this.onBeginGetVendersDelegate == null)) {
+                this.onBeginGetVendersDelegate = new BeginOperationDelegate(this.OnBeginGetVenders);
+            }
+            if ((this.onEndGetVendersDelegate == null)) {
+                this.onEndGetVendersDelegate = new EndOperationDelegate(this.OnEndGetVenders);
+            }
+            if ((this.onGetVendersCompletedDelegate == null)) {
+                this.onGetVendersCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetVendersCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetVendersDelegate, new object[] {
+                        vender}, this.onEndGetVendersDelegate, this.onGetVendersCompletedDelegate, userState);
         }
         
         public System.Data.DataTable GetLoginTotalTable(string userVender, string userName, string userAccount, string loginDateBegin, string loginDateEnd) {
@@ -936,13 +1676,67 @@ namespace SkdAdminClient.SkdWebService {
             base.InvokeAsync(this.onBeginGetCourseNameDelegate, null, this.onEndGetCourseNameDelegate, this.onGetCourseNameCompletedDelegate, userState);
         }
         
-        public System.Data.DataTable GetTrainningRecord(string userName, string userAccount, string courseName, string beginDate, string endDate) {
-            return base.Channel.GetTrainningRecord(userName, userAccount, courseName, beginDate, endDate);
+        public System.Data.DataTable GetMaxScoreTrainning(string vender, string courseName, string recordName) {
+            return base.Channel.GetMaxScoreTrainning(vender, courseName, recordName);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginGetTrainningRecord(string userName, string userAccount, string courseName, string beginDate, string endDate, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetTrainningRecord(userName, userAccount, courseName, beginDate, endDate, callback, asyncState);
+        public System.IAsyncResult BeginGetMaxScoreTrainning(string vender, string courseName, string recordName, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetMaxScoreTrainning(vender, courseName, recordName, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.Data.DataTable EndGetMaxScoreTrainning(System.IAsyncResult result) {
+            return base.Channel.EndGetMaxScoreTrainning(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetMaxScoreTrainning(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string vender = ((string)(inValues[0]));
+            string courseName = ((string)(inValues[1]));
+            string recordName = ((string)(inValues[2]));
+            return this.BeginGetMaxScoreTrainning(vender, courseName, recordName, callback, asyncState);
+        }
+        
+        private object[] OnEndGetMaxScoreTrainning(System.IAsyncResult result) {
+            System.Data.DataTable retVal = this.EndGetMaxScoreTrainning(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetMaxScoreTrainningCompleted(object state) {
+            if ((this.GetMaxScoreTrainningCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetMaxScoreTrainningCompleted(this, new GetMaxScoreTrainningCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetMaxScoreTrainningAsync(string vender, string courseName, string recordName) {
+            this.GetMaxScoreTrainningAsync(vender, courseName, recordName, null);
+        }
+        
+        public void GetMaxScoreTrainningAsync(string vender, string courseName, string recordName, object userState) {
+            if ((this.onBeginGetMaxScoreTrainningDelegate == null)) {
+                this.onBeginGetMaxScoreTrainningDelegate = new BeginOperationDelegate(this.OnBeginGetMaxScoreTrainning);
+            }
+            if ((this.onEndGetMaxScoreTrainningDelegate == null)) {
+                this.onEndGetMaxScoreTrainningDelegate = new EndOperationDelegate(this.OnEndGetMaxScoreTrainning);
+            }
+            if ((this.onGetMaxScoreTrainningCompletedDelegate == null)) {
+                this.onGetMaxScoreTrainningCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetMaxScoreTrainningCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetMaxScoreTrainningDelegate, new object[] {
+                        vender,
+                        courseName,
+                        recordName}, this.onEndGetMaxScoreTrainningDelegate, this.onGetMaxScoreTrainningCompletedDelegate, userState);
+        }
+        
+        public System.Data.DataTable GetTrainningRecord(string[] sysIdList, string vender, string userName, string userAccount, string courseName, string beginDate, string endDate) {
+            return base.Channel.GetTrainningRecord(sysIdList, vender, userName, userAccount, courseName, beginDate, endDate);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetTrainningRecord(string[] sysIdList, string vender, string userName, string userAccount, string courseName, string beginDate, string endDate, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetTrainningRecord(sysIdList, vender, userName, userAccount, courseName, beginDate, endDate, callback, asyncState);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -951,12 +1745,14 @@ namespace SkdAdminClient.SkdWebService {
         }
         
         private System.IAsyncResult OnBeginGetTrainningRecord(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            string userName = ((string)(inValues[0]));
-            string userAccount = ((string)(inValues[1]));
-            string courseName = ((string)(inValues[2]));
-            string beginDate = ((string)(inValues[3]));
-            string endDate = ((string)(inValues[4]));
-            return this.BeginGetTrainningRecord(userName, userAccount, courseName, beginDate, endDate, callback, asyncState);
+            string[] sysIdList = ((string[])(inValues[0]));
+            string vender = ((string)(inValues[1]));
+            string userName = ((string)(inValues[2]));
+            string userAccount = ((string)(inValues[3]));
+            string courseName = ((string)(inValues[4]));
+            string beginDate = ((string)(inValues[5]));
+            string endDate = ((string)(inValues[6]));
+            return this.BeginGetTrainningRecord(sysIdList, vender, userName, userAccount, courseName, beginDate, endDate, callback, asyncState);
         }
         
         private object[] OnEndGetTrainningRecord(System.IAsyncResult result) {
@@ -972,11 +1768,11 @@ namespace SkdAdminClient.SkdWebService {
             }
         }
         
-        public void GetTrainningRecordAsync(string userName, string userAccount, string courseName, string beginDate, string endDate) {
-            this.GetTrainningRecordAsync(userName, userAccount, courseName, beginDate, endDate, null);
+        public void GetTrainningRecordAsync(string[] sysIdList, string vender, string userName, string userAccount, string courseName, string beginDate, string endDate) {
+            this.GetTrainningRecordAsync(sysIdList, vender, userName, userAccount, courseName, beginDate, endDate, null);
         }
         
-        public void GetTrainningRecordAsync(string userName, string userAccount, string courseName, string beginDate, string endDate, object userState) {
+        public void GetTrainningRecordAsync(string[] sysIdList, string vender, string userName, string userAccount, string courseName, string beginDate, string endDate, object userState) {
             if ((this.onBeginGetTrainningRecordDelegate == null)) {
                 this.onBeginGetTrainningRecordDelegate = new BeginOperationDelegate(this.OnBeginGetTrainningRecord);
             }
@@ -987,11 +1783,115 @@ namespace SkdAdminClient.SkdWebService {
                 this.onGetTrainningRecordCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTrainningRecordCompleted);
             }
             base.InvokeAsync(this.onBeginGetTrainningRecordDelegate, new object[] {
+                        sysIdList,
+                        vender,
                         userName,
                         userAccount,
                         courseName,
                         beginDate,
                         endDate}, this.onEndGetTrainningRecordDelegate, this.onGetTrainningRecordCompletedDelegate, userState);
+        }
+        
+        public System.Data.DataTable GetTrainningBaseInfo(string courseName, string recordName) {
+            return base.Channel.GetTrainningBaseInfo(courseName, recordName);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetTrainningBaseInfo(string courseName, string recordName, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetTrainningBaseInfo(courseName, recordName, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.Data.DataTable EndGetTrainningBaseInfo(System.IAsyncResult result) {
+            return base.Channel.EndGetTrainningBaseInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetTrainningBaseInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string courseName = ((string)(inValues[0]));
+            string recordName = ((string)(inValues[1]));
+            return this.BeginGetTrainningBaseInfo(courseName, recordName, callback, asyncState);
+        }
+        
+        private object[] OnEndGetTrainningBaseInfo(System.IAsyncResult result) {
+            System.Data.DataTable retVal = this.EndGetTrainningBaseInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetTrainningBaseInfoCompleted(object state) {
+            if ((this.GetTrainningBaseInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetTrainningBaseInfoCompleted(this, new GetTrainningBaseInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetTrainningBaseInfoAsync(string courseName, string recordName) {
+            this.GetTrainningBaseInfoAsync(courseName, recordName, null);
+        }
+        
+        public void GetTrainningBaseInfoAsync(string courseName, string recordName, object userState) {
+            if ((this.onBeginGetTrainningBaseInfoDelegate == null)) {
+                this.onBeginGetTrainningBaseInfoDelegate = new BeginOperationDelegate(this.OnBeginGetTrainningBaseInfo);
+            }
+            if ((this.onEndGetTrainningBaseInfoDelegate == null)) {
+                this.onEndGetTrainningBaseInfoDelegate = new EndOperationDelegate(this.OnEndGetTrainningBaseInfo);
+            }
+            if ((this.onGetTrainningBaseInfoCompletedDelegate == null)) {
+                this.onGetTrainningBaseInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTrainningBaseInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetTrainningBaseInfoDelegate, new object[] {
+                        courseName,
+                        recordName}, this.onEndGetTrainningBaseInfoDelegate, this.onGetTrainningBaseInfoCompletedDelegate, userState);
+        }
+        
+        public string[] GetDistinctRecoordName(string courseName) {
+            return base.Channel.GetDistinctRecoordName(courseName);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetDistinctRecoordName(string courseName, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetDistinctRecoordName(courseName, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string[] EndGetDistinctRecoordName(System.IAsyncResult result) {
+            return base.Channel.EndGetDistinctRecoordName(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetDistinctRecoordName(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string courseName = ((string)(inValues[0]));
+            return this.BeginGetDistinctRecoordName(courseName, callback, asyncState);
+        }
+        
+        private object[] OnEndGetDistinctRecoordName(System.IAsyncResult result) {
+            string[] retVal = this.EndGetDistinctRecoordName(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetDistinctRecoordNameCompleted(object state) {
+            if ((this.GetDistinctRecoordNameCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetDistinctRecoordNameCompleted(this, new GetDistinctRecoordNameCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetDistinctRecoordNameAsync(string courseName) {
+            this.GetDistinctRecoordNameAsync(courseName, null);
+        }
+        
+        public void GetDistinctRecoordNameAsync(string courseName, object userState) {
+            if ((this.onBeginGetDistinctRecoordNameDelegate == null)) {
+                this.onBeginGetDistinctRecoordNameDelegate = new BeginOperationDelegate(this.OnBeginGetDistinctRecoordName);
+            }
+            if ((this.onEndGetDistinctRecoordNameDelegate == null)) {
+                this.onEndGetDistinctRecoordNameDelegate = new EndOperationDelegate(this.OnEndGetDistinctRecoordName);
+            }
+            if ((this.onGetDistinctRecoordNameCompletedDelegate == null)) {
+                this.onGetDistinctRecoordNameCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetDistinctRecoordNameCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetDistinctRecoordNameDelegate, new object[] {
+                        courseName}, this.onEndGetDistinctRecoordNameDelegate, this.onGetDistinctRecoordNameCompletedDelegate, userState);
         }
         
         public string GetTime() {
@@ -1040,6 +1940,368 @@ namespace SkdAdminClient.SkdWebService {
                 this.onGetTimeCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTimeCompleted);
             }
             base.InvokeAsync(this.onBeginGetTimeDelegate, null, this.onEndGetTimeDelegate, this.onGetTimeCompletedDelegate, userState);
+        }
+        
+        public System.Data.DataTable GetTestCount(string courseName, string vender, string userName, string userAccount) {
+            return base.Channel.GetTestCount(courseName, vender, userName, userAccount);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetTestCount(string courseName, string vender, string userName, string userAccount, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetTestCount(courseName, vender, userName, userAccount, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.Data.DataTable EndGetTestCount(System.IAsyncResult result) {
+            return base.Channel.EndGetTestCount(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetTestCount(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string courseName = ((string)(inValues[0]));
+            string vender = ((string)(inValues[1]));
+            string userName = ((string)(inValues[2]));
+            string userAccount = ((string)(inValues[3]));
+            return this.BeginGetTestCount(courseName, vender, userName, userAccount, callback, asyncState);
+        }
+        
+        private object[] OnEndGetTestCount(System.IAsyncResult result) {
+            System.Data.DataTable retVal = this.EndGetTestCount(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetTestCountCompleted(object state) {
+            if ((this.GetTestCountCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetTestCountCompleted(this, new GetTestCountCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetTestCountAsync(string courseName, string vender, string userName, string userAccount) {
+            this.GetTestCountAsync(courseName, vender, userName, userAccount, null);
+        }
+        
+        public void GetTestCountAsync(string courseName, string vender, string userName, string userAccount, object userState) {
+            if ((this.onBeginGetTestCountDelegate == null)) {
+                this.onBeginGetTestCountDelegate = new BeginOperationDelegate(this.OnBeginGetTestCount);
+            }
+            if ((this.onEndGetTestCountDelegate == null)) {
+                this.onEndGetTestCountDelegate = new EndOperationDelegate(this.OnEndGetTestCount);
+            }
+            if ((this.onGetTestCountCompletedDelegate == null)) {
+                this.onGetTestCountCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetTestCountCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetTestCountDelegate, new object[] {
+                        courseName,
+                        vender,
+                        userName,
+                        userAccount}, this.onEndGetTestCountDelegate, this.onGetTestCountCompletedDelegate, userState);
+        }
+        
+        public bool InsertNewUser(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status) {
+            return base.Channel.InsertNewUser(userId, userName, userAccount, vender, userPwd, userType, status);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginInsertNewUser(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginInsertNewUser(userId, userName, userAccount, vender, userPwd, userType, status, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndInsertNewUser(System.IAsyncResult result) {
+            return base.Channel.EndInsertNewUser(result);
+        }
+        
+        private System.IAsyncResult OnBeginInsertNewUser(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string userId = ((string)(inValues[0]));
+            string userName = ((string)(inValues[1]));
+            string userAccount = ((string)(inValues[2]));
+            string vender = ((string)(inValues[3]));
+            string userPwd = ((string)(inValues[4]));
+            string userType = ((string)(inValues[5]));
+            string status = ((string)(inValues[6]));
+            return this.BeginInsertNewUser(userId, userName, userAccount, vender, userPwd, userType, status, callback, asyncState);
+        }
+        
+        private object[] OnEndInsertNewUser(System.IAsyncResult result) {
+            bool retVal = this.EndInsertNewUser(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnInsertNewUserCompleted(object state) {
+            if ((this.InsertNewUserCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.InsertNewUserCompleted(this, new InsertNewUserCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void InsertNewUserAsync(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status) {
+            this.InsertNewUserAsync(userId, userName, userAccount, vender, userPwd, userType, status, null);
+        }
+        
+        public void InsertNewUserAsync(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status, object userState) {
+            if ((this.onBeginInsertNewUserDelegate == null)) {
+                this.onBeginInsertNewUserDelegate = new BeginOperationDelegate(this.OnBeginInsertNewUser);
+            }
+            if ((this.onEndInsertNewUserDelegate == null)) {
+                this.onEndInsertNewUserDelegate = new EndOperationDelegate(this.OnEndInsertNewUser);
+            }
+            if ((this.onInsertNewUserCompletedDelegate == null)) {
+                this.onInsertNewUserCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnInsertNewUserCompleted);
+            }
+            base.InvokeAsync(this.onBeginInsertNewUserDelegate, new object[] {
+                        userId,
+                        userName,
+                        userAccount,
+                        vender,
+                        userPwd,
+                        userType,
+                        status}, this.onEndInsertNewUserDelegate, this.onInsertNewUserCompletedDelegate, userState);
+        }
+        
+        public bool UpdateUserInfo(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status) {
+            return base.Channel.UpdateUserInfo(userId, userName, userAccount, vender, userPwd, userType, status);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginUpdateUserInfo(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginUpdateUserInfo(userId, userName, userAccount, vender, userPwd, userType, status, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndUpdateUserInfo(System.IAsyncResult result) {
+            return base.Channel.EndUpdateUserInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginUpdateUserInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string userId = ((string)(inValues[0]));
+            string userName = ((string)(inValues[1]));
+            string userAccount = ((string)(inValues[2]));
+            string vender = ((string)(inValues[3]));
+            string userPwd = ((string)(inValues[4]));
+            string userType = ((string)(inValues[5]));
+            string status = ((string)(inValues[6]));
+            return this.BeginUpdateUserInfo(userId, userName, userAccount, vender, userPwd, userType, status, callback, asyncState);
+        }
+        
+        private object[] OnEndUpdateUserInfo(System.IAsyncResult result) {
+            bool retVal = this.EndUpdateUserInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnUpdateUserInfoCompleted(object state) {
+            if ((this.UpdateUserInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.UpdateUserInfoCompleted(this, new UpdateUserInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void UpdateUserInfoAsync(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status) {
+            this.UpdateUserInfoAsync(userId, userName, userAccount, vender, userPwd, userType, status, null);
+        }
+        
+        public void UpdateUserInfoAsync(string userId, string userName, string userAccount, string vender, string userPwd, string userType, string status, object userState) {
+            if ((this.onBeginUpdateUserInfoDelegate == null)) {
+                this.onBeginUpdateUserInfoDelegate = new BeginOperationDelegate(this.OnBeginUpdateUserInfo);
+            }
+            if ((this.onEndUpdateUserInfoDelegate == null)) {
+                this.onEndUpdateUserInfoDelegate = new EndOperationDelegate(this.OnEndUpdateUserInfo);
+            }
+            if ((this.onUpdateUserInfoCompletedDelegate == null)) {
+                this.onUpdateUserInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnUpdateUserInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginUpdateUserInfoDelegate, new object[] {
+                        userId,
+                        userName,
+                        userAccount,
+                        vender,
+                        userPwd,
+                        userType,
+                        status}, this.onEndUpdateUserInfoDelegate, this.onUpdateUserInfoCompletedDelegate, userState);
+        }
+        
+        public bool InsertNewOrg(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status) {
+            return base.Channel.InsertNewOrg(venderId, venderName, venderType, venderLocation, connectUserName, connectUserPhone, venderEmail, status);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginInsertNewOrg(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginInsertNewOrg(venderId, venderName, venderType, venderLocation, connectUserName, connectUserPhone, venderEmail, status, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndInsertNewOrg(System.IAsyncResult result) {
+            return base.Channel.EndInsertNewOrg(result);
+        }
+        
+        private System.IAsyncResult OnBeginInsertNewOrg(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string venderId = ((string)(inValues[0]));
+            string venderName = ((string)(inValues[1]));
+            string venderType = ((string)(inValues[2]));
+            string venderLocation = ((string)(inValues[3]));
+            string connectUserName = ((string)(inValues[4]));
+            string connectUserPhone = ((string)(inValues[5]));
+            string venderEmail = ((string)(inValues[6]));
+            string status = ((string)(inValues[7]));
+            return this.BeginInsertNewOrg(venderId, venderName, venderType, venderLocation, connectUserName, connectUserPhone, venderEmail, status, callback, asyncState);
+        }
+        
+        private object[] OnEndInsertNewOrg(System.IAsyncResult result) {
+            bool retVal = this.EndInsertNewOrg(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnInsertNewOrgCompleted(object state) {
+            if ((this.InsertNewOrgCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.InsertNewOrgCompleted(this, new InsertNewOrgCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void InsertNewOrgAsync(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status) {
+            this.InsertNewOrgAsync(venderId, venderName, venderType, venderLocation, connectUserName, connectUserPhone, venderEmail, status, null);
+        }
+        
+        public void InsertNewOrgAsync(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status, object userState) {
+            if ((this.onBeginInsertNewOrgDelegate == null)) {
+                this.onBeginInsertNewOrgDelegate = new BeginOperationDelegate(this.OnBeginInsertNewOrg);
+            }
+            if ((this.onEndInsertNewOrgDelegate == null)) {
+                this.onEndInsertNewOrgDelegate = new EndOperationDelegate(this.OnEndInsertNewOrg);
+            }
+            if ((this.onInsertNewOrgCompletedDelegate == null)) {
+                this.onInsertNewOrgCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnInsertNewOrgCompleted);
+            }
+            base.InvokeAsync(this.onBeginInsertNewOrgDelegate, new object[] {
+                        venderId,
+                        venderName,
+                        venderType,
+                        venderLocation,
+                        connectUserName,
+                        connectUserPhone,
+                        venderEmail,
+                        status}, this.onEndInsertNewOrgDelegate, this.onInsertNewOrgCompletedDelegate, userState);
+        }
+        
+        public bool UpdateOrgInfo(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status) {
+            return base.Channel.UpdateOrgInfo(venderId, venderName, venderType, venderLocation, connectUserName, connectUserPhone, venderEmail, status);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginUpdateOrgInfo(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginUpdateOrgInfo(venderId, venderName, venderType, venderLocation, connectUserName, connectUserPhone, venderEmail, status, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndUpdateOrgInfo(System.IAsyncResult result) {
+            return base.Channel.EndUpdateOrgInfo(result);
+        }
+        
+        private System.IAsyncResult OnBeginUpdateOrgInfo(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string venderId = ((string)(inValues[0]));
+            string venderName = ((string)(inValues[1]));
+            string venderType = ((string)(inValues[2]));
+            string venderLocation = ((string)(inValues[3]));
+            string connectUserName = ((string)(inValues[4]));
+            string connectUserPhone = ((string)(inValues[5]));
+            string venderEmail = ((string)(inValues[6]));
+            string status = ((string)(inValues[7]));
+            return this.BeginUpdateOrgInfo(venderId, venderName, venderType, venderLocation, connectUserName, connectUserPhone, venderEmail, status, callback, asyncState);
+        }
+        
+        private object[] OnEndUpdateOrgInfo(System.IAsyncResult result) {
+            bool retVal = this.EndUpdateOrgInfo(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnUpdateOrgInfoCompleted(object state) {
+            if ((this.UpdateOrgInfoCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.UpdateOrgInfoCompleted(this, new UpdateOrgInfoCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void UpdateOrgInfoAsync(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status) {
+            this.UpdateOrgInfoAsync(venderId, venderName, venderType, venderLocation, connectUserName, connectUserPhone, venderEmail, status, null);
+        }
+        
+        public void UpdateOrgInfoAsync(string venderId, string venderName, string venderType, string venderLocation, string connectUserName, string connectUserPhone, string venderEmail, string status, object userState) {
+            if ((this.onBeginUpdateOrgInfoDelegate == null)) {
+                this.onBeginUpdateOrgInfoDelegate = new BeginOperationDelegate(this.OnBeginUpdateOrgInfo);
+            }
+            if ((this.onEndUpdateOrgInfoDelegate == null)) {
+                this.onEndUpdateOrgInfoDelegate = new EndOperationDelegate(this.OnEndUpdateOrgInfo);
+            }
+            if ((this.onUpdateOrgInfoCompletedDelegate == null)) {
+                this.onUpdateOrgInfoCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnUpdateOrgInfoCompleted);
+            }
+            base.InvokeAsync(this.onBeginUpdateOrgInfoDelegate, new object[] {
+                        venderId,
+                        venderName,
+                        venderType,
+                        venderLocation,
+                        connectUserName,
+                        connectUserPhone,
+                        venderEmail,
+                        status}, this.onEndUpdateOrgInfoDelegate, this.onUpdateOrgInfoCompletedDelegate, userState);
+        }
+        
+        public bool InsertNewMap(string userId, string userAccount, string courseName) {
+            return base.Channel.InsertNewMap(userId, userAccount, courseName);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginInsertNewMap(string userId, string userAccount, string courseName, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginInsertNewMap(userId, userAccount, courseName, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public bool EndInsertNewMap(System.IAsyncResult result) {
+            return base.Channel.EndInsertNewMap(result);
+        }
+        
+        private System.IAsyncResult OnBeginInsertNewMap(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string userId = ((string)(inValues[0]));
+            string userAccount = ((string)(inValues[1]));
+            string courseName = ((string)(inValues[2]));
+            return this.BeginInsertNewMap(userId, userAccount, courseName, callback, asyncState);
+        }
+        
+        private object[] OnEndInsertNewMap(System.IAsyncResult result) {
+            bool retVal = this.EndInsertNewMap(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnInsertNewMapCompleted(object state) {
+            if ((this.InsertNewMapCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.InsertNewMapCompleted(this, new InsertNewMapCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void InsertNewMapAsync(string userId, string userAccount, string courseName) {
+            this.InsertNewMapAsync(userId, userAccount, courseName, null);
+        }
+        
+        public void InsertNewMapAsync(string userId, string userAccount, string courseName, object userState) {
+            if ((this.onBeginInsertNewMapDelegate == null)) {
+                this.onBeginInsertNewMapDelegate = new BeginOperationDelegate(this.OnBeginInsertNewMap);
+            }
+            if ((this.onEndInsertNewMapDelegate == null)) {
+                this.onEndInsertNewMapDelegate = new EndOperationDelegate(this.OnEndInsertNewMap);
+            }
+            if ((this.onInsertNewMapCompletedDelegate == null)) {
+                this.onInsertNewMapCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnInsertNewMapCompleted);
+            }
+            base.InvokeAsync(this.onBeginInsertNewMapDelegate, new object[] {
+                        userId,
+                        userAccount,
+                        courseName}, this.onEndInsertNewMapDelegate, this.onInsertNewMapCompletedDelegate, userState);
         }
     }
 }

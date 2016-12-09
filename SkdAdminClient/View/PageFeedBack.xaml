@@ -1,11 +1,12 @@
 ﻿<Page
-    x:Class="SkdAdminClient.View.PageCourseCount"
+    x:Class="SkdAdminClient.View.PageFeedBack"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="课程完成率报表"
-    Title="PageCourseCount"
+    x:Name="课件问题反馈报表"
+    Title="PageFeedBack"
     FontFamily="斯柯达体"
     FontSize="15"
     Loaded="Page_Loaded"
@@ -66,6 +67,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                     <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20" />
@@ -93,20 +95,36 @@
                     MinWidth="150"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center" />
-                <CheckBox
-                    x:Name="ChkTime"
+                <Label
                     Grid.Row="1"
                     Grid.Column="1"
                     Width="100"
                     MinWidth="100"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="完成时间："
+                    Content="经销商：" />
+                <ComboBox
+                    x:Name="CbxVender"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Grid.ColumnSpan="2"
+                    MinWidth="150"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center" />
+                <CheckBox
+                    x:Name="ChkTime"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Width="100"
+                    MinWidth="100"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="反馈时间："
                     FontFamily="斯柯达体"
                     FontSize="15" />
                 <DatePicker
                     x:Name="TxtBeginDate"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="2"
                     Width="150"
                     MinWidth="150"
@@ -115,7 +133,7 @@
                     FontFamily="斯柯达体"
                     FontSize="15" />
                 <Label
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="3"
                     Height="28"
                     HorizontalAlignment="Center"
@@ -123,7 +141,7 @@
                     Content="~" />
                 <DatePicker
                     x:Name="TxtEndDate"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="4"
                     Width="150"
                     MinWidth="150"
@@ -159,14 +177,13 @@
                     FontFamily="斯柯达体"
                     FontSize="15"
                     Style="{DynamicResource AccentedSquareButtonStyle}" />
-                <ComboBox
-                    x:Name="CbxVender"
+                <TextBox
+                    x:Name="TxtUserAccout"
                     Grid.Row="0"
                     Grid.Column="4"
-                    Grid.ColumnSpan="2"
-                    Width="250"
+                    Width="118"
                     MinWidth="150"
-                    HorizontalAlignment="Left"
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center" />
                 <Label
                     Grid.Row="0"
@@ -175,7 +192,23 @@
                     MinWidth="100"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="经销商：" />
+                    Content="用户帐号：" />
+                <TextBox
+                    x:Name="TxtUserName"
+                    Grid.Row="0"
+                    Grid.Column="6"
+                    Width="118"
+                    MinWidth="150"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="5"
+                    Width="110"
+                    MinWidth="100"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="用户名称：" />
                 <Button
                     x:Name="BtnExport"
                     Grid.Row="1"
@@ -209,71 +242,59 @@
             GridLinesVisibility="All">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    x:Name="VenderColumn"
                     MinWidth="120"
-                    Binding="{Binding Vender}"
+                    Binding="{Binding UserName}"
                     CanUserReorder="True"
-                    Header="经销商"
+                    Header="反馈人员姓名"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    x:Name="CourseNameColumn"
+                    MinWidth="120"
+                    Binding="{Binding UserAccount}"
+                    CanUserReorder="True"
+                    Header="反馈人员帐号"
+                    IsReadOnly="True"
+                    Visibility="Collapsed" />
+                <DataGridTextColumn
                     MinWidth="120"
                     Binding="{Binding CourseName}"
                     CanUserReorder="True"
                     Header="课程名称"
-                    IsReadOnly="True"
-                    Visibility="Collapsed" />
-                <DataGridTextColumn
-                    x:Name="TotalMinutesColumn"
-                    MinWidth="120"
-                    Binding="{Binding TotalMinutes}"
-                    CanUserReorder="True"
-                    Header="学习总时长"
                     IsReadOnly="True" />
-                <DataGridTextColumn
-                    x:Name="TotalStampsColumn"
+
+                <DataGridTemplateColumn
                     MinWidth="120"
-                    Binding="{Binding TotalStamps}"
-                    CanUserReorder="True"
-                    Header="学习总次数"
-                    IsReadOnly="True" />
+                    Header="问题描述"
+                    IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                MaxWidth="300"
+                                Text="{Binding Description}"
+                                TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn
-                    x:Name="PlanPersonsColumn"
                     MinWidth="120"
-                    Binding="{Binding PlanPersons}"
+                    Binding="{Binding CreateTime}"
                     CanUserReorder="True"
-                    Header="应学习人数"
+                    Header="反馈时间"
                     IsReadOnly="True" />
-                <DataGridTextColumn
-                    x:Name="TotalPersonsColumn"
-                    MinWidth="120"
-                    Binding="{Binding TotalPersons}"
-                    CanUserReorder="True"
-                    Header="已学习人数"
-                    IsReadOnly="True" />
-                <DataGridTextColumn
-                    x:Name="FinishPersonColumn"
-                    MinWidth="120"
-                    Binding="{Binding FinishPersons}"
-                    CanUserReorder="True"
-                    Header="已完成人数"
-                    IsReadOnly="True" />
-                <DataGridTextColumn
-                    x:Name="PercentColumn"
-                    MinWidth="120"
-                    Binding="{Binding Percent}"
-                    CanUserReorder="True"
-                    Header="完成率"
-                    IsReadOnly="True" />
-                <DataGridTemplateColumn MinWidth="90" Header="测试详情">
+
+                <DataGridTemplateColumn MinWidth="90" Header="反馈图片">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
+                                Name="BtnImage"
                                 MinWidth="80"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Click="ButtonProgress_Click"
-                                Content="详情" />
+                                Click="BtnImage_Click">
+                                <iconPacks:PackIconMaterial
+                                    Width="13"
+                                    Height="13"
+                                    Kind="Magnify" />
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
+
 //using NPOI.Extension;
 
-namespace SkdAdminClient.Moudle
+namespace SkdAdminModel
 {
-    public class ProgressDetail
+    public class BindProgressDetail
     {
     
         private string _vender;
@@ -26,10 +26,10 @@ namespace SkdAdminClient.Moudle
         private string _status;
         private string _rbo;
         private bool _haveTrainningRecord;
+        private List<string> _sysIdList; 
 
         private List<CourseStudyDetail> _details = new List<CourseStudyDetail>();
-
-        //[Column(Index = 0, Title = "RBO", AllowMerge = true)]
+        [Remark("RBO")]
         public string Rbo
         {
             get
@@ -42,16 +42,16 @@ namespace SkdAdminClient.Moudle
                 _rbo = value;
             }
         }
-       
 
-        //[Column(Index = 1, Title = "经销商", AllowMerge = true)]
+
+        [Remark("经销商")]
         public string Vender
         {
             get { return _vender; }
 
             set { _vender = value; }
         }
-        //[Column(Index = 2, Title = "用户名称", AllowMerge = true)]
+        [Remark("用户名称")]
         public string UserName
         {
             get { return _userName; }
@@ -59,7 +59,7 @@ namespace SkdAdminClient.Moudle
             set { _userName = value; }
         }
 
-        //[Column(Index =3, Title = "用户帐号")]
+        [Remark("用户帐号")]
         public string UserAccount
         {
             get { return _userAccount; }
@@ -67,7 +67,7 @@ namespace SkdAdminClient.Moudle
             set { _userAccount = value; }
         }
 
-        //[Column(Index = 4, Title = "上次学习结束时间")]
+        [Remark("课程名称")]
         public string CourseName
         {
             get
@@ -81,7 +81,7 @@ namespace SkdAdminClient.Moudle
             }
         }
 
-       // [Column(Index = 5, Title = "进度")]
+        [Remark("进度")]
         public string Scheduel
         {
             get { return _scheduel; }
@@ -89,7 +89,7 @@ namespace SkdAdminClient.Moudle
             set { _scheduel = value; }
         }
 
-       // [Column(Index = 6, Title = "测试得分")]
+        [Remark("测试得分")]
         public double Score
         {
             get { return _score; }
@@ -97,7 +97,7 @@ namespace SkdAdminClient.Moudle
             set { _score = value; }
         }
 
-        //[Column(Index = 7, Title = "虚拟实训名称及得分")]
+        [Remark("虚拟实训得分")]
         public string TrainningRecord
         {
             get { return _trainningRecord; }
@@ -105,15 +105,14 @@ namespace SkdAdminClient.Moudle
             set { _trainningRecord = value; }
         }
 
-        //[Column(Index = 8, Title = "学习总时长")]
+        [Remark("学习总时长")]
         public string TotalMinutes
         {
             get { return _totalMinutes; }
 
             set { _totalMinutes = value; }
         }
-
-        //[Column(Index = 9, Title = "学习总次数")]
+        [Remark("学习总次数")]
         public double TotalStamps
         {
             get { return _totalStamps; }
@@ -121,7 +120,7 @@ namespace SkdAdminClient.Moudle
             set { _totalStamps = value; }
         }
 
-        //[Column(Index = 10, Title = "上次学习开始时间")]
+        [Remark("上次学习开始时间")]
         public string BeginDate
         {
             get { return _beginDate; }
@@ -129,15 +128,14 @@ namespace SkdAdminClient.Moudle
             set { _beginDate = value; }
         }
 
-        //[Column(Index = 11, Title = "上次学习结束时间")]
+        [Remark("上次学习结束时间")]
         public string EndDate
         {
             get { return _endDate; }
 
             set { _endDate = value; }
         }
-
-        //[Column(Index = 12, Title = "完成状态")]
+        [Remark("状态")]
         public string Status
         {
             get
@@ -150,7 +148,7 @@ namespace SkdAdminClient.Moudle
                 _status = value;
             }
         }
-
+        [Remark("是否包含虚拟实训",false)]
         public bool HaveTrainningRecord
         {
             get
@@ -163,6 +161,19 @@ namespace SkdAdminClient.Moudle
                 _haveTrainningRecord = value;
             }
         }
+        [Remark("虚拟实训SysId列表", false)]
+        public List<string> SysIdList
+        {
+            get
+            {
+                return _sysIdList;
+            }
+
+            set
+            {
+                _sysIdList = value;
+            }
+        }
     }
 
     /// <summary>
@@ -171,25 +182,12 @@ namespace SkdAdminClient.Moudle
     [XmlRoot(ElementName = "coursedetial")]
     public class CourseStudyDetail
     {
-        //private string _sysId = "";
 
-        //[XmlElement(ElementName = "sysid")]
-        //public string SysId
-        //{
-        //    get { return _sysId; }
-        //    set { _sysId = value; }
-        //}
-
-        //private bool _newRecord = true;
-        //[XmlElement(ElementName = "newrecord")]
-        //public bool NewRecord
-        //{
-        //    get { return _newRecord; }
-        //    set { _newRecord = value; }
-        //}
+        private string _vender = "";
 
         private string _courseName = "";
 
+        [Remark("课程名称")]
         [XmlElement(ElementName = "coursename")]
         public string CourseName
         {
@@ -199,6 +197,7 @@ namespace SkdAdminClient.Moudle
 
 
         private string _userName = "";
+        [Remark("用户名称")]
         public string UserName
         {
             get
@@ -215,6 +214,7 @@ namespace SkdAdminClient.Moudle
 
         private string _userAccount = "";
 
+        [Remark("用户帐号")]
         [XmlElement(ElementName = "username")]
         public string UserAccount
         {
@@ -224,6 +224,7 @@ namespace SkdAdminClient.Moudle
 
         private string _beginTime = DateTime.MinValue.ToString("yyyy-MM-dd HH:mm:ss");
 
+        [Remark("开始时间")]
         [XmlElement(ElementName = "begintime")]
         public string BeginTime
         {
@@ -233,6 +234,7 @@ namespace SkdAdminClient.Moudle
 
         private string _endTime = DateTime.MinValue.ToString("yyyy-MM-dd HH:mm:ss");
 
+        [Remark("结束时间")]
         [XmlElement(ElementName = "endtime")]
         public string EndTime
         {
@@ -241,7 +243,7 @@ namespace SkdAdminClient.Moudle
         }
 
         private string _minutes = "0";
-
+        [Remark("学习时长")]
         [XmlElement(ElementName = "minutes")]
         public string Minutes
         {
@@ -250,7 +252,7 @@ namespace SkdAdminClient.Moudle
         }
 
         private string _chapters = "";
-
+        [Remark("学习百分比节点")]
         [XmlElement(ElementName = "percent")]
         public string Chapters //单次学习的百分节点
         {
@@ -259,7 +261,7 @@ namespace SkdAdminClient.Moudle
         }
 
         private string _description = "";
-
+        [Remark("百分比节点描述")]
         [XmlElement(ElementName = "description")]
         public string Description //单次学习的百分节点对应的章节信息
         {
@@ -267,7 +269,20 @@ namespace SkdAdminClient.Moudle
             set { _description = value; }
         }
 
+        [Remark("经销商")]
+       [XmlIgnore]
+        public string Vender
+        {
+            get
+            {
+                return _vender;
+            }
 
+            set
+            {
+                _vender = value;
+            }
+        }
 
         public static CourseStudyDetail XmlToCourseStudyDetail(string xmlStr)
         {
@@ -371,5 +386,7 @@ namespace SkdAdminClient.Moudle
 
 
     }
+
+ 
 
 }

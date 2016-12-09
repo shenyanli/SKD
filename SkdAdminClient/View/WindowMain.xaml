@@ -1,0 +1,194 @@
+﻿<Controls:MetroWindow
+    x:Class="SkdAdminClient.View.WindowMain"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Name="MwWindowMain"
+    Title="斯柯达网络电子课件统计平台"
+    Width="1300"
+    Height="730"
+    d:DesignHeight="730"
+    d:DesignWidth="1300"
+    Background="AliceBlue"
+    Closing="MetroWindow_Closing"
+    Foreground="ForestGreen"
+    Icon="/SkdAdminClient;component/Image/SKD.ico"
+    Loaded="MetroWindow_Loaded"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    mc:Ignorable="d">
+    <Controls:MetroWindow.Resources>
+        <ResourceDictionary>
+
+
+            <!--  原型Button  -->
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <!--  定义视觉树  -->
+                            <Grid>
+                                <!--  绘制外圆  -->
+                                <Ellipse
+                                    x:Name="ellipse"
+                                    Width="50"
+                                    Height="50"
+                                    Stroke="White">
+                                    <Ellipse.Fill>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.443,1.22">
+                                            <LinearGradientBrush.RelativeTransform>
+                                                <TransformGroup>
+                                                    <ScaleTransform CenterX="0.5" CenterY="0.5" />
+                                                    <SkewTransform CenterX="0.5" CenterY="0.5" />
+                                                    <RotateTransform Angle="-20" CenterX="0.5" CenterY="0.5" />
+                                                    <TranslateTransform />
+                                                </TransformGroup>
+                                            </LinearGradientBrush.RelativeTransform>
+                                            <GradientStop Offset="0" Color="#C31D" />
+                                            <GradientStop Offset="1" Color="White" />
+                                        </LinearGradientBrush>
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <!--  绘制内圆  -->
+                                <Ellipse
+                                    Width="40"
+                                    Height="40"
+                                    Stroke="{x:Null}">
+                                    <Ellipse.Fill>
+                                        <ImageBrush ImageSource="/Image/btnBack.png" />
+                                    </Ellipse.Fill>
+                                </Ellipse>
+                                <ContentPresenter
+                                    x:Name="contentPresenter"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            </Grid>
+                            <!--  定义触发器  -->
+                            <ControlTemplate.Triggers>
+                                <!--  设置按钮响应事件  -->
+                                <Trigger Property="IsFocused" Value="True" />
+                                <Trigger Property="IsDefaulted" Value="True" />
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="ellipse" Property="Stroke" Value="Wheat" />
+                                    <Setter TargetName="ellipse" Property="StrokeThickness" Value="1.5" />
+                                </Trigger>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter TargetName="ellipse" Property="Fill">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.443,1.22">
+                                                <LinearGradientBrush.RelativeTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform CenterX="0.2" CenterY="0.2" />
+                                                        <SkewTransform CenterX="0.2" CenterY="0.2" />
+                                                        <RotateTransform Angle="-20" CenterX="0.2" CenterY="0.2" />
+                                                        <TranslateTransform />
+                                                    </TransformGroup>
+                                                </LinearGradientBrush.RelativeTransform>
+                                                <GradientStop Offset="1" Color="#FF707070" />
+                                                <GradientStop Offset="0" Color="White" />
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter TargetName="contentPresenter" Property="Margin" Value="5,5,0,0" />
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False" />
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </Controls:MetroWindow.Resources>
+    <!--  标题按钮  -->
+    <Controls:MetroWindow.WindowButtonCommands>
+        <Controls:WindowButtonCommands Template="{DynamicResource MahApps.Metro.Templates.WindowButtonCommands.Win10}" />
+    </Controls:MetroWindow.WindowButtonCommands>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80" />
+            <ColumnDefinition Width="141*" />
+            <ColumnDefinition Width="142*" />
+            <ColumnDefinition Width="80" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Frame
+            x:Name="AddPage"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            NavigationUIVisibility="Hidden" />
+        <StatusBar
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Height="30"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem
+                Grid.Column="1"
+                MinWidth="150"
+                HorizontalContentAlignment="Center">
+                <Label x:Name="LblUserAccount" />
+            </StatusBarItem>
+            <StatusBarItem
+                Grid.Column="2"
+                MinWidth="150"
+                HorizontalContentAlignment="Center">
+                <Label x:Name="LblPrivelege" />
+            </StatusBarItem>
+
+            <StatusBarItem
+                Grid.Column="3"
+                MinWidth="200"
+                HorizontalContentAlignment="Center">
+                <Label x:Name="LblVender" />
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Column="4" HorizontalContentAlignment="Right">
+                <Label Content="登录时间" />
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Column="5" HorizontalContentAlignment="Left">
+                <Label x:Name="LblTime" />
+            </StatusBarItem>
+
+            <StatusBarItem Grid.Column="6" HorizontalContentAlignment="Right">
+                <Label Content="版本号" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="7" HorizontalContentAlignment="Left">
+                <Label x:Name="LblVersion" />
+            </StatusBarItem>
+
+        </StatusBar>
+    </Grid>
+</Controls:MetroWindow>
+

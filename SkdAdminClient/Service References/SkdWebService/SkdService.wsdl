@@ -2,6 +2,46 @@
 <wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetFeedBackInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="beginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="endDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeedBackInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFeedBackInfoResult" type="tns:ArrayOfBase64Binary" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfBase64Binary">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="base64Binary" nillable="true" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="FinishUpdateData">
+        <s:complexType />
+      </s:element>
+      <s:element name="FinishUpdateDataResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="NeedUpdateData">
+        <s:complexType />
+      </s:element>
+      <s:element name="NeedUpdateDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="NeedUpdateDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Login">
         <s:complexType>
           <s:sequence>
@@ -17,6 +57,39 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetPrivelegeInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPrivelegeInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPrivelegeInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVenders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVendersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVendersResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetLoginTotalTable">
         <s:complexType>
           <s:sequence>
@@ -132,11 +205,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetCourseAddUp">
         <s:complexType>
           <s:sequence>
@@ -192,9 +260,34 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetMaxScoreTrainning">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recordName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMaxScoreTrainningResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMaxScoreTrainningResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetTrainningRecord">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="sysIdList" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
@@ -217,6 +310,42 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTrainningBaseInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recordName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTrainningBaseInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTrainningBaseInfoResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDistinctRecoordName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDistinctRecoordNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDistinctRecoordNameResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetTime">
         <s:complexType />
       </s:element>
@@ -227,13 +356,165 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTestCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTestCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTestCountResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertNewUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertNewUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InsertNewUserResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPwd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateUserInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateUserInfoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertNewOrg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="venderId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderLocation" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectUserPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderEmail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertNewOrgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InsertNewOrgResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrgInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="venderId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderLocation" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="connectUserPhone" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderEmail" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateOrgInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateOrgInfoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertNewMap">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertNewMapResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InsertNewMapResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetFeedBackInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFeedBackInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedBackInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFeedBackInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="FinishUpdateDataSoapIn">
+    <wsdl:part name="parameters" element="tns:FinishUpdateData" />
+  </wsdl:message>
+  <wsdl:message name="FinishUpdateDataSoapOut">
+    <wsdl:part name="parameters" element="tns:FinishUpdateDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="NeedUpdateDataSoapIn">
+    <wsdl:part name="parameters" element="tns:NeedUpdateData" />
+  </wsdl:message>
+  <wsdl:message name="NeedUpdateDataSoapOut">
+    <wsdl:part name="parameters" element="tns:NeedUpdateDataResponse" />
+  </wsdl:message>
   <wsdl:message name="LoginSoapIn">
     <wsdl:part name="parameters" element="tns:Login" />
   </wsdl:message>
   <wsdl:message name="LoginSoapOut">
     <wsdl:part name="parameters" element="tns:LoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivelegeInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPrivelegeInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetPrivelegeInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPrivelegeInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVendersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVenders" />
+  </wsdl:message>
+  <wsdl:message name="GetVendersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVendersResponse" />
   </wsdl:message>
   <wsdl:message name="GetLoginTotalTableSoapIn">
     <wsdl:part name="parameters" element="tns:GetLoginTotalTable" />
@@ -283,11 +564,29 @@
   <wsdl:message name="GetCourseNameSoapOut">
     <wsdl:part name="parameters" element="tns:GetCourseNameResponse" />
   </wsdl:message>
+  <wsdl:message name="GetMaxScoreTrainningSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMaxScoreTrainning" />
+  </wsdl:message>
+  <wsdl:message name="GetMaxScoreTrainningSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMaxScoreTrainningResponse" />
+  </wsdl:message>
   <wsdl:message name="GetTrainningRecordSoapIn">
     <wsdl:part name="parameters" element="tns:GetTrainningRecord" />
   </wsdl:message>
   <wsdl:message name="GetTrainningRecordSoapOut">
     <wsdl:part name="parameters" element="tns:GetTrainningRecordResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTrainningBaseInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTrainningBaseInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetTrainningBaseInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTrainningBaseInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDistinctRecoordNameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDistinctRecoordName" />
+  </wsdl:message>
+  <wsdl:message name="GetDistinctRecoordNameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDistinctRecoordNameResponse" />
   </wsdl:message>
   <wsdl:message name="GetTimeSoapIn">
     <wsdl:part name="parameters" element="tns:GetTime" />
@@ -295,10 +594,66 @@
   <wsdl:message name="GetTimeSoapOut">
     <wsdl:part name="parameters" element="tns:GetTimeResponse" />
   </wsdl:message>
+  <wsdl:message name="GetTestCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTestCount" />
+  </wsdl:message>
+  <wsdl:message name="GetTestCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTestCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertNewUserSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertNewUser" />
+  </wsdl:message>
+  <wsdl:message name="InsertNewUserSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertNewUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateUserInfo" />
+  </wsdl:message>
+  <wsdl:message name="UpdateUserInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateUserInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertNewOrgSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertNewOrg" />
+  </wsdl:message>
+  <wsdl:message name="InsertNewOrgSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertNewOrgResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrgInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateOrgInfo" />
+  </wsdl:message>
+  <wsdl:message name="UpdateOrgInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateOrgInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertNewMapSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertNewMap" />
+  </wsdl:message>
+  <wsdl:message name="InsertNewMapSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertNewMapResponse" />
+  </wsdl:message>
   <wsdl:portType name="SkdServiceSoap">
+    <wsdl:operation name="GetFeedBackInfo">
+      <wsdl:input message="tns:GetFeedBackInfoSoapIn" />
+      <wsdl:output message="tns:GetFeedBackInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FinishUpdateData">
+      <wsdl:input message="tns:FinishUpdateDataSoapIn" />
+      <wsdl:output message="tns:FinishUpdateDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NeedUpdateData">
+      <wsdl:input message="tns:NeedUpdateDataSoapIn" />
+      <wsdl:output message="tns:NeedUpdateDataSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <wsdl:input message="tns:LoginSoapIn" />
       <wsdl:output message="tns:LoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivelegeInfo">
+      <wsdl:input message="tns:GetPrivelegeInfoSoapIn" />
+      <wsdl:output message="tns:GetPrivelegeInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVenders">
+      <wsdl:input message="tns:GetVendersSoapIn" />
+      <wsdl:output message="tns:GetVendersSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetLoginTotalTable">
       <wsdl:input message="tns:GetLoginTotalTableSoapIn" />
@@ -332,19 +687,100 @@
       <wsdl:input message="tns:GetCourseNameSoapIn" />
       <wsdl:output message="tns:GetCourseNameSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetMaxScoreTrainning">
+      <wsdl:input message="tns:GetMaxScoreTrainningSoapIn" />
+      <wsdl:output message="tns:GetMaxScoreTrainningSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetTrainningRecord">
       <wsdl:input message="tns:GetTrainningRecordSoapIn" />
       <wsdl:output message="tns:GetTrainningRecordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTrainningBaseInfo">
+      <wsdl:input message="tns:GetTrainningBaseInfoSoapIn" />
+      <wsdl:output message="tns:GetTrainningBaseInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctRecoordName">
+      <wsdl:input message="tns:GetDistinctRecoordNameSoapIn" />
+      <wsdl:output message="tns:GetDistinctRecoordNameSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetTime">
       <wsdl:input message="tns:GetTimeSoapIn" />
       <wsdl:output message="tns:GetTimeSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetTestCount">
+      <wsdl:input message="tns:GetTestCountSoapIn" />
+      <wsdl:output message="tns:GetTestCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewUser">
+      <wsdl:input message="tns:InsertNewUserSoapIn" />
+      <wsdl:output message="tns:InsertNewUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserInfo">
+      <wsdl:input message="tns:UpdateUserInfoSoapIn" />
+      <wsdl:output message="tns:UpdateUserInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewOrg">
+      <wsdl:input message="tns:InsertNewOrgSoapIn" />
+      <wsdl:output message="tns:InsertNewOrgSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrgInfo">
+      <wsdl:input message="tns:UpdateOrgInfoSoapIn" />
+      <wsdl:output message="tns:UpdateOrgInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewMap">
+      <wsdl:input message="tns:InsertNewMapSoapIn" />
+      <wsdl:output message="tns:InsertNewMapSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SkdServiceSoap" type="tns:SkdServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFeedBackInfo">
+      <soap:operation soapAction="http://tempuri.org/GetFeedBackInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishUpdateData">
+      <soap:operation soapAction="http://tempuri.org/FinishUpdateData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NeedUpdateData">
+      <soap:operation soapAction="http://tempuri.org/NeedUpdateData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <soap:operation soapAction="http://tempuri.org/Login" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivelegeInfo">
+      <soap:operation soapAction="http://tempuri.org/GetPrivelegeInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVenders">
+      <soap:operation soapAction="http://tempuri.org/GetVenders" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -424,8 +860,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMaxScoreTrainning">
+      <soap:operation soapAction="http://tempuri.org/GetMaxScoreTrainning" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTrainningRecord">
       <soap:operation soapAction="http://tempuri.org/GetTrainningRecord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTrainningBaseInfo">
+      <soap:operation soapAction="http://tempuri.org/GetTrainningBaseInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctRecoordName">
+      <soap:operation soapAction="http://tempuri.org/GetDistinctRecoordName" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -442,11 +905,110 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTestCount">
+      <soap:operation soapAction="http://tempuri.org/GetTestCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewUser">
+      <soap:operation soapAction="http://tempuri.org/InsertNewUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserInfo">
+      <soap:operation soapAction="http://tempuri.org/UpdateUserInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewOrg">
+      <soap:operation soapAction="http://tempuri.org/InsertNewOrg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrgInfo">
+      <soap:operation soapAction="http://tempuri.org/UpdateOrgInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewMap">
+      <soap:operation soapAction="http://tempuri.org/InsertNewMap" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SkdServiceSoap12" type="tns:SkdServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetFeedBackInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetFeedBackInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FinishUpdateData">
+      <soap12:operation soapAction="http://tempuri.org/FinishUpdateData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NeedUpdateData">
+      <soap12:operation soapAction="http://tempuri.org/NeedUpdateData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <soap12:operation soapAction="http://tempuri.org/Login" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPrivelegeInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetPrivelegeInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVenders">
+      <soap12:operation soapAction="http://tempuri.org/GetVenders" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -526,6 +1088,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetMaxScoreTrainning">
+      <soap12:operation soapAction="http://tempuri.org/GetMaxScoreTrainning" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTrainningRecord">
       <soap12:operation soapAction="http://tempuri.org/GetTrainningRecord" style="document" />
       <wsdl:input>
@@ -535,8 +1106,80 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTrainningBaseInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetTrainningBaseInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDistinctRecoordName">
+      <soap12:operation soapAction="http://tempuri.org/GetDistinctRecoordName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTime">
       <soap12:operation soapAction="http://tempuri.org/GetTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTestCount">
+      <soap12:operation soapAction="http://tempuri.org/GetTestCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewUser">
+      <soap12:operation soapAction="http://tempuri.org/InsertNewUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateUserInfo">
+      <soap12:operation soapAction="http://tempuri.org/UpdateUserInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewOrg">
+      <soap12:operation soapAction="http://tempuri.org/InsertNewOrg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateOrgInfo">
+      <soap12:operation soapAction="http://tempuri.org/UpdateOrgInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertNewMap">
+      <soap12:operation soapAction="http://tempuri.org/InsertNewMap" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

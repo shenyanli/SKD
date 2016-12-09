@@ -3,49 +3,19 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:SkdAdminClient"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="学员进度信息"
+    x:Name="学员进度信息报表报表"
     Title="PageLogin"
-    Height="580"
     FontFamily="斯柯达体"
     FontSize="15"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
-    <Page.Resources>
-        <Style x:Key="DetailButton" TargetType="Button">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border
-                            x:Name="ButtonBorder"
-                            Background="#E0EEE0"
-                            BorderThickness="3"
-                            CornerRadius="4"
-                            Cursor="Hand"
-                            RenderTransformOrigin="0.5,0.5">
-                            <Grid>
-                                <ContentPresenter
-                                    x:Name="ButtonContentPresenter"
-                                    Grid.Row="0"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center" />
-                            </Grid>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Visibility" Value="Hidden" />
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </Page.Resources>
+    <Page.Resources />
     <Grid>
-
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
+            <RowDefinition Height="80" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -55,15 +25,10 @@
             Margin="0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
-            Foreground="ForestGreen"
+            Background="#9960A917"
             Header="检索信息"
             IsExpanded="True">
-            <Expander.Background>
-                <LinearGradientBrush MappingMode="RelativeToBoundingBox" StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Offset="0.815" Color="#FFD4F8D4" />
-                    <GradientStop Color="White" />
-                </LinearGradientBrush>
-            </Expander.Background>
+
             <Grid
                 Name="ExpanderGrid"
                 HorizontalAlignment="Stretch"
@@ -105,7 +70,6 @@
                     MinWidth="150"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Style="{DynamicResource TextBoxStyle}"
                     TextWrapping="Wrap" />
                 <Label
                     Grid.Row="1"
@@ -137,7 +101,6 @@
                     MinWidth="150"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Style="{DynamicResource TextBoxStyle}"
                     TextWrapping="Wrap" />
                 <Label
                     Grid.Row="1"
@@ -153,7 +116,9 @@
                     MinWidth="100"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="学习时间：" />
+                    Content="学习时间："
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
                 <CheckBox
                     x:Name="ChkFinishTime"
                     Grid.Row="3"
@@ -161,7 +126,9 @@
                     MinWidth="100"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="完成时间：" />
+                    Content="完成时间："
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
                 <ComboBox
                     x:Name="CboCourseName"
                     Grid.Row="1"
@@ -177,7 +144,9 @@
                     Width="150"
                     MinWidth="150"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
                 <DatePicker
                     x:Name="TxtBeginFinishDate"
                     Grid.Row="3"
@@ -185,7 +154,9 @@
                     Width="150"
                     MinWidth="150"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
                 <DatePicker
                     x:Name="TxtEndFinishDate"
                     Grid.Row="3"
@@ -193,7 +164,9 @@
                     Width="150"
                     MinWidth="150"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
                 <Label
                     Grid.Row="2"
                     Grid.Column="3"
@@ -215,29 +188,33 @@
                     Width="150"
                     MinWidth="150"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
                 <Button
                     x:Name="BtnQuery"
                     Grid.Row="0"
                     Grid.Column="7"
                     Width="118"
-                    Height="40"
+                    Margin="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    BorderThickness="0"
                     Click="BtnQuery_Click"
                     Content="检索"
-                    Style="{DynamicResource GlassButton}" />
+                    Style="{DynamicResource AccentedSquareButtonStyle}" />
                 <Button
                     x:Name="BtnClear"
                     Grid.Row="1"
                     Grid.Column="7"
                     Width="118"
-                    Height="40"
+                    Margin="10"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
+                    BorderThickness="0"
                     Click="BtnClear_Click"
                     Content="清除"
-                    Style="{DynamicResource GlassButton}" />
+                    Style="{DynamicResource AccentedSquareButtonStyle}" />
                 <ComboBox
                     x:Name="CbxVender"
                     Grid.Row="0"
@@ -258,12 +235,25 @@
                     Grid.Row="2"
                     Grid.Column="7"
                     Width="118"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    BorderThickness="0"
+                    Click="BtnExport_Click"
+                    Content="导出"
+                    Style="{DynamicResource AccentedSquareButtonStyle}" />
+                <Button
+                    x:Name="BtnBack"
+                    Grid.Row="3"
+                    Grid.Column="7"
+                    Width="118"
                     Height="40"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Click="BtnExport_Click"
-                    Content="导出"
-                    Style="{DynamicResource GlassButton}" />
+                    Click="BtnBack_Click"
+                    Content="返回"
+                    Style="{DynamicResource AccentedSquareButtonStyle}"
+                    Visibility="Collapsed" />
             </Grid>
 
         </Expander>
@@ -279,7 +269,7 @@
             CanUserDeleteRows="False"
             CanUserReorderColumns="False"
             ClipboardCopyMode="ExcludeHeader"
-            Foreground="ForestGreen"
+            GridLinesVisibility="All"
             HorizontalScrollBarVisibility="Auto"
             VerticalScrollBarVisibility="Auto">
             <DataGrid.Columns>
@@ -340,12 +330,18 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
-                                MinWidth="80"
+                                Height="25"
+                                MinWidth="50"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Click="ButtonTest_Click"
-                                Content="详情"
-                                Style="{StaticResource DetailButton}" />
+                                Cursor="Hand"
+                                FontSize="10">
+                                <iconPacks:PackIconMaterial
+                                    Width="13"
+                                    Height="13"
+                                    Kind="Magnify" />
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -353,19 +349,25 @@
                     MinWidth="90"
                     Binding="{Binding TrainningRecord}"
                     CanUserReorder="True"
-                    Header="虚拟实训"
+                    Header="虚拟实训得分"
                     IsReadOnly="True" />
-                <DataGridTemplateColumn MinWidth="90" Header="虚拟实训详情">
+                <DataGridTemplateColumn MinWidth="90" Header="操作详情">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
-                                MinWidth="80"
+                                Height="25"
+                                MinWidth="50"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Click="ButtonTrainningRecord_Click"
-                                Content="详情"
-                                IsEnabled="{Binding HaveTrainningRecord}"
-                                Style="{StaticResource DetailButton}" />
+                                Cursor="Hand"
+                                FontSize="10"
+                                Visibility="{Binding HaveTrainningRecord}">
+                                <iconPacks:PackIconMaterial
+                                    Width="13"
+                                    Height="13"
+                                    Kind="Magnify" />
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -397,12 +399,19 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
-                                MinWidth="80"
+                                Height="25"
+                                MinWidth="50"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Click="ButtonCourseStudyDetail_Click"
-                                Content="详情"
-                                Style="{StaticResource DetailButton}" />
+                                Cursor="Hand"
+                                FontSize="10">
+                                <iconPacks:PackIconMaterial
+                                    Width="13"
+                                    Height="13"
+                                    Kind="Magnify" />
+                            </Button>
+
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -410,10 +419,33 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Grid
-            Grid.Row="0"
-            Grid.Column="0"
-            Background="#FFD4FFD4" />
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="80" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Name="TbTitle"
+                Grid.Row="0"
+                Grid.Column="1"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="25"
+                Foreground="ForestGreen" />
+            <Button
+                x:Name="BackButton"
+                Grid.Row="0"
+                Grid.Column="0"
+                Width="50"
+                Height="50"
+                VerticalContentAlignment="Center"
+                x:FieldModifier="public"
+                Click="BackButton_Click"
+      ToolTip="返回主屏幕"
+                FontSize="20"
+                Style="{DynamicResource LeftArrowButton}" />
+        </Grid>
 
     </Grid>
 </Page>

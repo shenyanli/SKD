@@ -5,9 +5,12 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using SkdAdminClient.Moudle;
+
 using SkdAdminClient.SkdWebService;
 using SkdAdminClient.Tool;
+using SkdAdminModel;
+using static System.StringSplitOptions;
+
 //using NPOI.Extension;
 
 namespace SkdAdminClient.View
@@ -27,12 +30,14 @@ namespace SkdAdminClient.View
         private DataTable _dt = new DataTable();
         private LearnStatus _learnStatus = 0;
         public Frame Frame;
-        List<ProgressDetail> progressDetails = new List<ProgressDetail>();
-        public PageProgressDetail( Frame frame)
-        {
+        public PageMainNew PageMainNew;
+        List<BindProgressDetail> progressDetails = new List<BindProgressDetail>();
+        public string CurrentCourseName;
+        public PageCourseCount ParentPage;
 
+        public PageProgressDetail( )
+        {
             InitializeComponent();
-            Frame = frame;
             TxtBeginDate.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
             TxtEndDate.Text= DateTime.Now.ToString("yyyy-MM-dd");
             TxtBeginFinishDate.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
@@ -68,7 +73,7 @@ namespace SkdAdminClient.View
                 progressDetails.Clear();
                 foreach (DataRow row in _dt.Rows)
                 {
-                    ProgressDetail l = new ProgressDetail();
+                    BindProgressDetail l = new BindProgressDetail();
                     l.Vender = row["OrganizationName"].ToString();
                     l.UserAccount = row["userAccount"].ToString();
                     l.UserName = row["userName"].ToString();
@@ -86,13 +91,20 @@ namespace SkdAdminClient.View
                     if (row["TrainningRecord"].ToString().Trim() != "")
                     {
                         l.HaveTrainningRecord = true;
-                        l.TrainningRecord = "\r\n" + row["TrainningRecord"].ToString().Replace("|", "\r\n");
+                        l.TrainningRecord = "\r\n";
+                        foreach (string str in row["TrainningRecord"].ToString().Split(new [] {'|'}, RemoveEmptyEntries)) 
+                        {
+                            l.TrainningRecord += (str.Split(':')[1]+"分").PadRight(5) + "["+str.Split(':')[0]+"]\r\n";
+                        }
+                        l.SysIdList = row["TrainningSysId"].ToString().Split(new[] {'|'},RemoveEmptyEntries).ToList();
                     }
+                    
                     l.Status = l.Scheduel == "100%" ? "已完成" : "未完成";
                     progressDetails.Add(l);
                 }
                 DgvProgressDetail.ItemsSource = null;
-                DgvProgressDetail.ItemsSource = progressDetails;
+       
+                DgvProgressDetail.ItemsSource = progressDetails.OrderByDescending(x=>x.BeginDate);
                 XMessageBox.ShowDialog("查询已完成！", "提示");
             }
             catch (Exception err)
@@ -143,6 +155,7 @@ namespace SkdAdminClient.View
    
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            TbTitle.Text = Name;
             Status.ItemsSource = new List<string> {"全部", "已完成", "未完成"};
             Status.SelectedIndex = 0;
             SkdServiceSoapClient skdServiceSoapClient = new SkdServiceSoapClient();
@@ -151,14 +164,43 @@ namespace SkdAdminClient.View
             List<string> orgList = skdServiceSoapClient.GetOrgList().ToList();
             orgList.Insert(0, "");
             CbxVender.ItemsSource = orgList;
+
+            if (GolableData.PrivilegeLevel <=Privilege.VenderAdmin)
+            {
+                CbxVender.Text = GolableData.Vender;
+                CbxVender.IsEnabled = false;
+            }
+            if (GolableData.PrivilegeLevel < Privilege.VenderAdmin)
+            {
+                TxtUserName.Text = GolableData.UserName;
+                TxtUserName.IsEnabled = false;
+                TxtUserAccount.Text = GolableData.UserAccount;
+                TxtUserAccount.IsEnabled = false;
+            }
+            if (ParentPage != null)
+            {
+                BtnBack.Visibility = Visibility.Visible;
+                CboCourseName.Text = CurrentCourseName;
+                BtnQuery_Click(null,null);
+            }
         }
 
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-            TxtUserName.Text = "";
-            CbxVender.Text = "";
-            TxtUserAccount.Text = "";
+            if (GolableData.PrivilegeLevel >Privilege.VenderAdmin)
+            {
+                CbxVender.Text = "";
+                CbxVender.IsEnabled = true;
+            }
+            if (GolableData.PrivilegeLevel > Privilege.Student)
+            {
+                TxtUserName.Text = "";
+                TxtUserName.IsEnabled = true;
+                TxtUserAccount.Text = "";
+                TxtUserAccount.IsEnabled = true;
+            }
+
             CboCourseName.Text = "";
             CboCourseName.SelectedIndex = -1;
             TxtBeginDate.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
@@ -183,9 +225,11 @@ namespace SkdAdminClient.View
 
         private void ButtonCourseStudyDetail_Click(object sender, RoutedEventArgs e)
         {
-            View.PageCourseStudyDetail childPage = new View.PageCourseStudyDetail(Frame);
+            View.PageCourseStudyDetail childPage = new View.PageCourseStudyDetail();
+            childPage.Frame = Frame;
             childPage.ParentPage = this;
-            ProgressDetail p = DgvProgressDetail.SelectedItem as ProgressDetail;
+            childPage.PageMainNew = PageMainNew;
+            BindProgressDetail p = DgvProgressDetail.SelectedItem as BindProgressDetail;
             if (p != null)
             {
                 childPage.CurrentProgressDetail = p;
@@ -195,9 +239,26 @@ namespace SkdAdminClient.View
 
         private void ButtonTrainningRecord_Click(object sender, RoutedEventArgs e)
         {
-            PageTrainningRecord childPage = new PageTrainningRecord(Frame);
+            PageTrainningRecord childPage = new PageTrainningRecord();
+            childPage.Frame = Frame;
             childPage.ParentPage = this;
-            ProgressDetail p = DgvProgressDetail.SelectedItem as ProgressDetail;
+            childPage.PageMainNew = PageMainNew;
+            BindProgressDetail p = DgvProgressDetail.SelectedItem as BindProgressDetail;
+            if (p != null)
+            {
+                childPage.CurrentProgressDetail = p;
+
+            }
+            Frame.Content = childPage;
+        }
+
+        private void ButtonTest_Click(object sender, RoutedEventArgs e)
+        {
+            PageTestCount childPage = new PageTestCount();
+            childPage.Frame = Frame;
+            childPage.ParentPage = this;
+            childPage.PageMainNew = PageMainNew;
+            BindProgressDetail p = DgvProgressDetail.SelectedItem as BindProgressDetail;
             if (p != null)
             {
                 childPage.CurrentProgressDetail = p;
@@ -205,9 +266,14 @@ namespace SkdAdminClient.View
             Frame.Content = childPage;
         }
 
-        private void ButtonTest_Click(object sender, RoutedEventArgs e)
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
+            Frame.Content = ParentPage;
+        }
 
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Content = PageMainNew;
         }
     }
 }

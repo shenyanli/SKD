@@ -5,9 +5,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using SkdAdminClient.Moudle;
+
 using SkdAdminClient.SkdWebService;
 using SkdAdminClient.Tool;
+using SkdAdminModel;
 
 namespace SkdAdminClient.View
 {
@@ -18,12 +19,12 @@ namespace SkdAdminClient.View
     public partial class PageLoginTotal : Page
     {
         public Frame Frame;
+        public PageMainNew PageMainNew;
         private DataTable _dt = new DataTable();
-        List<LoginTotal> loginTotals = new List<LoginTotal>();
-        public PageLoginTotal( Frame frame)
+        List<BindLoginTotal> loginTotals = new List<BindLoginTotal>();
+        public PageLoginTotal()
         {
             InitializeComponent();
-            Frame = frame;
             TxtBeginDate.Text = DateTime.Now.AddDays(-3).ToString("yyyy-MM-dd");
             TxtEndDate.Text= DateTime.Now.ToString("yyyy-MM-dd");
         }
@@ -48,7 +49,7 @@ namespace SkdAdminClient.View
             loginTotals.Clear();
             foreach (DataRow row in _dt.Rows)
             {
-                LoginTotal l = new LoginTotal();
+                BindLoginTotal l = new BindLoginTotal();
                 l.Vender = row["OrganizationName"].ToString();
                 l.UserAccount= row["userAccount"].ToString();
                 l.UserName= row["userName"].ToString();
@@ -66,27 +67,51 @@ namespace SkdAdminClient.View
                 loginTotals.Add(l);
             }
             DgvLoginTotal.ItemsSource = null;
-            DgvLoginTotal.ItemsSource = loginTotals;
+            DgvLoginTotal.ItemsSource = loginTotals.OrderByDescending(x=>x.LastLoginDate);
             XMessageBox.ShowDialog("查询已完成！", "提示");
         }
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-            TxtUserName.Text = "";
-            CbxVender.Text = "";
-            TxtUserAccount.Text = "";
+
             TxtBeginDate.Text = DateTime.Now.AddDays(-3).ToString("yyyy-MM-dd");
             TxtEndDate.Text =DateTime.Now.ToString("yyyy-MM-dd");
             ChkTime.IsChecked = false;
             DgvLoginTotal.ItemsSource = null;
+            if (GolableData.PrivilegeLevel > Privilege.VenderAdmin)
+            {
+                CbxVender.Text = "";
+                CbxVender.IsEnabled = true;
+            }
+            if (GolableData.PrivilegeLevel > Privilege.Student)
+            {
+                TxtUserName.Text = "";
+                TxtUserName.IsEnabled = true;
+                TxtUserAccount.Text = "";
+                TxtUserAccount.IsEnabled = true;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            TbTitle.Text = Name;
             SkdServiceSoapClient skdServiceSoapClient = new SkdServiceSoapClient();
             List<string> orgList = skdServiceSoapClient.GetOrgList().ToList();
             orgList.Insert(0, "");
             CbxVender.ItemsSource = orgList;
+            if (GolableData.PrivilegeLevel <= Privilege.VenderAdmin)
+            {
+                CbxVender.Text = GolableData.Vender;
+                CbxVender.IsEnabled = false;
+            }
+            if (GolableData.PrivilegeLevel < Privilege.VenderAdmin)
+            {
+                TxtUserName.Text = GolableData.UserName;
+                TxtUserName.IsEnabled = false;
+                TxtUserAccount.Text = GolableData.UserAccount;
+                TxtUserAccount.IsEnabled = false;
+  
+            }
         }
 
         private void BtnExport_Click(object sender, RoutedEventArgs e)
@@ -119,5 +144,26 @@ namespace SkdAdminClient.View
             }
             XMessageBox.ShowDialog("导出成功！", "提示");
         }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Content = PageMainNew;
+        }
+
+        private void ButtonHistory_Click(object sender, RoutedEventArgs e)
+        {
+            PageLoginDetail childPage = new PageLoginDetail();
+            childPage.Frame = Frame;
+            childPage.ParentPage = this;
+            childPage.PageMainNew = PageMainNew;
+            BindLoginTotal blt = DgvLoginTotal.SelectedItem as BindLoginTotal;
+            if (blt != null)
+            {
+                childPage.LoginTotal = blt;
+            }
+            Frame.Content = childPage;
+        }
+
+
     }
 }

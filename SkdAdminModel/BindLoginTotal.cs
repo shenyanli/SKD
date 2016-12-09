@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace SkdAdminClient.Moudle
+﻿namespace SkdAdminModel
 {
-  public  class LoginTotal
+  public  class BindLoginTotal
   {
       private string _vender;
       private string _userName;
@@ -16,6 +11,8 @@ namespace SkdAdminClient.Moudle
       private string _lastLogoutDate;
       private string _status;
 
+
+        [Remark("经销商")]
         public string Vender
         {
             get
@@ -29,6 +26,7 @@ namespace SkdAdminClient.Moudle
             }
         }
 
+        [Remark("用户名称")]
         public string UserName
         {
             get
@@ -41,7 +39,7 @@ namespace SkdAdminClient.Moudle
                 _userName = value;
             }
         }
-
+        [Remark("用户帐号")]
         public string UserAccount
         {
             get
@@ -54,7 +52,7 @@ namespace SkdAdminClient.Moudle
                 _userAccount = value;
             }
         }
-
+        [Remark("登录总次数")]
         public double LoginCounts
         {
             get
@@ -67,7 +65,7 @@ namespace SkdAdminClient.Moudle
                 _totalCounts = value;
             }
         }
-
+        [Remark("登录总时长")]
         public string TotalMinutes
         {
             get
@@ -80,7 +78,7 @@ namespace SkdAdminClient.Moudle
                 _totalMinutes = value;
             }
         }
-
+        [Remark("上次登入时间")]
         public string LastLoginDate
         {
             get
@@ -93,7 +91,7 @@ namespace SkdAdminClient.Moudle
                 _lastLoginDate = value;
             }
         }
-
+        [Remark("上次登出时间")]
         public string LastLogoutDate
         {
             get
@@ -106,7 +104,7 @@ namespace SkdAdminClient.Moudle
                 _lastLogoutDate = value;
             }
         }
-
+        [Remark("状态")]
         public string Status
         {
             get

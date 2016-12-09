@@ -5,9 +5,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using SkdAdminClient.Moudle;
 using SkdAdminClient.SkdWebService;
 using SkdAdminClient.Tool;
+using SkdAdminModel;
 
 namespace SkdAdminClient.View
 {
@@ -18,21 +18,21 @@ namespace SkdAdminClient.View
     public partial class PageCourseStudyDetail : Page
     {
         public Frame Frame;
+        public PageMainNew PageMainNew;
         private DataTable _dt = new DataTable();
         public PageProgressDetail ParentPage;
-        public ProgressDetail CurrentProgressDetail;
+        public BindProgressDetail CurrentProgressDetail;
         private List<CourseStudyDetail> courseStudyDetails = new List<CourseStudyDetail>();
-        public PageCourseStudyDetail( Frame frame)
+        public PageCourseStudyDetail()
         {
             InitializeComponent();
-            Frame = frame;
             TxtBeginDate.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
             TxtEndDate.Text= DateTime.Now.ToString("yyyy-MM-dd");
         }
 
         private void BtnQuery_Click(object sender, RoutedEventArgs e)
         {
-            string vender = "";
+            string vender = CbxVender.Text.Trim();
             string userAccount = TxtUserAccount.Text.Trim().ToLower();
             string userName = TxtUserName.Text.Trim();
             string courseName = CbxCourseName.Text.Trim();
@@ -52,8 +52,21 @@ namespace SkdAdminClient.View
             foreach (DataRow row in _dt.Rows)
             {
                 CourseStudyDetail c = CourseStudyDetail.XmlToCourseStudyDetail(row["xmlInfo"].ToString());
+                if (c.Chapters.Trim() != "")
+                {
+                    if (c.Chapters.Contains("100%"))
+                    {
+                        c.Chapters = c.Chapters.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Distinct().Count() * 5 + 5 * 2 + "%";
+                    }
+                    else
+                    {
+                        c.Chapters = c.Chapters.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Distinct().Count() * 5 + "%";
+                    }
+                }
+
                 c.UserName = row["userName"].ToString();
                 c.Description = c.Description.Replace(",", "\r\n");
+                c.Vender = row["OrganizationName"].ToString();
                 int hour = (int)Convert.ToDouble(c.Minutes) / 60;
                 int minute = (int)Convert.ToDouble(c.Minutes) % 60;
                 c.Minutes = hour.ToString("00") + ":" + minute.ToString("00") + ":00";
@@ -66,9 +79,19 @@ namespace SkdAdminClient.View
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-            TxtUserName.Text = "";
+            if (GolableData.PrivilegeLevel > Privilege.VenderAdmin)
+            {
+                CbxVender.Text = "";
+                CbxVender.IsEnabled = true;
+            }
+            if (GolableData.PrivilegeLevel > Privilege.Student)
+            {
+                TxtUserName.Text = "";
+                TxtUserName.IsEnabled = true;
+                TxtUserAccount.Text = "";
+                TxtUserAccount.IsEnabled = true;
+            }
             CbxCourseName.Text = "";
-            TxtUserAccount.Text = "";
             TxtBeginDate.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
             TxtEndDate.Text =DateTime.Now.ToString("yyyy-MM-dd");
             ChkTime.IsChecked = false;
@@ -82,24 +105,39 @@ namespace SkdAdminClient.View
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            TbTitle.Text = Name;
+            SkdServiceSoapClient skdServiceSoapClient = new SkdServiceSoapClient();
+            List<string> orgList = skdServiceSoapClient.GetOrgList().ToList();
+            List<string> courseNames = skdServiceSoapClient.GetCourseName().ToList();
+            CbxCourseName.ItemsSource = courseNames;
+            orgList.Insert(0, "");
+            CbxVender.ItemsSource = orgList;
+     
+            if (GolableData.PrivilegeLevel <= Privilege.VenderAdmin)
+            {
+                CbxVender.Text = GolableData.Vender;
+                CbxVender.IsEnabled = false;
+            }
+            if (GolableData.PrivilegeLevel < Privilege.VenderAdmin)
+            {
+                TxtUserName.Text = GolableData.UserName;
+                TxtUserName.IsEnabled = false;
+                TxtUserAccount.Text = GolableData.UserAccount;
+                TxtUserAccount.IsEnabled = false;
+            }
             if (CurrentProgressDetail != null)//说明是从学习页面进来的
             {
                 TxtUserAccount.Text = CurrentProgressDetail.UserAccount;
                 TxtUserAccount.IsEnabled = false;
                 TxtUserName.Text = CurrentProgressDetail.UserName;
                 TxtUserName.IsEnabled = false;
-                //TxtVender.Text = CurrentProgressDetail.Vender;
-                //TxtVender.IsEnabled = false;
                 CbxCourseName.Text = CurrentProgressDetail.CourseName;
                 CbxCourseName.IsEnabled = false;
                 BtnBack.Visibility = Visibility.Visible;
                 BtnClear.Visibility = Visibility.Hidden;
-                BtnQuery_Click(null,null);
-                BtnClear.IsEnabled = false;
+                BtnQuery_Click(null, null);
+             
             }
-            SkdServiceSoapClient skdServiceSoapClient = new SkdServiceSoapClient();
-            List<string> courseNames = skdServiceSoapClient.GetCourseName().ToList();
-            CbxCourseName.ItemsSource = courseNames;
         }
 
         private void BtnExport_Click(object sender, RoutedEventArgs e)
@@ -135,6 +173,11 @@ namespace SkdAdminClient.View
             }
          
             XMessageBox.ShowDialog("导出成功！", "提示");
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Content = PageMainNew;
         }
     }
 }

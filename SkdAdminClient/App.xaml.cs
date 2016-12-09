@@ -14,6 +14,8 @@ using Application = System.Windows.Application;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using SkdAdminClient.SkdWebService;
+using SkdAdminClient.View;
 
 
 namespace SkdAdminClient
@@ -40,7 +42,6 @@ namespace SkdAdminClient
             }
 
             #endregion
-
 
             #region 检测更新
 
@@ -70,6 +71,9 @@ namespace SkdAdminClient
                 MessageBox.Show(String.Format("升级过程中发生错误\n\n{0}", exp.Message), "自动升级", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             #endregion
+
+  
+
             InitializeComponent();
         }
 

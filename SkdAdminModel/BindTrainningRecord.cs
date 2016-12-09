@@ -1,6 +1,14 @@
-﻿namespace SkdAdminClient.Moudle
+﻿using System.Collections.Generic;
+using System.Text;
+using System.Xml.Serialization;
+
+namespace SkdAdminModel
 {
-    public class TrainningRecord
+
+    #region marked
+
+    [XmlRoot(ElementName = "TrainingRecord")]
+    public class BindTrainningRecord
     {
         private string _userName = "";
         private string _userAccount = "";
@@ -9,7 +17,11 @@
         private double _score = 0;
         private string _totalMinutes = "";
         private string _detail = "";
+        private string _vender = "";
+        private string _id = "";
 
+        [Remark("用户名称")]
+        [XmlAttribute(AttributeName = "Name")]
         public string UserName
         {
             get
@@ -23,6 +35,7 @@
             }
         }
 
+        [Remark("用户账户")]
         public string UserAccount
         {
             get
@@ -35,7 +48,7 @@
                 _userAccount = value;
             }
         }
-
+        [Remark("课程名称")]
         public string CourseName
         {
             get
@@ -48,7 +61,7 @@
                 _courseName = value;
             }
         }
-
+        [Remark("虚拟实训名称")]
         public string TrainningRecordName
         {
             get
@@ -61,7 +74,7 @@
                 _trainningRecordName = value;
             }
         }
-
+        [Remark("得分")]
         public double Score
         {
             get
@@ -74,7 +87,7 @@
                 _score = value;
             }
         }
-
+        [Remark("操作时长")]
         public string TotalMinutes
         {
             get
@@ -87,7 +100,7 @@
                 _totalMinutes = value;
             }
         }
-
+        [Remark("操作信息")]
         public string Detail
         {
             get
@@ -100,5 +113,41 @@
                 _detail = value;
             }
         }
+
+        [Remark("经销商")]
+        [XmlIgnore]
+        public string Vender
+        {
+            get
+            {
+                return _vender;
+            }
+
+            set
+            {
+                _vender = value;
+            }
+        }
+
+
+        [Remark("Record", false)]
+        [XmlElement(ElementName = "Record")]
+        public List<Record> RecordList = new List<Record>();
+
+        public string TrainingRecordToXml()
+        {
+            return XmlHelper.ObjectToXml(typeof(BindTrainningRecord), this);
+        }
+
+        public static BindTrainningRecord XmlToTrainingRecord(string xmlStr)
+        {
+            Encoding encoding = Encoding.GetEncoding("utf-8");
+            BindTrainningRecord trainingRecord = XmlHelper.XmlToObject<BindTrainningRecord>(xmlStr, encoding);
+            return trainingRecord;
+        }
     }
+
+    #endregion
+
+
 }

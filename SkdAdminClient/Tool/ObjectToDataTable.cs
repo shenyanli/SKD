@@ -4,6 +4,8 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using SkdAdminModel;
+
 
 namespace SkdAdminClient.Tool
 {
@@ -18,7 +20,11 @@ namespace SkdAdminClient.Tool
             foreach (PropertyInfo prop in props)
             {
                 Type t = GetCoreType(prop.PropertyType);
-                dt.Columns.Add(prop.Name, t);
+                object[] attrs = prop.GetCustomAttributes(typeof(RemarkAttribute), false);         
+                foreach (RemarkAttribute attr in attrs)
+                {
+                   dt.Columns.Add(attr.Remark,t) ;
+                }
             }
 
             foreach (T item in items)
