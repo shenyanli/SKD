@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-
+using System.Windows.Input;
 using SkdAdminClient.SkdWebService;
 using SkdAdminClient.Tool;
 using SkdAdminModel;
@@ -15,7 +16,7 @@ namespace SkdAdminClient.View
     /// <summary>
     /// PageLogin.xaml 的交互逻辑
     /// </summary>
-    public partial class PageLoginDetail : Page
+    public partial class PageLoginHis : Page
     {
         public BindLoginTotal LoginTotal;
         public PageLoginTotal ParentPage;
@@ -23,7 +24,8 @@ namespace SkdAdminClient.View
         public Frame Frame ;
         public PageMainNew PageMainNew;
         List<BindLoginDetail> loginDetails = new List<BindLoginDetail>();// new List<LoginDetail>();
-        public PageLoginDetail( )
+        private bool _showMsgBox = true;
+        public PageLoginHis( )
         {
             InitializeComponent();
             TxtBeginDate.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
@@ -32,7 +34,13 @@ namespace SkdAdminClient.View
 
         private void BtnQuery_Click(object sender, RoutedEventArgs e)
         {
+            BtnQuery.Content = "检索中...";
             string vender = CbxVender.Text.Trim() ;
+            if (GlobalData.PrivilegeLevel == Privilege.AreaAdmin)
+            {
+                if (vender.Trim() == "")
+                    vender = string.Join("','", GlobalData.Venders);
+            }
             string userAccount = TxtUserAccount.Text.Trim().ToLower();
             string userName = TxtUserName.Text.Trim();
             string loginDateBegin ="";
@@ -64,7 +72,12 @@ namespace SkdAdminClient.View
             }
             DgvLoginTotal.ItemsSource = null;
             DgvLoginTotal.ItemsSource = loginDetails.OrderByDescending(x=>x.LoginDate);
-            XMessageBox.ShowDialog("查询已完成！", "提示");
+            BtnQuery.Content = "检索";
+            if (_showMsgBox)
+            {
+                Expander.IsExpanded = false;
+                XMessageBox.ShowDialog("查询到相关数据" + loginDetails.Count + "笔", "提示");
+            }
         }
 
         private void BtnExport_Click(object sender, RoutedEventArgs e)
@@ -103,23 +116,27 @@ namespace SkdAdminClient.View
         {
             TbTitle.Text = Name;
             SkdServiceSoapClient skdServiceSoapClient = new SkdServiceSoapClient();
-            List<string> orgList = skdServiceSoapClient.GetOrgList().ToList();
-            orgList.Insert(0, "");
-            CbxVender.ItemsSource = orgList;
-            if (GolableData.PrivilegeLevel < Privilege.VenderAdmin)
+            switch (GlobalData.PrivilegeLevel)
             {
-                CbxVender.Text = GolableData.Vender;
-                CbxVender.IsEnabled = false;
-                TxtUserName.Text = GolableData.UserName;
-                TxtUserName.IsEnabled = false;
-                TxtUserAccount.Text = GolableData.UserAccount;
-                TxtUserAccount.IsEnabled = false;
-
-            }
-            if (GolableData.PrivilegeLevel == Privilege.VenderAdmin)
-            {
-                CbxVender.Text = GolableData.Vender;
-                CbxVender.IsEnabled = false;
+                case Privilege.SuperAdmin:
+                    List<string> orgList = new List<string>();//2017-01-04skdServiceSoapClient.GetOrgList().ToList();
+                    CbxVender.ItemsSource = orgList;
+                    break;
+                case Privilege.AreaAdmin:
+                    CbxVender.ItemsSource = GlobalData.Venders;
+                    break;
+                case Privilege.VenderAdmin:
+                    CbxVender.Text = GlobalData.Vender;
+                    CbxVender.IsEnabled = false;
+                    break;
+                case Privilege.Student:
+                    CbxVender.Text = GlobalData.Vender;
+                    CbxVender.IsEnabled = false;
+                    TxtUserName.Text = GlobalData.UserName;
+                    TxtUserName.IsEnabled = false;
+                    TxtUserAccount.Text = GlobalData.UserAccount;
+                    TxtUserAccount.IsEnabled = false;
+                    break;
             }
             if (LoginTotal != null)
             {
@@ -127,10 +144,12 @@ namespace SkdAdminClient.View
                 TxtUserAccount.Text = LoginTotal.UserAccount;
                 TxtUserName.IsEnabled = false;
                 TxtUserAccount.IsEnabled = false;
-                BtnBack.Visibility = Visibility.Visible;
-                BtnClear.Visibility = Visibility.Hidden;
-                BtnQuery_Click(null,null);
+                BtnBack.IsEnabled = true;
+                BtnClear.IsEnabled = false;
             }
+            _showMsgBox = false;
+            BtnQuery_Click(null, null);
+            _showMsgBox = true;
         }
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
@@ -140,12 +159,12 @@ namespace SkdAdminClient.View
             TxtBeginDate.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
             TxtEndDate.Text= DateTime.Now.ToString("yyyy-MM-dd");
             DgvLoginTotal.ItemsSource = null;
-            if (GolableData.PrivilegeLevel > Privilege.VenderAdmin)
+            if (GlobalData.PrivilegeLevel > Privilege.VenderAdmin)
             {
                 CbxVender.Text = "";
                 CbxVender.IsEnabled = true;
             }
-            if (GolableData.PrivilegeLevel > Privilege.Student)
+            if (GlobalData.PrivilegeLevel > Privilege.Student)
             {
                 TxtUserName.Text = "";
                 TxtUserName.IsEnabled = true;
@@ -161,7 +180,29 @@ namespace SkdAdminClient.View
 
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
+            ParentPage.DetailBackToTotal = true;
             Frame.Content = ParentPage;
+        }
+
+        private void DgvLoginTotal_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.C)
+            {
+                BindLoginDetail cell = (DgvLoginTotal.CurrentCell.Item) as BindLoginDetail;
+                PropertyInfo[] props = typeof(BindLoginDetail).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                string str = DgvLoginTotal.CurrentCell.Column.SortMemberPath;
+                if (str == "") return;
+                foreach (PropertyInfo prop in props)
+                {
+                    string propName = prop.Name;
+                    object valueObg = prop.GetValue(cell, null);
+                    if (propName == str)
+                    {
+                        System.Windows.Forms.Clipboard.SetText(valueObg.ToString());
+                        break;
+                    }
+                }
+            }
         }
     }
 }

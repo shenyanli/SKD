@@ -43,14 +43,57 @@ namespace SkdAdminModel
 
     public class BindCourseCount
     {
+        private string _venderCode;
+        private string _vender;
+        private string _rbo;
         private string _courseName;
         private string _totalMinutes;
         private double _totalStamps;
         private double _totalPersons;
         private double _finishPersons;
         private string _percent;
-        private string _vender;
         private double _planPersons;
+        private int _venderTotalCounts = 0;
+        private int _venderBeginCounts = 0;
+        private int _venderFinishCounts = 0;
+        private string _venderPercent;
+        private string _releaseDate = "";
+
+   
+        [Remark("售后代码")]
+        public string VenderCode
+        {
+            get
+            {
+                return _venderCode;
+            }
+
+            set
+            {
+                _venderCode = value;
+            }
+        }
+
+        [Remark("经销商")]
+        public string Vender
+        {
+            get { return _vender; }
+
+            set { _vender = value; }
+        }
+        [Remark("RBO")]
+        public string Rbo
+        {
+            get
+            {
+                return _rbo;
+            }
+
+            set
+            {
+                _rbo = value;
+            }
+        }
 
         [Remark("课程名称")]
         public string CourseName
@@ -76,7 +119,7 @@ namespace SkdAdminModel
             set { _totalStamps = value; }
         }
 
-        [Remark("已学习人数")]
+        [Remark("已学习账号数")]
         public double TotalPersons
         {
             get { return _totalPersons; }
@@ -84,7 +127,7 @@ namespace SkdAdminModel
             set { _totalPersons = value; }
         }
 
-        [Remark("完成百分比")]
+        [Remark("完成百分比",false)]//2018-11-08 不导出
         public string Percent
         {
             get { return _percent; }
@@ -92,27 +135,65 @@ namespace SkdAdminModel
             set { _percent = value; }
         }
 
-        [Remark("经销商")]
-        public string Vender
-        {
-            get { return _vender; }
 
-            set { _vender = value; }
-        }
-
-        [Remark("已完成人数")]
+        [Remark("已完成账号数")]
         public double FinishPersons
         {
             get { return _finishPersons; }
 
             set { _finishPersons = value; }
         }
-        [Remark("应学习人数")]
+        [Remark("应学习人数",false)]//2018-11-08 不导出
         public double PlanPersons
         {
             get { return _planPersons; }
 
             set { _planPersons = value; }
+        }
+ 
+
+        [Remark("经销商总数",false)]//2018-11-08 不导出
+        public int VenderTotalCounts
+        {
+            get { return _venderTotalCounts; }
+
+            set { _venderTotalCounts = value; }
+        }
+        //[Remark("已开始经销商数量")] 2018-11-08
+        [Remark("已学习经销商数量")]
+        public int VenderBeginCounts
+        {
+            get { return _venderBeginCounts; }
+
+            set { _venderBeginCounts = value; }
+        }
+        [Remark("已完成经销商数量",false)]//2018-11-08 不导出
+        public int VenderFinishCounts
+        {
+            get { return _venderFinishCounts; }
+
+            set { _venderFinishCounts = value; }
+        }
+
+        [Remark("已学习经销商占比",false)]//2018-11-08 不导出
+        public string VenderPercent
+        {
+            get { return _venderPercent; }
+            set { _venderPercent = value; }
+        }
+
+        [Remark("课件发布日期")]//2018-11-08 显示课件发布日期
+        public string ReleaseDate
+        {
+            get
+            {
+                return _releaseDate;
+            }
+
+            set
+            {
+                _releaseDate = value;
+            }
         }
     }
 }

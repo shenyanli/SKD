@@ -47,13 +47,14 @@ namespace SkdAdminClient.View
         private void TxtPwd_KeyDown(object sender, KeyEventArgs e)
         {
             if (TxtPwd.Password.Trim()=="") return;
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            if (e.Key == Key.Tab )
                 BtnLogin.Focus();
+            if (e.Key == Key.Enter)
+                BtnLogin_Click(null, null);
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-
             string userAccount =TxtUserName.Text.Trim().ToLower();
             string pwd = TxtPwd.Password.Trim();
             if (userAccount == "" || pwd == "") return;
@@ -66,18 +67,25 @@ namespace SkdAdminClient.View
             }
             string userPrivelegeInfo = skdServiceSoapClient.GetPrivelegeInfo(userAccount);
             List<string> info = userPrivelegeInfo.Split('|').ToList();
-            GolableData.UserAccount = userAccount;
-            GolableData.UserName = info[0];
-            GolableData.PrivilegeLevel =(Privilege)Convert.ToInt32(info[1]==""?"5":info[1]);
-            if (GolableData.PrivilegeLevel == Privilege.VenderAdmin)//经销商管理员
+            GlobalData.UserAccount = userAccount;
+            GlobalData.UserName = info[0];
+            GlobalData.PrivilegeLevel =(Privilege)Convert.ToInt32(info[1]);//权限等级
+            if (GlobalData.PrivilegeLevel == Privilege.AreaAdmin)//区域管理员
             {
-                GolableData.Venders = skdServiceSoapClient.GetVenders(GolableData.Vender).ToList();
+                //74300001_上海景格科技
+                GlobalData.Venders = skdServiceSoapClient.GetVenders(GlobalData.UserAccount).ToList();
+                GlobalData.RboList = skdServiceSoapClient.GetRbos(GlobalData.UserAccount).ToList();
             }
-            GolableData.Vender = info[2];
-            //View.MainWindow main = new View.MainWindow();
-            View.WindowMain main = new View.WindowMain();
+            if (GlobalData.PrivilegeLevel == Privilege.SuperAdmin)//超级管理员
+            {
+                GlobalData.Venders = skdServiceSoapClient.GetOrgIdAndNameList().ToList();
+                GlobalData.RboList = skdServiceSoapClient.GetRbos("").ToList();
+            }
+         
+            GlobalData.Area = info[2];//区域
+            WindowMain main = new WindowMain();
             main.Show();
-            this.Hide();
+            Hide();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

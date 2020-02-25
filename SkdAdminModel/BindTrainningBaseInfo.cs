@@ -3,6 +3,7 @@
    public class BindTrainningBaseInfo
    {
        private double _totalPersons = 0;
+       private double _planPersons = 0;
        private double _rightPersons = 0;
        private string _vender = "";
        string _courseName = "";
@@ -11,7 +12,7 @@
        private string _content = "";
        private string _percent ="";
 
-        [Remark("经销商")]
+        [Remark("经销商",false)]
         public string Vender
         {
             get
@@ -78,7 +79,7 @@
                 _content = value;
             }
         }
-        [Remark("总操作人数")]
+        [Remark("已操作人数")]
         public double TotalPersons
         {
             get
@@ -89,6 +90,19 @@
             set
             {
                 _totalPersons = value;
+            }
+        }
+        [Remark("应操作人数")]
+        public double PlanPersons
+        {
+            get
+            {
+                return _planPersons;
+            }
+
+            set
+            {
+                _planPersons = value;
             }
         }
         [Remark("操作正确人数")]

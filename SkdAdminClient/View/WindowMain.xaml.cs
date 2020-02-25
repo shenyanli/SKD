@@ -12,9 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using KnightsWarriorAutoupdater;
 using SkdAdminClient.SkdWebService;
 using MahApps.Metro;
 using SkdAdminModel;
+using Path = System.IO.Path;
 
 namespace SkdAdminClient.View
 {
@@ -35,9 +37,9 @@ namespace SkdAdminClient.View
         {
             pageMainNew.WindowMain = this;
             AddPage.Content = pageMainNew;
-            LblUserAccount.Content = GolableData.UserName + " 欢迎您！ ";
+            LblUserAccount.Content = GlobalData.UserName + " 欢迎您！ ";
             string privilege;
-            switch (GolableData.PrivilegeLevel)
+            switch (GlobalData.PrivilegeLevel)
             {
                 case Privilege.SuperAdmin:
                     privilege = "超级管理员";
@@ -45,17 +47,15 @@ namespace SkdAdminClient.View
                 case Privilege.AreaAdmin:
                     privilege = "区域管理员";
                     break;
-                case Privilege.VenderAdmin:
-                    privilege = "经销商管理员";
-                    break;
                 default:
                     privilege = "学员";
                     break;
             }
-            LblPrivelege.Content = privilege;
-            LblVender.Content = GolableData.Vender;
-            LblTime.Content = (new SkdServiceSoapClient()).GetTime();
-            LblVersion.Content = ConfigurationManager.AppSettings["Version"];
+            LblPrivelege.Content ="权限："+ privilege;
+            LblArea.Content = "区域："+GlobalData.Area;
+            LblTime.Content =(new SkdServiceSoapClient()).GetTime();
+            Config config = Config.LoadConfig(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ConstFile.FILENAME));
+            LblVersion.Content = config.UpdateFileList[0].LastVer;
         }
 
 

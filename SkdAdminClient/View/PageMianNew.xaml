@@ -16,14 +16,16 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-
-
             <Style x:Key="LargeTileStyle" TargetType="controls:Tile">
-                <Setter Property="Height" Value="125" />
-                <Setter Property="TitleFontSize" Value="14" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="MinWidth" Value="290" />
+                <Setter Property="MinHeight" Value="156" />
+                <Setter Property="TitleFontSize" Value="18" />
+
                 <Setter Property="TextOptions.TextFormattingMode" Value="Display" />
                 <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
-                <Setter Property="Width" Value="290" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
             </Style>
 
 
@@ -115,13 +117,22 @@
             HorizontalScrollBarVisibility="Auto"
             VerticalScrollBarVisibility="Disabled"
             Visibility="Visible">
-            <Grid Background="AliceBlue">
+            <Grid Name="GridTest" Background="AliceBlue">
+                <Grid.ColumnDefinitions>
+
+                    <ColumnDefinition Width="*" />
+
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100" />
-                    <RowDefinition Height="4*" />
+                    <RowDefinition Height="*" />
+
                 </Grid.RowDefinitions>
                 <!--  公司LOGO  -->
-                <Grid x:Name="GridTitle" Grid.Row="0">
+                <Grid
+                    x:Name="GridTitle"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="3">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
@@ -135,37 +146,75 @@
                         VerticalAlignment="Center"
                         FontSize="30"
                         Foreground="ForestGreen"
-                        Text="斯柯达网络电子课件统计平台" />
+                        Text="斯柯达技术培训电子课件统计平台" />
                 </Grid>
-
                 <!--  导航菜单  -->
-                <WrapPanel
-                    Grid.Row="1"
-                    Width="1200"
-                    Height="530"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Stretch">
+                <Grid Grid.Row="1" Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="50" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="5" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="30" />
+                    </Grid.RowDefinitions>
                     <controls:Tile
                         x:Name="ButtonLoginTotal"
                         Title="登录总体信息"
+                        Grid.Row="5"
+                        Grid.Column="1"
                         controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                        Background="PaleVioletRed"
+                        Background="#FFA9C617"
                         Click="ButtonLoginTotal_Click"
+                        FontSize="50"
                         HorizontalTitleAlignment="Center"
-                        Style="{StaticResource LargeTileStyle}">
+                        Style="{StaticResource LargeTileStyle}"
+                        Visibility="Collapsed">
                         <iconPacks:PackIconMaterial
                             Width="40"
                             Height="40"
                             Kind="Account" />
                     </controls:Tile>
                     <controls:Tile
-                        Name="ButtonProgressDetail"
-                        Title="学员进度信息"
+                        Name="BtnCourseAddUp"
+                        Title="TMD统计"
+                        Grid.Row="1"
+                        Grid.Column="1"
                         controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                        Background="BurlyWood"
+                        Background="#FFA9C617"
+                        Click="BtnCourseAddUp_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}"
+                        Visibility="{Binding PageCoursePassRate}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="CallMade" />
+                    </controls:Tile>
+                    <controls:Tile
+                        Name="ButtonProgressDetail"
+                        Title="账户学习统计"
+                        Grid.Row="1"
+                        Grid.Column="3"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="#FFA9C617"
                         Click="ButtonProgressDetail_Click"
                         HorizontalTitleAlignment="Center"
-                        Style="{StaticResource LargeTileStyle}">
+                        Style="{StaticResource LargeTileStyle}"
+                        Visibility="{Binding PageProgressDetail}">
                         <iconPacks:PackIconMaterial
                             Width="40"
                             Height="40"
@@ -174,11 +223,14 @@
                     <controls:Tile
                         Name="BtnTestCount"
                         Title="测试题分析"
+                        Grid.Row="1"
+                        Grid.Column="5"
                         controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                        Background="DimGray"
+                        Background="#FFA9C617"
                         Click="BtnTestCount_Click"
                         HorizontalTitleAlignment="Center"
-                        Style="{StaticResource LargeTileStyle}">
+                        Style="{StaticResource LargeTileStyle}"
+                        Visibility="{Binding PageTestRightRate}">
                         <iconPacks:PackIconMaterial
                             Width="40"
                             Height="40"
@@ -187,38 +239,30 @@
                     <controls:Tile
                         Name="BtnTrainningRecordCount"
                         Title="虚拟实训分析"
+                        Grid.Row="1"
+                        Grid.Column="7"
                         controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                        Background="#D2691E"
+                        Background="#FFA9C617"
                         Click="BtnTrainningRecordCount_Click"
                         HorizontalTitleAlignment="Center"
-                        Style="{StaticResource LargeTileStyle}">
+                        Style="{StaticResource LargeTileStyle}"
+                        Visibility="{Binding PageTrainningRigthRate}">
                         <iconPacks:PackIconMaterial
                             Width="40"
                             Height="40"
                             Kind="ThumbUpOutline" />
                     </controls:Tile>
                     <controls:Tile
-                        Name="BtnCourseAddUp"
-                        Title="课程通过率"
-                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                        Background="#FF842D"
-                        Click="BtnCourseAddUp_Click"
-                        HorizontalTitleAlignment="Center"
-                        Style="{StaticResource LargeTileStyle}">
-                        <iconPacks:PackIconMaterial
-                            Width="40"
-                            Height="40"
-                            Kind="MailRu" />
-                    </controls:Tile>
-
-                    <controls:Tile
                         Name="BtnCourseStudyDetail"
                         Title="学习历史记录"
+                        Grid.Row="3"
+                        Grid.Column="1"
                         controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                        Background="Red"
+                        Background="#FFA9C617"
                         Click="BtnCourseStudyDetail_Click"
                         HorizontalTitleAlignment="Center"
-                        Style="{StaticResource LargeTileStyle}">
+                        Style="{StaticResource LargeTileStyle}"
+                        Visibility="{Binding PageCourseStudyDetailHis}">
                         <iconPacks:PackIconMaterial
                             Width="40"
                             Height="40"
@@ -227,58 +271,53 @@
                     <controls:Tile
                         Name="ButtonTrainningRecord"
                         Title="虚拟实训历史记录"
+                        Grid.Row="3"
+                        Grid.Column="3"
                         controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                        Background="Green"
+                        Background="#FFA9C617"
                         Click="ButtonTrainningRecord_Click"
                         HorizontalTitleAlignment="Center"
-                        Style="{StaticResource LargeTileStyle}">
+                        Style="{StaticResource LargeTileStyle}"
+                        Visibility="{Binding PageTrainningRecordHis}">
                         <iconPacks:PackIconMaterial
                             Width="40"
                             Height="40"
                             Kind="CodeGreaterThanOrEqual" />
                     </controls:Tile>
                     <controls:Tile
-                        Name="ButtonLoginDetail"
-                        Title="登录历史记录"
+                        Name="BtnUpdateData"
+                        Title="数据同步"
+                        Grid.Row="3"
+                        Grid.Column="5"
                         controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                        Background="Sienna"
-                        Click="ButtonLoginDetail_Click"
+                        Background="#FFA9C617"
+                        Click="BtnUpdateData_Click"
                         HorizontalTitleAlignment="Center"
                         Style="{StaticResource LargeTileStyle}">
                         <iconPacks:PackIconMaterial
                             Width="40"
                             Height="40"
-                            Kind="AccountMultiple" />
+                            Kind="CloudUpload" />
                     </controls:Tile>
                     <controls:Tile
-                        Name="BtnVenderCount"
-                        Title="经销商通过率"
+                        x:Name="ButtonTestOrg"
+                        Title="在营业经销商维护"
+                        Grid.Row="3"
+                        Grid.Column="7"
                         controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                        Background="LimeGreen"
+                        Background="#FFA9C617"
+                        Click="BtnTestOrg_Clieck"
                         HorizontalTitleAlignment="Center"
                         Style="{StaticResource LargeTileStyle}">
                         <iconPacks:PackIconMaterial
                             Width="40"
                             Height="40"
-                            Kind="Margin" />
-
+                            Kind="XingBox" />
                     </controls:Tile>
 
-                    <controls:Tile
-                        Name="BtnFeedBack"
-                        Title="课件反馈报表"
-                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
-                        Background="DeepSkyBlue"
-                        Click="BtnFeedBack_Click"
-                        HorizontalTitleAlignment="Center"
-                        Style="{StaticResource LargeTileStyle}">
-                        <iconPacks:PackIconMaterial
-                            Width="40"
-                            Height="40"
-                            Kind="MailRu" />
+                </Grid>
 
-                    </controls:Tile>
-                </WrapPanel>
+
             </Grid>
         </ScrollViewer>
     </Grid>

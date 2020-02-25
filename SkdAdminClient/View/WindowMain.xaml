@@ -7,7 +7,7 @@
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="MwWindowMain"
-    Title="斯柯达网络电子课件统计平台"
+    Title="斯柯达技术培训电子课件统计平台"
     Width="1300"
     Height="730"
     d:DesignHeight="730"
@@ -112,8 +112,8 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80" />
-            <ColumnDefinition Width="141*" />
-            <ColumnDefinition Width="142*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="80" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -170,7 +170,7 @@
                 Grid.Column="3"
                 MinWidth="200"
                 HorizontalContentAlignment="Center">
-                <Label x:Name="LblVender" />
+                <Label x:Name="LblArea" />
             </StatusBarItem>
 
             <StatusBarItem Grid.Column="4" HorizontalContentAlignment="Right">

@@ -6,6 +6,7 @@ using System.Net;
 using System.Web.Script.Serialization;
 using System.Windows;
 using MessageBox = System.Windows.MessageBox;
+using Newtonsoft.Json;
 
 namespace SkdAdminClient.Bll
 {
@@ -151,6 +152,7 @@ namespace SkdAdminClient.Bll
         public string xmlInfo { get; set; }
     }
 
+    [Serializable]
     /// <summary>
     /// 用来接收从LMS平台获取的UserId信息
     /// </summary>
@@ -162,9 +164,7 @@ namespace SkdAdminClient.Bll
 
     }
 
-    /// <summary>
-    /// 用来接收从LMS平台获取的CourseId信息
-    /// </summary>
+    [Serializable]
     public struct CourseIdResult
     {
         public string resultCode;
@@ -172,6 +172,11 @@ namespace SkdAdminClient.Bll
         public string courseId;
     }
 
+    /// <summary>
+    /// 调用LMS平台接口，获取经销商的详细信息
+    /// </summary>
+    //{"Name":"萍乡长运盛达汽车销售有限公司","Type":"经销商","Area":"大中南区","Code":"74312151","Mail":"skoda12151@163.com","UserName":null,"Phone":null}
+    [Serializable]
     public class VenderResult
     {
         private string _resultCode = "";
@@ -183,8 +188,9 @@ namespace SkdAdminClient.Bll
         private string _mail = "";
         private string _connectUserName = "";
         private string _connectPhone = "";
-
-        public string VenderName
+        string _operatingState = "1";//1:在营业 0：不再营业
+  
+        public string Name
         {
             get
             {
@@ -197,7 +203,8 @@ namespace SkdAdminClient.Bll
             }
         }
 
-        public string VenderId
+
+        public string Code
         {
             get
             {
@@ -207,6 +214,248 @@ namespace SkdAdminClient.Bll
             set
             {
                 _venderId = value;
+            }
+        }
+
+        public string resultCode
+        {
+            get
+            {
+                return _resultCode;
+            }
+
+            set
+            {
+                _resultCode = value;
+            }
+        }
+
+        public string resultMsg
+        {
+            get
+            {
+                return _resultMsg;
+            }
+
+            set
+            {
+                _resultMsg = value;
+            }
+        }
+
+        public string Type
+        {
+            get
+            {
+                return _type;
+            }
+
+            set
+            {
+                _type = value;
+            }
+        }
+
+     
+        public string Area
+        {
+            get
+            {
+                if (_area == null)
+                    return "";
+                return _area;
+            }
+
+            set
+            {
+                if (value == null)
+                    _area = "";
+                _area = value;
+            }
+        }
+
+    
+        public string Mail
+        {
+            get
+            {
+                if (_mail == null)
+                    return "";
+                return _mail;
+            }
+
+            set
+            {
+                if (value == null)
+                    _mail = "";
+                _mail = value;
+            }
+        }
+
+      
+        public string UserName
+        {
+            get
+            {
+                if (_connectUserName == null)
+                    return "";
+                 return _connectUserName;
+            }
+
+            set
+            {
+                if (value == null)
+                    _connectUserName = "";
+                _connectUserName = value;
+            }
+        }
+
+      
+        public string Phone
+        {
+            get
+            {
+                if (_connectPhone == null)
+                    return "";
+                return _connectPhone;
+            }
+
+            set
+            {
+                if (value == null)
+                    _connectPhone = "";
+                _connectPhone = value;
+            }
+        }
+        public string OperatingState
+        {
+            get
+            {
+                return _operatingState;
+            }
+
+            set
+            {
+                _operatingState = value;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 调用LMS平台获取学员详细信息接口返回的数据类型
+    /// </summary>
+    [Serializable]
+    public class UserResult
+    {
+        private string _userName = "";
+        private string _userId = "";
+        private string _userAccount = "";
+        private string _mechanismCode = "";
+        private string _userType = "";
+        private string _resultCode = "";
+        private string _resultMsg = "";
+        private string _mechanismName = "";
+        bool _enabled = true;
+        string _cardId = "";
+        string _tel = "";
+        string _email = "";
+
+
+        public string IdCardNumber
+        {
+            get
+            {
+                return _cardId;
+            }
+
+            set
+            {
+                _cardId = value;
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return _email;
+            }
+
+            set
+            {
+                _email = value;
+            }
+        }
+
+        public string Mobile
+        {
+            get
+            {
+                return _tel;
+            }
+
+            set
+            {
+                _tel = value;
+            }
+        }
+
+
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set { value = _enabled; }
+        }
+
+        public string DisplayName
+        {
+            get
+            {
+                return _userName;
+            }
+
+            set
+            {
+                _userName = value;
+            }
+        }
+
+        public string Id
+        {
+            get
+            {
+                return _userId;
+            }
+
+            set
+            {
+                _userId = value;
+            }
+        }
+
+        public string LoginName
+        {
+            get
+            {
+                return _userAccount;
+            }
+
+            set
+            {
+                _userAccount = value;
+            }
+        }
+
+        public string MechanismCode
+        {
+            get
+            {
+                return _mechanismCode;
+            }
+
+            set
+            {
+                _mechanismCode = value;
             }
         }
 
@@ -236,146 +485,65 @@ namespace SkdAdminClient.Bll
             }
         }
 
-        public string Type
+        public string UserType
         {
             get
             {
-                return _type;
+                return _userType;
             }
 
             set
             {
-                _type = value;
+                _userType = value;
             }
         }
 
-        public string Area
+        public string MechanismName
         {
             get
             {
-                return _area;
+                return _mechanismName;
             }
 
             set
             {
-                _area = value;
+                _mechanismName = value;
             }
         }
 
-        public string Mail
-        {
-            get
-            {
-                return _mail;
-            }
 
-            set
-            {
-                _mail = value;
-            }
-        }
-
-        public string ConnectUserName
-        {
-            get
-            {
-                return _connectUserName;
-            }
-
-            set
-            {
-                _connectUserName = value;
-            }
-        }
-
-        public string ConnectPhone
-        {
-            get
-            {
-                return _connectPhone;
-            }
-
-            set
-            {
-                _connectPhone = value;
-            }
-        }
     }
 
-    public class UserResult
+    /// <summary>
+    /// 调用LMS平台获取全部经销商是售后代码信息接口返回的数据类型
+    /// </summary>
+    [Serializable]
+    public class VenderIdResult
     {
-        private string _userName = "";
-        private string _userId = "";
-        private string _userAccount = "";
-        private string _vender = "";
-        private string _privilege = "";
-        private List<string> _courseNameList=new List<string>( );
+        public string resultCode { get; set; }
+
+        public List<string> Mechanisms { get; set; }
+
+    }
+
+    /// <summary>
+    /// 调用LMS平台接口根据经销商售后代码返回该经销商下的用户ID
+    /// </summary>
+    [Serializable]
+    public class UserIdsResult
+    {
+        public string resultCode { get; set; }
+        public List<string> UserId { get; set; }
+    }
 
 
-
-        public string UserName
-        {
-            get
-            {
-                return _userName;
-            }
-
-            set
-            {
-                _userName = value;
-            }
-        }
-
-        public string UserId
-        {
-            get
-            {
-                return _userId;
-            }
-
-            set
-            {
-                _userId = value;
-            }
-        }
-
-        public string UserAccount
-        {
-            get
-            {
-                return _userAccount;
-            }
-
-            set
-            {
-                _userAccount = value;
-            }
-        }
-
-        public string Vender
-        {
-            get
-            {
-                return _vender;
-            }
-
-            set
-            {
-                _vender = value;
-            }
-        }
-
-        public string Privilege
-        {
-            get
-            {
-                return _privilege;
-            }
-
-            set
-            {
-                _privilege = value;
-            }
-        }
+    /// <summary>
+    ///调用LMS平台接口，通过学员ID，获取该学员应学课程数据类型
+    /// </summary>
+    [Serializable]
+    public class CourseMap
+    {
+        public string resultCode { get; set; }
+        public List<string> CourseNames { get; set; }
     }
 }

@@ -1,10 +1,12 @@
 ﻿<Page
-    x:Class="SkdAdminClient.View.PageCourseCount"
+    x:Class="SkdAdminClient.View.PageCoursePassRateNew"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:control="clr-namespace:SkdAdminClient.Control"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="课程完成率报表"
+    x:Name="TMD统计"
     Title="PageCourseCount"
     FontFamily="斯柯达体"
     FontSize="15"
@@ -14,9 +16,10 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
@@ -25,6 +28,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="80" />
             </Grid.ColumnDefinitions>
+
             <TextBlock
                 Name="TbTitle"
                 Grid.Row="0"
@@ -58,145 +62,260 @@
             Header="检索信息"
             IsExpanded="True">
 
+
             <Grid
                 Name="ExpanderGrid"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition MinHeight="200" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="160" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="160" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="170" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="170" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="170" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Width="100"
-                    MinWidth="100"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="课程名称：" />
-                <ComboBox
-                    x:Name="CbxCourseName"
-                    Grid.Row="0"
-                    Grid.Column="2"
-                    Width="150"
-                    MinWidth="150"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center" />
                 <CheckBox
-                    x:Name="ChkTime"
-                    Grid.Row="1"
+                    x:Name="ChkBeginTime"
+                    Grid.Row="2"
                     Grid.Column="1"
                     Width="100"
                     MinWidth="100"
+                    Margin="5,9,5,8"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="完成时间："
+                    Content="开始时间："
                     FontFamily="斯柯达体"
-                    FontSize="15" />
+                    FontSize="15"
+                    FontStyle="Normal"
+                    FontWeight="SemiBold" />
                 <DatePicker
                     x:Name="TxtBeginDate"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="2"
                     Width="150"
                     MinWidth="150"
+                    Margin="10,4"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontFamily="斯柯达体"
                     FontSize="15" />
                 <Label
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="3"
                     Height="28"
+                    Margin="46,3,46,4"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     Content="~" />
                 <DatePicker
                     x:Name="TxtEndDate"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="4"
                     Width="150"
                     MinWidth="150"
+                    Margin="10,4"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     FontFamily="斯柯达体"
                     FontSize="15" />
-                <Button
-                    x:Name="BtnQuery"
-                    Grid.Row="0"
-                    Grid.Column="7"
-                    Width="118"
-                    Margin="10"
+                <CheckBox
+                    x:Name="ChkFinishTime"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Width="100"
+                    MinWidth="100"
+                    Margin="5,8,5,9"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    BorderThickness="0"
-                    Click="BtnQuery_Click"
-                    Content="检索"
+                    Content="完成时间："
                     FontFamily="斯柯达体"
                     FontSize="15"
-                    Style="{DynamicResource AccentedSquareButtonStyle}" />
-                <Button
-                    x:Name="BtnClear"
-                    Grid.Row="1"
-                    Grid.Column="7"
-                    Width="118"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    BorderThickness="0"
-                    Click="BtnClear_Click"
-                    Content="清除"
-                    FontFamily="斯柯达体"
-                    FontSize="15"
-                    Style="{DynamicResource AccentedSquareButtonStyle}" />
-                <ComboBox
-                    x:Name="CbxVender"
-                    Grid.Row="0"
-                    Grid.Column="4"
-                    Grid.ColumnSpan="2"
-                    Width="250"
+                    FontStyle="Normal"
+                    FontWeight="SemiBold" />
+                <DatePicker
+                    x:Name="TxtFinishBeginDate"
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    Width="150"
                     MinWidth="150"
+                    Margin="10,4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
+                <Label
+                    Grid.Row="3"
+                    Grid.Column="3"
+                    Height="28"
+                    Margin="46,4,46,3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="~" />
+                <DatePicker
+                    x:Name="TxtFinishEndDate"
+                    Grid.Row="3"
+                    Grid.Column="4"
+                    Width="150"
+                    MinWidth="150"
+                    Margin="10,4"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontFamily="斯柯达体"
+                    FontSize="15" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="0,4"
                     HorizontalAlignment="Left"
-                    VerticalAlignment="Center" />
+                    VerticalAlignment="Center"
+                    Content="课程名称"
+                    FontSize="15"
+                    FontStyle="Normal"
+                    FontWeight="SemiBold" />
                 <Label
                     Grid.Row="0"
                     Grid.Column="3"
-                    Width="110"
-                    MinWidth="100"
-                    HorizontalAlignment="Center"
+                    Margin="0,4"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="经销商：" />
-                <Button
-                    x:Name="BtnExport"
+                    Content="经销商"
+                    FontSize="15"
+                    FontStyle="Normal"
+                    FontWeight="SemiBold" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="6"
+                    Margin="0,4"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="RBO"
+                    FontSize="15"
+                    FontStyle="Normal"
+                    FontWeight="SemiBold" />
+                <control:QueryableListBox
+                    x:Name="LbxCourseName"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    Margin="0,0,15,0"
+                    FontSize="15" />
+                <control:QueryableListBox
+                    x:Name="LbxRboName"
                     Grid.Row="1"
                     Grid.Column="6"
-                    Width="118"
-                    Margin="10"
+                    Grid.ColumnSpan="2"
+                    Margin="0,0,15,0"
+                    FontSize="15" />
+                <control:QueryableListBox
+                    x:Name="LbxVenderCode"
+                    Grid.Row="1"
+                    Grid.Column="3"
+                    Grid.ColumnSpan="3"
+                    Margin="0,0,15,0"
+                    FontSize="15" />
+                <StackPanel
+                    Grid.Row="1"
+                    Grid.Column="8"
+                    Orientation="Vertical">
+
+
+                    <Button
+                        x:Name="BtnQuery"
+                        Width="118"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        Click="BtnQuery_Click"
+                        Content="检索"
+                        FontFamily="斯柯达体"
+                        FontSize="15"
+                        Style="{DynamicResource AccentedSquareButtonStyle}" />
+
+                    <Button
+                        x:Name="BtnExport"
+                        Width="118"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        Click="BtnExport_Click"
+                        Content="导出"
+                        FontFamily="斯柯达体"
+                        FontSize="15"
+                        Style="{DynamicResource AccentedSquareButtonStyle}" />
+                    <Button
+                        x:Name="BtnClear"
+                        Width="118"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        Click="BtnClear_Click"
+                        Content="清除"
+                        FontFamily="斯柯达体"
+                        FontSize="15"
+                        Style="{DynamicResource AccentedSquareButtonStyle}" />
+                    <Button
+                        x:Name="BtnBack"
+                        Width="118"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        Click="BtnBack_Click"
+                        Content="返回"
+                        FontFamily="斯柯达体"
+                        FontSize="15"
+                        IsEnabled="False"
+                        Style="{DynamicResource AccentedSquareButtonStyle}"
+                        ToolTip="返回上一页" />
+                </StackPanel>
+                <Label
+                    Grid.Row="2"
+                    Grid.Column="5"
+                    Height="28"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    BorderThickness="0"
-                    Click="BtnExport_Click"
-                    Content="导出"
-                    FontFamily="斯柯达体"
+                    Content="状态"
                     FontSize="15"
-                    Style="{DynamicResource AccentedSquareButtonStyle}" />
+                    FontStyle="Normal"
+                    FontWeight="SemiBold" />
+                <ComboBox
+                    x:Name="CbxStatus"
+                    Grid.Row="2"
+                    Grid.Column="6"
+                    Grid.ColumnSpan="2"
+                    MinWidth="150"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    FontSize="15">
+                    <ComboBoxItem Content="全部" IsSelected="True" />
+                    <ComboBoxItem Content="未完成(学习人数&gt;0)" />
+                    <ComboBoxItem Content="已完成(完成人数=应学习人数)" />
+                    <ComboBoxItem Content="未开始(学习人数=0)" />
+
+
+                </ComboBox>
+
             </Grid>
 
         </Expander>
 
 
         <DataGrid
-            x:Name="DgvLoginTotal"
+            x:Name="DgvCoursePassRate"
             Grid.Row="2"
             Grid.Column="0"
             HorizontalAlignment="Stretch"
@@ -206,8 +325,20 @@
             CanUserDeleteRows="False"
             CanUserReorderColumns="False"
             ClipboardCopyMode="ExcludeHeader"
-            GridLinesVisibility="All">
+            GridLinesVisibility="All"
+            KeyUp="DgvCoursePassRate_KeyUp"
+            MouseDoubleClick="DgvCoursePassRate_MouseDoubleClick"
+            SelectionMode="Extended"
+            SelectionUnit="FullRow">
             <DataGrid.Columns>
+                <DataGridTextColumn
+                    x:Name="VenderCodeColumn"
+                    MinWidth="120"
+                    Binding="{Binding VenderCode}"
+                    CanUserReorder="True"
+                    Header="售后代码"
+                    IsReadOnly="True" />
+
                 <DataGridTextColumn
                     x:Name="VenderColumn"
                     MinWidth="120"
@@ -216,13 +347,27 @@
                     Header="经销商"
                     IsReadOnly="True" />
                 <DataGridTextColumn
+                    x:Name="RboColum"
+                    MinWidth="120"
+                    Binding="{Binding Rbo}"
+                    CanUserReorder="True"
+                    Header="RBO"
+                    IsReadOnly="True" />
+
+                <DataGridTextColumn
                     x:Name="CourseNameColumn"
                     MinWidth="120"
                     Binding="{Binding CourseName}"
                     CanUserReorder="True"
                     Header="课程名称"
-                    IsReadOnly="True"
-                    Visibility="Collapsed" />
+                    IsReadOnly="True" />
+                <DataGridTextColumn
+                    x:Name="VenderBeginCounts"
+                    MinWidth="120"
+                    Binding="{Binding VenderBeginCounts}"
+                    CanUserReorder="True"
+                    Header="已学习经销商数量"
+                    IsReadOnly="True" />
                 <DataGridTextColumn
                     x:Name="TotalMinutesColumn"
                     MinWidth="120"
@@ -238,45 +383,47 @@
                     Header="学习总次数"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    x:Name="PlanPersonsColumn"
-                    MinWidth="120"
-                    Binding="{Binding PlanPersons}"
-                    CanUserReorder="True"
-                    Header="应学习人数"
-                    IsReadOnly="True" />
-                <DataGridTextColumn
                     x:Name="TotalPersonsColumn"
                     MinWidth="120"
                     Binding="{Binding TotalPersons}"
                     CanUserReorder="True"
-                    Header="已学习人数"
+                    Header="已学习帐号数"
                     IsReadOnly="True" />
                 <DataGridTextColumn
                     x:Name="FinishPersonColumn"
                     MinWidth="120"
                     Binding="{Binding FinishPersons}"
                     CanUserReorder="True"
-                    Header="已完成人数"
+                    Header="已完成帐号数"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    x:Name="PercentColumn"
+                    x:Name="ReleaseDateColumn"
                     MinWidth="120"
-                    Binding="{Binding Percent}"
+                    Binding="{Binding ReleaseDate}"
                     CanUserReorder="True"
-                    Header="完成率"
+                    Header="课件发布时间"
                     IsReadOnly="True" />
-                <DataGridTemplateColumn MinWidth="90" Header="测试详情">
+                <DataGridTemplateColumn MinWidth="90" Header="详情">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button
-                                MinWidth="80"
+                                Height="25"
+                                MinWidth="50"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
                                 Click="ButtonProgress_Click"
-                                Content="详情" />
+                                Cursor="Hand"
+                                FontSize="10"
+                                ToolTip="查看详情">
+                                <iconPacks:PackIconMaterial
+                                    Width="13"
+                                    Height="13"
+                                    Kind="Magnify" />
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
             </DataGrid.Columns>
             <DataGrid.GroupStyle>
                 <GroupStyle x:Name="GroupStyle">
@@ -288,7 +435,7 @@
                                         <Expander
                                             Background="AliceBlue"
                                             BorderThickness="0"
-                                            IsExpanded="False">
+                                            IsExpanded="True">
                                             <Expander.Header>
                                                 <Grid Name="ExpanderHeaderGrid">
                                                     <Grid.ColumnDefinitions>
@@ -306,35 +453,7 @@
                                                         MinWidth="120"
                                                         HorizontalAlignment="Left"
                                                         Text="{Binding Name}" />
-                                                    <!--<TextBlock
-                                                        Grid.Column="1"
-                                                        MinWidth="120"
-                                                        HorizontalAlignment="Left"
-                                                        Text="{Binding ItemCount ,StringFormat={",{}}}" />-->
-                                                    <!--<TextBlock
-                                                        Grid.Column="2"
-                                                        MinWidth="120"
-                                                        HorizontalAlignment="Left"
-                                                        Text="{Binding  Path=Items[0].TotalMinutes, Converter={StaticResource CourseCountConverter}, ConverterParameter={Binding Items}}" />-->
-                                                    <!--<TextBlock
-                                                        Grid.Column="3"
-                                                        MinWidth="120"
-                                                        HorizontalAlignment="Left" />
-                                                    <TextBlock
-                                                        Grid.Column="4"
-                                                        MinWidth="120"
-                                                        HorizontalAlignment="Left"
-                                                        Text="{Binding Path=Items[0].TotalMinutes}" />
-                                                    <TextBlock
-                                                        Grid.Column="5"
-                                                        MinWidth="120"
-                                                        HorizontalAlignment="Left"
-                                                        Text="{Binding Path=Item[0].TotalMinutes}" />
-                                                    <TextBlock
-                                                        Grid.Column="6"
-                                                        MinWidth="120"
-                                                        HorizontalAlignment="Left"
-                                                        Text="{Binding Path=Item[0].TotalMinutes}" />-->
+
                                                 </Grid>
 
                                             </Expander.Header>
@@ -348,6 +467,10 @@
                 </GroupStyle>
             </DataGrid.GroupStyle>
         </DataGrid>
-
+        <!--<control:DataGridPage
+            x:Name="DataGridPage"
+            Grid.Row="3"
+            Grid.Column="0"
+            HorizontalAlignment="Center" />-->
     </Grid>
 </Page>

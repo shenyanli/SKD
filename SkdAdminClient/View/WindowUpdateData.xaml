@@ -7,7 +7,7 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:SkdAdminClient.View"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="数据同步"
+    Title="斯柯达网络电子课件统计平台"
     Width="500"
     Height="150"
     BorderBrush="ForestGreen"

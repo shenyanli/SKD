@@ -28,17 +28,25 @@ namespace updateSKOD
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            //关闭主程序exe
-            Process[] client = Process.GetProcessesByName("SkdAdminClient");
-            foreach (Process p in client)
+            try
             {
-                if (p.ProcessName == Process.GetCurrentProcess().ProcessName)
+                //关闭主程序exe
+                Process[] client = Process.GetProcessesByName("SkdAdminClient");
+                foreach (Process p in client)
                 {
-                    p.Kill();
+                    if (p.ProcessName == Process.GetCurrentProcess().ProcessName)
+                    {
+                        p.Kill();
+                    }
                 }
+                //关闭更新exe,重启主程序exe
+                Process.Start(Application.StartupPath + "\\SkdAdminClient.exe");
+            
             }
-            //关闭更新exe,重启主程序exe
-            Process.Start(Application.StartupPath + "\\SkdAdminClient.exe"); 
+            catch (Exception err)
+            {
+                MessageBox.Show(err.Message);
+            }
             Environment.Exit(0);
         }
 

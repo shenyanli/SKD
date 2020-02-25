@@ -26,7 +26,7 @@
             }
         }
 
-        [Remark("经销商")]
+        [Remark("经销商",false)]
         public string Vender
         {
             get

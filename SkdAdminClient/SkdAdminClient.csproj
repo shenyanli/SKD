@@ -52,8 +52,7 @@
     <StartupObject>SkdAdminClient.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>SKD.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib">
@@ -71,11 +70,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\MahApps.Metro.IconPacks.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </Reference>
     <Reference Include="Microsoft.Office.Tools.Excel, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NPOI, Version=2.2.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -99,8 +99,13 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -115,23 +120,36 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bll\LmsDataInteractive.cs" />
+    <Compile Include="Control\DataGridPage.xaml.cs">
+      <DependentUpon>DataGridPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\QueryableListBox.xaml.cs">
+      <DependentUpon>QueryableListBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\ViewPicture.xaml.cs">
       <DependentUpon>ViewPicture.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PageFeedBack.xaml.cs">
-      <DependentUpon>PageFeedBack.xaml</DependentUpon>
+    <Compile Include="Converter\BoolToVisiblity.cs" />
+    <Compile Include="View\PageCoursePassRateNew.xaml.cs">
+      <DependentUpon>PageCoursePassRateNew.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PageFeedBackHis.xaml.cs">
+      <DependentUpon>PageFeedBackHis.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PageMianNew.xaml.cs">
       <DependentUpon>PageMianNew.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PageTestOrg.xaml.cs">
+      <DependentUpon>PageTestOrg.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\WindowMain.xaml.cs">
       <DependentUpon>WindowMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PageTestCount.xaml.cs">
-      <DependentUpon>PageTestCount.xaml</DependentUpon>
+    <Compile Include="View\PageTestRightRate.xaml.cs">
+      <DependentUpon>PageTestRightRate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PageTrainningRecordCount.xaml.cs">
-      <DependentUpon>PageTrainningRecordCount.xaml</DependentUpon>
+    <Compile Include="View\PageTrainningRigthRate.xaml.cs">
+      <DependentUpon>PageTrainningRigthRate.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\WindowUpdateData.xaml.cs">
       <DependentUpon>WindowUpdateData.xaml</DependentUpon>
@@ -143,23 +161,20 @@
     <Compile Include="Control\CloseButton.xaml.cs">
       <DependentUpon>CloseButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PageCourseCount.xaml.cs">
-      <DependentUpon>PageCourseCount.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\PageLoginTotal.xaml.cs">
       <DependentUpon>PageLoginTotal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PageTrainningRecord.xaml.cs">
-      <DependentUpon>PageTrainningRecord.xaml</DependentUpon>
+    <Compile Include="View\PageTrainningRecordHis.xaml.cs">
+      <DependentUpon>PageTrainningRecordHis.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PageProgressDetail.xaml.cs">
       <DependentUpon>PageProgressDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PageLoginDetail.xaml.cs">
-      <DependentUpon>PageLoginDetail.xaml</DependentUpon>
+    <Compile Include="View\PageLoginHis.xaml.cs">
+      <DependentUpon>PageLoginHis.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PageCourseStudyDetail.xaml.cs">
-      <DependentUpon>PageCourseStudyDetail.xaml</DependentUpon>
+    <Compile Include="View\PageCourseStudyDetailHis.xaml.cs">
+      <DependentUpon>PageCourseStudyDetailHis.xaml</DependentUpon>
     </Compile>
     <Compile Include="Service References\SkdWebService\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -170,6 +185,14 @@
     <Compile Include="Tool\ObjectToDataTable.cs" />
     <Compile Include="Tool\WriteLogHelper.cs" />
     <Page Include="Control\CloseButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\DataGridPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\QueryableListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -192,6 +215,10 @@
     <Page Include="Dictionarys\BackButton.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dictionarys\ListBoxDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dictionarys\StyleDictionarys.xaml">
       <SubType>Designer</SubType>
@@ -216,11 +243,11 @@
       <DependentUpon>frmLogin.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\PageFeedBack.xaml">
+    <Page Include="View\PageCoursePassRateNew.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\PageCourseCount.xaml">
+    <Page Include="View\PageFeedBackHis.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -232,11 +259,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\PageTestOrg.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\WindowMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\PageTrainningRecord.xaml">
+    <Page Include="View\PageTrainningRecordHis.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -244,19 +275,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\PageLoginDetail.xaml">
+    <Page Include="View\PageLoginHis.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\PageCourseStudyDetail.xaml">
+    <Page Include="View\PageCourseStudyDetailHis.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\PageTestCount.xaml">
+    <Page Include="View\PageTestRightRate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\PageTrainningRecordCount.xaml">
+    <Page Include="View\PageTrainningRigthRate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -287,22 +318,21 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\System.Data.DataSet.datasource" />
     <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\SkdWebService\SkdService.wsdl" />
+    <None Include="Resource\Template.xls" />
+    <None Include="Service References\SkdWebService\SkdService1.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\SkdWebService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\SkdWebService\SkdService.disco" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\SkdWebService\configuration91.svcinfo" />
@@ -344,6 +374,10 @@
       <Project>{4ba4719c-c6ab-49ba-9754-848ca24c1fd6}</Project>
       <Name>AutoUpdater</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DBHelper\DBHelper\DBHelper.csproj">
+      <Project>{f49bb343-952f-48db-ab62-18b3308a61c0}</Project>
+      <Name>DBHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SkdAdminModel\SkdAdminModel.csproj">
       <Project>{bdf64bb4-7c8c-471f-949f-a899d2274437}</Project>
       <Name>SkdAdminModel</Name>
@@ -372,7 +406,12 @@
   <ItemGroup>
     <Resource Include="Image\btnBack.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="SKD.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\SkdWebService\SkdService1.disco" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

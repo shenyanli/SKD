@@ -1,7 +1,8 @@
 ﻿<Page
-    x:Class="SkdAdminClient.View.PageTestCount"
+    x:Class="SkdAdminClient.View.PageTestRightRate"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:control="clr-namespace:SkdAdminClient.Control"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SkdAdminClient"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -15,7 +16,7 @@
     <Grid>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="80" />
+            <RowDefinition Height="60" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -27,7 +28,7 @@
             VerticalAlignment="Top"
             Background="#9960A917"
             Header="检索信息"
-            IsExpanded="True">
+            IsExpanded="True" Expanded="Expander_Expanded">
 
             <Grid
                 Name="ExpanderGrid"
@@ -35,86 +36,116 @@
                 VerticalAlignment="Stretch">
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="35" />
+                    <RowDefinition Height="200" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="160" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="160" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="170" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="170" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="170" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Button
-                    x:Name="BtnQuery"
-                    Grid.Row="0"
-                    Grid.Column="7"
-                    Width="118"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    BorderThickness="0"
-                    Click="BtnQuery_Click"
-                    Content="检索"
-                    FontFamily="斯柯达体"
-                    FontSize="15"
-                    Style="{DynamicResource AccentedSquareButtonStyle}" />
-                <Button
-                    x:Name="BtnClear"
-                    Grid.Row="1"
-                    Grid.Column="7"
-                    Width="118"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    BorderThickness="0"
-                    Click="BtnClear_Click"
-                    Content="清除"
-                    FontFamily="斯柯达体"
-                    FontSize="15"
-                    Style="{DynamicResource AccentedSquareButtonStyle}" />
-                <Button
-                    x:Name="BtnBack"
-                    Grid.Row="1"
-                    Grid.Column="7"
-                    Width="118"
-                    Margin="10"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    BorderThickness="0"
-                    Click="BtnBack_Click"
-                    Content="返回"
-                    FontFamily="斯柯达体"
-                    FontSize="15"
-                    Style="{DynamicResource AccentedSquareButtonStyle}"
-                    ToolTip="返回上一页"
-                    Visibility="Hidden" />
-                <ComboBox
-                    x:Name="CbxCourseName"
-                    Grid.Row="0"
-                    Grid.Column="4"
-                    Grid.ColumnSpan="2"
-                    MinWidth="150"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center" />
+                <StackPanel Grid.Row="2" Grid.Column="8">
+
+                    <Button
+                        x:Name="BtnQuery"
+                        Width="118"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        Click="BtnQuery_Click"
+                        Content="检索"
+                        FontFamily="斯柯达体"
+                        FontSize="15"
+                        Style="{DynamicResource AccentedSquareButtonStyle}" />
+                    <Button
+                        x:Name="BtnExport"
+                        Width="118"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        Click="BtnExport_Click"
+                        Content="导出"
+                        FontFamily="斯柯达体"
+                        FontSize="15"
+                        Style="{DynamicResource AccentedSquareButtonStyle}" />
+                    <Button
+                        x:Name="BtnClear"
+                        Width="118"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        Click="BtnClear_Click"
+                        Content="清除"
+                        FontFamily="斯柯达体"
+                        FontSize="15"
+                        Style="{DynamicResource AccentedSquareButtonStyle}" />
+                    <Button
+                        x:Name="BtnBack"
+                        Width="118"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        BorderThickness="0"
+                        Click="BtnBack_Click"
+                        Content="返回"
+                        FontFamily="斯柯达体"
+                        FontSize="15"
+                          IsEnabled="False"
+                        Style="{DynamicResource AccentedSquareButtonStyle}"
+                        ToolTip="返回上一页"
+                        />
+                </StackPanel>
                 <Label
                     Grid.Row="1"
                     Grid.Column="3"
                     MinWidth="100"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="经销商：" />
+                    Content="经销商" />
+                <control:QueryableListBox
+                    x:Name="LbxVenders"
+                    Grid.Row="2"
+                    Grid.Column="3"
+                    Grid.ColumnSpan="3"
+                    Margin="0,0,15,0" />
                 <Label
                     Grid.Row="1"
-                    Grid.Column="1"
+                    Grid.Column="6"
                     MinWidth="100"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Content="RBO" />
+                <control:QueryableListBox
+                    x:Name="LbxRbo"
+                    Grid.Row="2"
+                    Grid.Column="6"
+                    Grid.ColumnSpan="2"
+                    Margin="0,0,15,0" />
+                <Label
+                    Grid.Row="0"
+                    Grid.Column="3"
+                    MinWidth="100"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Content="用户名：" />
+                <TextBox
+                    Name="TxtUserName"
+                    Grid.Row="0"
+                    Grid.Column="4"
+                    MinWidth="100"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center" />
                 <Label
                     Grid.Row="0"
                     Grid.Column="1"
@@ -129,42 +160,20 @@
                     MinWidth="100"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center" />
-                <TextBox
-                    x:Name="TxtUserName"
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    MinWidth="100"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center" />
-                <ComboBox
-                    x:Name="CbxVender"
-                    Grid.Row="1"
-                    Grid.Column="4"
+                <control:QueryableListBox
+                    x:Name="LbxCourseNames"
+                    Grid.Row="2"
+                    Grid.Column="1"
                     Grid.ColumnSpan="2"
-                    MinWidth="150"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center" />
+                    Margin="0,0,15,0" />
                 <Label
-                    Grid.Row="0"
-                    Grid.Column="3"
-                    MinWidth="100"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="课程名称：" />
-                <Button
-                    x:Name="BtnExport"
                     Grid.Row="1"
-                    Grid.Column="6"
-                    Width="118"
-                    Margin="10"
-                    HorizontalAlignment="Center"
+                    Grid.Column="1"
+                    MinWidth="100"
+                    HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    BorderThickness="0"
-                    Click="BtnExport_Click"
-                    Content="导出"
-                    FontFamily="斯柯达体"
-                    FontSize="15"
-                    Style="{DynamicResource AccentedSquareButtonStyle}" />
+                    Content="课程名称" />
+
             </Grid>
 
         </Expander>
@@ -180,7 +189,7 @@
             CanUserDeleteRows="False"
             CanUserReorderColumns="False"
             ClipboardCopyMode="ExcludeHeader"
-            GridLinesVisibility="All">
+            GridLinesVisibility="All" KeyUp="DgvTrainningRecord_KeyUp">
             <DataGrid.Columns>
 
                 <DataGridTextColumn

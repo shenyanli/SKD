@@ -34,11 +34,19 @@ namespace SkdAdminClient
             DirectoryInfo theFolder = new DirectoryInfo(path);
             foreach (FileInfo file in theFolder.GetFiles())
             {
-                if (file.Extension.Contains("old"))
+                try
                 {
-                    string fpath = file.DirectoryName + "\\" + file.Name;
-                    File.Delete(fpath);
+                    if (file.Extension.Contains("old"))
+                    {
+                        string fpath = file.DirectoryName + "\\" + file.Name;
+                        File.Delete(fpath);
+                    }
                 }
+                catch (Exception err)
+                {
+
+                }
+            
             }
 
             #endregion
@@ -72,7 +80,7 @@ namespace SkdAdminClient
             }
             #endregion
 
-  
+
 
             InitializeComponent();
         }

@@ -22,13 +22,14 @@ namespace SkdAdminClient.View
     /// <summary>
     /// PageLogin.xaml 的交互逻辑
     /// </summary>
-    public partial class PageFeedBack : Page
+    public partial class PageFeedBackHis : Page
     {
         private DataTable _dt = new DataTable();
         List<BindFeedBack> _feedBacks = new List<BindFeedBack>();
         public Frame Frame ;
         public PageMainNew PageMainNew;
-        public PageFeedBack( )
+        private bool _showMsgBox = true;
+        public PageFeedBackHis( )
         {
             InitializeComponent();
             TxtBeginDate.Text = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
@@ -41,9 +42,9 @@ namespace SkdAdminClient.View
             string userName = TxtUserName.Text.Trim();
             string courseName = CbxCourseName.Text.Trim();
             string vender = CbxVender.Text.Trim();
-            if (GolableData.PrivilegeLevel == Privilege.AreaAdmin)//区域管理员
+            if (GlobalData.PrivilegeLevel == Privilege.AreaAdmin)//区域管理员
             {
-                vender = string.Join("','", GolableData.Venders);
+                vender = string.Join("','", GlobalData.Venders);
             }
             string feedBackBeginDate = "";
             string feedBackBEndDate = "";
@@ -67,7 +68,7 @@ namespace SkdAdminClient.View
                 _feedBacks.Add(feedBack);
             }
 
-            if (GolableData.PrivilegeLevel > Privilege.VenderAdmin)
+            if (GlobalData.PrivilegeLevel > Privilege.VenderAdmin)
             {
                 ListCollectionView feedBackListCollectionView = new ListCollectionView(_feedBacks);
                 feedBackListCollectionView.GroupDescriptions.Add(new PropertyGroupDescription("CourseName"));
@@ -80,8 +81,8 @@ namespace SkdAdminClient.View
                 DgvLoginTotal.Columns[1].Visibility = Visibility.Visible;
                 DgvLoginTotal.ItemsSource = _feedBacks.OrderByDescending(x => x.CourseName);
             }
-
-            XMessageBox.ShowDialog("查询已完成！", "提示");
+            if (_showMsgBox)
+                XMessageBox.ShowDialog("查询到相关数据" + _feedBacks.Count + "笔", "提示");
 
         }
 
@@ -119,22 +120,24 @@ namespace SkdAdminClient.View
             SkdServiceSoapClient skdServiceSoapClient = new SkdServiceSoapClient();
             List<string> courseNames = skdServiceSoapClient.GetCourseName().ToList();
             CbxCourseName.ItemsSource = courseNames;
-            List<string> orgList = skdServiceSoapClient.GetOrgList().ToList();
+            List<string> orgList = new List<string>();// skdServiceSoapClient.GetOrgList().ToList();
             orgList.Insert(0, "");
             CbxVender.ItemsSource = orgList;
-            if (GolableData.PrivilegeLevel == Privilege.VenderAdmin)//经销商管理员
+            if (GlobalData.PrivilegeLevel == Privilege.VenderAdmin)//经销商管理员
             {
-                CbxVender.Text = GolableData.Vender;
+                CbxVender.Text = GlobalData.Vender;
                 CbxVender.IsEnabled = false;
             }
 
-
+            _showMsgBox = false;
+            BtnQuery_Click(null, null);
+            _showMsgBox = true;
         }
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
             CbxCourseName.Text = "";
-            if (GolableData.PrivilegeLevel > Privilege.VenderAdmin)
+            if (GlobalData.PrivilegeLevel > Privilege.VenderAdmin)
             {
                 CbxVender.Text = "";
                 CbxVender.IsEnabled = true;

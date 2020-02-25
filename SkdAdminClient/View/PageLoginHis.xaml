@@ -1,11 +1,11 @@
 ﻿<Page
-    x:Class="SkdAdminClient.View.PageTrainningRecord"
+    x:Class="SkdAdminClient.View.PageLoginHis"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:SkdAdminClient"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    x:Name="虚拟实训历史记录报表"
+    x:Name="登录信息历史记录报表"
     Title="PageLogin"
     FontFamily="斯柯达体"
     FontSize="15"
@@ -33,8 +33,8 @@
                 Name="ExpanderGrid"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch">
+          
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
                     <RowDefinition Height="50" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
@@ -45,7 +45,8 @@
                     <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="160" />
                     <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="160" />
+                    <ColumnDefinition Width="250" />
+                    <ColumnDefinition Width="250" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Label
@@ -55,7 +56,7 @@
                     MinWidth="100"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="学员姓名：" />
+                    Content="学员姓名：" FontWeight="SemiBold" />
                 <TextBox
                     x:Name="TxtUserName"
                     Grid.Row="0"
@@ -72,7 +73,7 @@
                     MinWidth="100"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="学员账户：" />
+                    Content="学员账户：" FontWeight="SemiBold" />
                 <TextBox
                     x:Name="TxtUserAccount"
                     Grid.Row="0"
@@ -83,19 +84,20 @@
                     VerticalAlignment="Center"
                     TextWrapping="Wrap" />
                 <CheckBox
+   
                     x:Name="ChkTime"
-                    Grid.Row="2"
+                    Grid.Row="1"
                     Grid.Column="1"
                     Width="100"
                     MinWidth="100"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="操作时间："
+                    Content="登录时间："
                     FontFamily="斯柯达体"
-                    FontSize="15" />
+                    FontSize="15" FontWeight="SemiBold" />
                 <DatePicker
                     x:Name="TxtBeginDate"
-                    Grid.Row="2"
+                    Grid.Row="1"
                     Grid.Column="2"
                     Width="150"
                     MinWidth="150"
@@ -104,7 +106,7 @@
                     FontFamily="斯柯达体"
                     FontSize="15" />
                 <Label
-                    Grid.Row="2"
+                    Grid.Row="1"
                     Grid.Column="3"
                     Height="28"
                     HorizontalAlignment="Center"
@@ -112,7 +114,7 @@
                     Content="~" />
                 <DatePicker
                     x:Name="TxtEndDate"
-                    Grid.Row="2"
+                    Grid.Row="1"
                     Grid.Column="4"
                     Width="150"
                     MinWidth="150"
@@ -148,56 +150,44 @@
                     FontFamily="斯柯达体"
                     FontSize="15"
                     Style="{DynamicResource AccentedSquareButtonStyle}" />
+
                 <Button
                     x:Name="BtnBack"
                     Grid.Row="1"
-                    Grid.Column="7"
+                    Grid.Column="8"
                     Width="118"
                     Margin="10"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
+                          VerticalAlignment="Center"
                     BorderThickness="0"
                     Click="BtnBack_Click"
                     Content="返回"
                     FontFamily="斯柯达体"
                     FontSize="15"
+                      IsEnabled="False"
                     Style="{DynamicResource AccentedSquareButtonStyle}"
                     ToolTip="返回上一页"
-                    Visibility="Hidden" />
+                    />
                 <ComboBox
-                    x:Name="CbxCourseName"
-                    Grid.Row="1"
-                    Grid.Column="2"
-                    Width="150"
+                    x:Name="CbxVender"
+                    Grid.Row="0"
+                    Grid.Column="6"
+                    Width="250"
                     MinWidth="150"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" />
                 <Label
-                    Grid.Row="1"
-                    Grid.Column="1"
+                    Grid.Row="0"
+                    Grid.Column="5"
+                    Width="110"
                     MinWidth="100"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="课程名称：" />
-                <ComboBox
-                    x:Name="CbxVender"
-                    Grid.Row="1"
-                    Grid.Column="4"
-                    Grid.ColumnSpan="2"
-                    MinWidth="150"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center" />
-                <Label
-                    Grid.Row="1"
-                    Grid.Column="3"
-                    MinWidth="100"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Content="课程名称：" />
+                    Content="经销商：" FontWeight="SemiBold" />
                 <Button
                     x:Name="BtnExport"
-                    Grid.Row="2"
-                    Grid.Column="7"
+                    Grid.Row="0"
+                    Grid.Column="8"
                     Width="118"
                     Margin="10"
                     HorizontalAlignment="Center"
@@ -213,7 +203,7 @@
         </Expander>
 
         <DataGrid
-            x:Name="DgvTrainningRecord"
+            x:Name="DgvLoginTotal"
             Grid.Row="2"
             Grid.Column="0"
             HorizontalAlignment="Stretch"
@@ -223,80 +213,46 @@
             CanUserDeleteRows="False"
             CanUserReorderColumns="False"
             ClipboardCopyMode="ExcludeHeader"
-            GridLinesVisibility="All">
+            GridLinesVisibility="All" KeyUp="DgvLoginTotal_KeyUp">
             <DataGrid.Columns>
                 <DataGridTextColumn
-                    MinWidth="90"
+                    MinWidth="120"
                     Binding="{Binding Vender}"
                     CanUserReorder="True"
                     Header="经销商"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    MinWidth="90"
-                    Binding="{Binding UserAccount}"
-                    CanUserReorder="True"
-                    Header="学员帐号"
-                    IsReadOnly="True" />
-                <DataGridTextColumn
-                    MinWidth="90"
+                    MinWidth="100"
                     Binding="{Binding UserName}"
                     CanUserReorder="True"
                     Header="学员姓名"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    MinWidth="90"
-                    Binding="{Binding CourseName}"
+                    MinWidth="100"
+                    Binding="{Binding UserAccount}"
                     CanUserReorder="True"
-                    Header="课程名称"
+                    Header="学员账户"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    MinWidth="90"
-                    Binding="{Binding TrainningRecordName}"
+                    MinWidth="120"
+                    Binding="{Binding LoginDate}"
                     CanUserReorder="True"
-                    Header="虚拟实训名称"
+                    Header="登入时间"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    MinWidth="50"
-                    Binding="{Binding Score}"
+                    MinWidth="120"
+                    Binding="{Binding LogoutDate}"
                     CanUserReorder="True"
-                    Header="得分"
+                    Header="登出时间"
                     IsReadOnly="True" />
                 <DataGridTextColumn
-                    MinWidth="90"
-                    Binding="{Binding OperTime}"
-                    CanUserReorder="True"
-                    Header="操作时间"
-                    IsReadOnly="True" />
-                <DataGridTextColumn
-                    MinWidth="90"
-                    Binding="{Binding TotalMinutes}"
-                    CanUserReorder="True"
-                    Header="操作时长"
-                    IsReadOnly="True" />
-
-                <DataGridTemplateColumn
                     Width="*"
-                    MinWidth="250"
-                    MaxWidth="500"
-                    Header="操作内容">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Expander IsExpanded="False">
-                                <TextBox
-                                    MaxWidth="500"
-                                    Background="#e7e7e7"
-                                    IsReadOnly="True"
-                                    MaxLines="10"
-                                    Text="{Binding Detail}"
-                                    TextWrapping="Wrap"
-                                    VerticalScrollBarVisibility="Auto" />
-                            </Expander>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
+                    MinWidth="100"
+                    Binding="{Binding StayTime}"
+                    CanUserReorder="True"
+                    Header="在线时长"
+                    IsReadOnly="True" />
             </DataGrid.Columns>
-
         </DataGrid>
         <Grid Grid.Row="0" Grid.Column="0">
             <Grid.ColumnDefinitions>
@@ -321,6 +277,7 @@
                 VerticalContentAlignment="Center"
                 x:FieldModifier="public"
                 Click="BackButton_Click"
+                Content="返回"
                 FontSize="20"
                 Style="{DynamicResource LeftArrowButton}"
                 ToolTip="返回主屏幕" />

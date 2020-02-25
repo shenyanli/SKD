@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,7 +24,7 @@ namespace SkdAdminClient.View
     /// <summary>
     /// PageTrainningRecordCount.xaml 的交互逻辑
     /// </summary>
-    public partial class PageTrainningRecordCount : Page
+    public partial class PageTrainningRigthRate : Page
     {
         private DataTable _dt = new DataTable();
         public Frame Frame;
@@ -31,29 +32,52 @@ namespace SkdAdminClient.View
         public PageProgressDetail ParentPage;
         public BindProgressDetail CurrentProgressDetail;
         List<BindTrainningBaseInfo> tbs = new List<BindTrainningBaseInfo>();
+        SkdServiceSoapClient skdServiceSoapClient = new SkdServiceSoapClient();
+        List<string> courseNames =new List<string>();
 
-        public PageTrainningRecordCount()
+        public PageTrainningRigthRate()
         {
             InitializeComponent();
         }
 
-
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            TbTitle.Text = Name;
+            courseNames = skdServiceSoapClient.GetCourseName().ToList();
+              CbxCourseName.ItemsSource = GlobalData.CourseNameMaps.Values.Distinct().ToList();
+         
+            if (ParentPage != null)
+            {
+                CbxCourseName.Text = CurrentProgressDetail.CourseName;
+            }
+            else
+            {
+                LbxVenders.Show(GlobalData.Venders);
+                LbxRbo.Show(GlobalData.RboList);
+             
+            }
+  
+        }
 
 
         private void BtnQuery_Click(object sender, RoutedEventArgs e)
         {
+            BtnQuery.Content = "检索中...";
             string courseName = CbxCourseName.Text.Trim();
-            string recordName = CbxRecordName.Text.Trim();
-            string vender = CbxVender.Text.Trim();
+            string recordName = string.Join("','", LbxRecordName.BindingAllSourses.Where(x => x.IsSelected).Select(x=>x.TextMsg));
+            string vender = string.Join("','", LbxVenders.BindingAllSourses.Where(x => x.IsSelected).Select(x=>x.TextMsg.Split('_')[1]));
+            string rbo = string.Join("','", LbxRbo.BindingAllSourses.Where(x => x.IsSelected).Select(x=>x.TextMsg));
+            if (vender.Trim() == "")
+                DgvTrainningRecord.Columns[0].Visibility = Visibility.Collapsed;
+            else
+                DgvTrainningRecord.Columns[0].Visibility = Visibility.Visible;
+ 
             if (courseName == "" || recordName == "")
             {
                 XMessageBox.ShowDialog("请选择要分析的课程及虚拟实训名称！","提示");
                return;
             }
-            if (vender.Trim()=="")
-                DgvTrainningRecord.Columns[0].Visibility=Visibility.Collapsed;
-            else
-                DgvTrainningRecord.Columns[0].Visibility = Visibility.Visible;
+
             SkdServiceSoapClient skdServiceSoapClient = new SkdServiceSoapClient();
 
             DataTable dt = skdServiceSoapClient.GetMaxScoreTrainning(vender, courseName,recordName);
@@ -61,9 +85,8 @@ namespace SkdAdminClient.View
                 (from DataRow row in dt.Rows
                     select row["message"].ToString()).ToList();
             List<TrainingRecord> trsList = messages.Select(x => TrainingRecord.XmlToTrainingRecord(x)).ToList();
-           // List<TrainingRecord> trsList = (from DataRow row in dt.Rows select row["message"].ToString() into message select TrainingRecord.XmlToTrainingRecord(message)).ToList();
-
             _dt = skdServiceSoapClient.GetTrainningBaseInfo( courseName, recordName);
+
             tbs.Clear();
 
             foreach (DataRow row in _dt.Rows)
@@ -85,9 +108,16 @@ namespace SkdAdminClient.View
                     tb.Percent = percent*100 + "%";
                 tbs.Add(tb);
             }
+            _dt = skdServiceSoapClient.GetCourseAddUp(courseName, "", "", "", "", "",
+      "", "");
+            tbs.ForEach(x => x.PlanPersons = _dt.Rows.Cast<DataRow>().Sum(r => Convert.ToDouble(r["planPersons"])));
             DgvTrainningRecord.ItemsSource = null;
             DgvTrainningRecord.ItemsSource = tbs.OrderByDescending(x=>x.CourseName);
-            XMessageBox.ShowDialog("查询已完成！", "提示");
+            BtnQuery.Content = "检索";
+            {
+                Expander.IsExpanded = false;
+                XMessageBox.ShowDialog("查询到相关数据" + tbs.Count + "笔", "提示");
+            }
         }
 
         private void BtnExport_Click(object sender, RoutedEventArgs e)
@@ -121,37 +151,22 @@ namespace SkdAdminClient.View
 
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            TbTitle.Text = Name;
-            SkdServiceSoapClient skdServiceSoapClient = new SkdServiceSoapClient();
-            List<string> courseNames = skdServiceSoapClient.GetCourseName().ToList();
-            CbxCourseName.ItemsSource = courseNames;
-            List<string> orgList = skdServiceSoapClient.GetOrgList().ToList();
-           
-            orgList.Insert(0, "");
-            CbxVender.ItemsSource = orgList;
-            if (GolableData.PrivilegeLevel <= Privilege.VenderAdmin)
-            {
-                CbxVender.Text = GolableData.Vender;
-                CbxVender.IsEnabled = false;
-            }
-
-        }
+    
 
         private void BtnClear_Click(object sender, RoutedEventArgs e)
         {
-            if (GolableData.PrivilegeLevel > Privilege.VenderAdmin)
-            {
-                CbxVender.Text = "";
-                CbxVender.IsEnabled = true;
-            }
+            LbxVenders.Show(GlobalData.Venders);
+            LbxRbo.Show(GlobalData.RboList);
             CbxCourseName.Text = "";
             DgvTrainningRecord.ItemsSource = null;
         }
 
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Content = PageMainNew;
+        }
 
-        private void CbxCourseName_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void CbxCourseName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (CbxCourseName.SelectedIndex >= 0)
             {
@@ -160,17 +175,33 @@ namespace SkdAdminClient.View
                 string[] recordNames = skdServiceSoapClient.GetDistinctRecoordName(courseName);
                 if (recordNames.Length < 1)
                 {
-                    XMessageBox.ShowDialog("课程["+courseName+"]暂时没有虚拟实训部分！","提示");
+                    XMessageBox.ShowDialog("课程[" + courseName + "]暂时没有虚拟实训部分！", "提示");
+                    LbxRecordName.Show(new List<string>() {});
                     return;
-                    
                 }
-                CbxRecordName.ItemsSource = recordNames;
+                LbxRecordName.Show(recordNames.ToList());
             }
         }
 
-        private void BackButton_Click(object sender, RoutedEventArgs e)
+        private void DgvTrainningRecord_KeyUp(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            Frame.Content = PageMainNew;
+            if ((Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control && e.Key == Key.C)
+            {
+                BindTrainningBaseInfo cell = (DgvTrainningRecord.CurrentCell.Item) as BindTrainningBaseInfo;
+                PropertyInfo[] props = typeof(BindTrainningBaseInfo).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                string str = DgvTrainningRecord.CurrentCell.Column.SortMemberPath;
+                if (str=="")return;
+                foreach (PropertyInfo prop in props)
+                {
+                    string propName = prop.Name;
+                    object valueObg = prop.GetValue(cell, null);
+                    if (propName == str)
+                    {
+                        System.Windows.Forms.Clipboard.SetText(valueObg.ToString());
+                        break;
+                    }
+                }
+            }
         }
     }
 }

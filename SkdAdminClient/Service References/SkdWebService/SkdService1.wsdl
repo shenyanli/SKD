@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetCourseReleaseDate">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCourseReleaseDateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCourseReleaseDateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ExcuteSp">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="venderDetails" type="tns:ArrayOfArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userDetails" type="tns:ArrayOfArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="userCourseMaps" type="tns:ArrayOfArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ArrayOfString" nillable="true" type="tns:ArrayOfString" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ExcuteSpResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ExcuteSpResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetFeedBackInfo">
         <s:complexType>
           <s:sequence>
@@ -71,29 +114,11 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="GetVenders">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetVendersResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetVendersResult" type="tns:ArrayOfString" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:complexType name="ArrayOfString">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetLoginTotalTable">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="userVender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="rbos" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderIds" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="loginDateBegin" type="s:string" />
@@ -140,9 +165,40 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="ProgressDetailTable">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="rbos" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="bigcourseNames" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dateBegin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="dateEnd" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="finishBegin" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="finishEnd" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ProgressDetailTableResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ProgressDetailTableResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetProgressDetailTable">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="rbos" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userVender" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
@@ -175,7 +231,8 @@
             <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="rbo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderId" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="beginDate" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="endDate" type="s:string" />
           </s:sequence>
@@ -195,6 +252,30 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetVenders">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVendersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVendersResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrgIdAndNameList">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetOrgIdAndNameListResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrgIdAndNameListResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetOrgList">
         <s:complexType />
       </s:element>
@@ -205,13 +286,101 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetRbos">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRbosResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetRbosResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCourseNameMap">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetCourseNameMapResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCourseNameMapResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PartVenderCoursePassRate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="rbos" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderIds" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="courseNames" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="finishBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="finishEndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="studyBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="studyEndDate" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="status" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PartVenderCoursePassRateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PartVenderCoursePassRateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AllVenderCoursePassRate">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="courseNames" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="finishBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="finishEndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="studyBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="studyEndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AllVenderCoursePassRateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AllVenderCoursePassRateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+                  <s:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetCourseAddUp">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="rbo" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="beginDate" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="endDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="finishBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="finishEndDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="studyBeginDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="studyEndDate" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -287,7 +456,9 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="sysIdList" type="tns:ArrayOfString" />
-            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="rbo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="venderId" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
@@ -360,6 +531,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="rbo" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
@@ -388,7 +560,6 @@
             <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userPwd" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="userType" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="status" type="s:string" />
           </s:sequence>
         </s:complexType>
@@ -468,6 +639,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="userId" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="userAccount" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="courseName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="vender" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -478,8 +650,34 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="UpdateTestOrg">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="venderCodes" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateTestOrgResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UpdateTestOrgResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetCourseReleaseDateSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCourseReleaseDate" />
+  </wsdl:message>
+  <wsdl:message name="GetCourseReleaseDateSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCourseReleaseDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="ExcuteSpSoapIn">
+    <wsdl:part name="parameters" element="tns:ExcuteSp" />
+  </wsdl:message>
+  <wsdl:message name="ExcuteSpSoapOut">
+    <wsdl:part name="parameters" element="tns:ExcuteSpResponse" />
+  </wsdl:message>
   <wsdl:message name="GetFeedBackInfoSoapIn">
     <wsdl:part name="parameters" element="tns:GetFeedBackInfo" />
   </wsdl:message>
@@ -510,12 +708,6 @@
   <wsdl:message name="GetPrivelegeInfoSoapOut">
     <wsdl:part name="parameters" element="tns:GetPrivelegeInfoResponse" />
   </wsdl:message>
-  <wsdl:message name="GetVendersSoapIn">
-    <wsdl:part name="parameters" element="tns:GetVenders" />
-  </wsdl:message>
-  <wsdl:message name="GetVendersSoapOut">
-    <wsdl:part name="parameters" element="tns:GetVendersResponse" />
-  </wsdl:message>
   <wsdl:message name="GetLoginTotalTableSoapIn">
     <wsdl:part name="parameters" element="tns:GetLoginTotalTable" />
   </wsdl:message>
@@ -527,6 +719,12 @@
   </wsdl:message>
   <wsdl:message name="GetLoginDetailTableSoapOut">
     <wsdl:part name="parameters" element="tns:GetLoginDetailTableResponse" />
+  </wsdl:message>
+  <wsdl:message name="ProgressDetailTableSoapIn">
+    <wsdl:part name="parameters" element="tns:ProgressDetailTable" />
+  </wsdl:message>
+  <wsdl:message name="ProgressDetailTableSoapOut">
+    <wsdl:part name="parameters" element="tns:ProgressDetailTableResponse" />
   </wsdl:message>
   <wsdl:message name="GetProgressDetailTableSoapIn">
     <wsdl:part name="parameters" element="tns:GetProgressDetailTable" />
@@ -540,11 +738,47 @@
   <wsdl:message name="GetCourseStudyDetailsSoapOut">
     <wsdl:part name="parameters" element="tns:GetCourseStudyDetailsResponse" />
   </wsdl:message>
+  <wsdl:message name="GetVendersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVenders" />
+  </wsdl:message>
+  <wsdl:message name="GetVendersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVendersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrgIdAndNameListSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrgIdAndNameList" />
+  </wsdl:message>
+  <wsdl:message name="GetOrgIdAndNameListSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrgIdAndNameListResponse" />
+  </wsdl:message>
   <wsdl:message name="GetOrgListSoapIn">
     <wsdl:part name="parameters" element="tns:GetOrgList" />
   </wsdl:message>
   <wsdl:message name="GetOrgListSoapOut">
     <wsdl:part name="parameters" element="tns:GetOrgListResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRbosSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRbos" />
+  </wsdl:message>
+  <wsdl:message name="GetRbosSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRbosResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCourseNameMapSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCourseNameMap" />
+  </wsdl:message>
+  <wsdl:message name="GetCourseNameMapSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCourseNameMapResponse" />
+  </wsdl:message>
+  <wsdl:message name="PartVenderCoursePassRateSoapIn">
+    <wsdl:part name="parameters" element="tns:PartVenderCoursePassRate" />
+  </wsdl:message>
+  <wsdl:message name="PartVenderCoursePassRateSoapOut">
+    <wsdl:part name="parameters" element="tns:PartVenderCoursePassRateResponse" />
+  </wsdl:message>
+  <wsdl:message name="AllVenderCoursePassRateSoapIn">
+    <wsdl:part name="parameters" element="tns:AllVenderCoursePassRate" />
+  </wsdl:message>
+  <wsdl:message name="AllVenderCoursePassRateSoapOut">
+    <wsdl:part name="parameters" element="tns:AllVenderCoursePassRateResponse" />
   </wsdl:message>
   <wsdl:message name="GetCourseAddUpSoapIn">
     <wsdl:part name="parameters" element="tns:GetCourseAddUp" />
@@ -630,7 +864,21 @@
   <wsdl:message name="InsertNewMapSoapOut">
     <wsdl:part name="parameters" element="tns:InsertNewMapResponse" />
   </wsdl:message>
+  <wsdl:message name="UpdateTestOrgSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateTestOrg" />
+  </wsdl:message>
+  <wsdl:message name="UpdateTestOrgSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateTestOrgResponse" />
+  </wsdl:message>
   <wsdl:portType name="SkdServiceSoap">
+    <wsdl:operation name="GetCourseReleaseDate">
+      <wsdl:input message="tns:GetCourseReleaseDateSoapIn" />
+      <wsdl:output message="tns:GetCourseReleaseDateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ExcuteSp">
+      <wsdl:input message="tns:ExcuteSpSoapIn" />
+      <wsdl:output message="tns:ExcuteSpSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetFeedBackInfo">
       <wsdl:input message="tns:GetFeedBackInfoSoapIn" />
       <wsdl:output message="tns:GetFeedBackInfoSoapOut" />
@@ -651,10 +899,6 @@
       <wsdl:input message="tns:GetPrivelegeInfoSoapIn" />
       <wsdl:output message="tns:GetPrivelegeInfoSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="GetVenders">
-      <wsdl:input message="tns:GetVendersSoapIn" />
-      <wsdl:output message="tns:GetVendersSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetLoginTotalTable">
       <wsdl:input message="tns:GetLoginTotalTableSoapIn" />
       <wsdl:output message="tns:GetLoginTotalTableSoapOut" />
@@ -662,6 +906,10 @@
     <wsdl:operation name="GetLoginDetailTable">
       <wsdl:input message="tns:GetLoginDetailTableSoapIn" />
       <wsdl:output message="tns:GetLoginDetailTableSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ProgressDetailTable">
+      <wsdl:input message="tns:ProgressDetailTableSoapIn" />
+      <wsdl:output message="tns:ProgressDetailTableSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetProgressDetailTable">
       <wsdl:input message="tns:GetProgressDetailTableSoapIn" />
@@ -671,9 +919,33 @@
       <wsdl:input message="tns:GetCourseStudyDetailsSoapIn" />
       <wsdl:output message="tns:GetCourseStudyDetailsSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetVenders">
+      <wsdl:input message="tns:GetVendersSoapIn" />
+      <wsdl:output message="tns:GetVendersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrgIdAndNameList">
+      <wsdl:input message="tns:GetOrgIdAndNameListSoapIn" />
+      <wsdl:output message="tns:GetOrgIdAndNameListSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetOrgList">
       <wsdl:input message="tns:GetOrgListSoapIn" />
       <wsdl:output message="tns:GetOrgListSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRbos">
+      <wsdl:input message="tns:GetRbosSoapIn" />
+      <wsdl:output message="tns:GetRbosSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCourseNameMap">
+      <wsdl:input message="tns:GetCourseNameMapSoapIn" />
+      <wsdl:output message="tns:GetCourseNameMapSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PartVenderCoursePassRate">
+      <wsdl:input message="tns:PartVenderCoursePassRateSoapIn" />
+      <wsdl:output message="tns:PartVenderCoursePassRateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AllVenderCoursePassRate">
+      <wsdl:input message="tns:AllVenderCoursePassRateSoapIn" />
+      <wsdl:output message="tns:AllVenderCoursePassRateSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetCourseAddUp">
       <wsdl:input message="tns:GetCourseAddUpSoapIn" />
@@ -731,9 +1003,31 @@
       <wsdl:input message="tns:InsertNewMapSoapIn" />
       <wsdl:output message="tns:InsertNewMapSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="UpdateTestOrg">
+      <wsdl:input message="tns:UpdateTestOrgSoapIn" />
+      <wsdl:output message="tns:UpdateTestOrgSoapOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="SkdServiceSoap" type="tns:SkdServiceSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCourseReleaseDate">
+      <soap:operation soapAction="http://tempuri.org/GetCourseReleaseDate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcuteSp">
+      <soap:operation soapAction="http://tempuri.org/ExcuteSp" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFeedBackInfo">
       <soap:operation soapAction="http://tempuri.org/GetFeedBackInfo" style="document" />
       <wsdl:input>
@@ -779,15 +1073,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetVenders">
-      <soap:operation soapAction="http://tempuri.org/GetVenders" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetLoginTotalTable">
       <soap:operation soapAction="http://tempuri.org/GetLoginTotalTable" style="document" />
       <wsdl:input>
@@ -799,6 +1084,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLoginDetailTable">
       <soap:operation soapAction="http://tempuri.org/GetLoginDetailTable" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProgressDetailTable">
+      <soap:operation soapAction="http://tempuri.org/ProgressDetailTable" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -824,8 +1118,62 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetVenders">
+      <soap:operation soapAction="http://tempuri.org/GetVenders" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrgIdAndNameList">
+      <soap:operation soapAction="http://tempuri.org/GetOrgIdAndNameList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetOrgList">
       <soap:operation soapAction="http://tempuri.org/GetOrgList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRbos">
+      <soap:operation soapAction="http://tempuri.org/GetRbos" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCourseNameMap">
+      <soap:operation soapAction="http://tempuri.org/GetCourseNameMap" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PartVenderCoursePassRate">
+      <soap:operation soapAction="http://tempuri.org/PartVenderCoursePassRate" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AllVenderCoursePassRate">
+      <soap:operation soapAction="http://tempuri.org/AllVenderCoursePassRate" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -959,9 +1307,36 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateTestOrg">
+      <soap:operation soapAction="http://tempuri.org/UpdateTestOrg" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="SkdServiceSoap12" type="tns:SkdServiceSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCourseReleaseDate">
+      <soap12:operation soapAction="http://tempuri.org/GetCourseReleaseDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExcuteSp">
+      <soap12:operation soapAction="http://tempuri.org/ExcuteSp" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetFeedBackInfo">
       <soap12:operation soapAction="http://tempuri.org/GetFeedBackInfo" style="document" />
       <wsdl:input>
@@ -1007,15 +1382,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="GetVenders">
-      <soap12:operation soapAction="http://tempuri.org/GetVenders" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetLoginTotalTable">
       <soap12:operation soapAction="http://tempuri.org/GetLoginTotalTable" style="document" />
       <wsdl:input>
@@ -1027,6 +1393,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetLoginDetailTable">
       <soap12:operation soapAction="http://tempuri.org/GetLoginDetailTable" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ProgressDetailTable">
+      <soap12:operation soapAction="http://tempuri.org/ProgressDetailTable" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1052,8 +1427,62 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetVenders">
+      <soap12:operation soapAction="http://tempuri.org/GetVenders" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrgIdAndNameList">
+      <soap12:operation soapAction="http://tempuri.org/GetOrgIdAndNameList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetOrgList">
       <soap12:operation soapAction="http://tempuri.org/GetOrgList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRbos">
+      <soap12:operation soapAction="http://tempuri.org/GetRbos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCourseNameMap">
+      <soap12:operation soapAction="http://tempuri.org/GetCourseNameMap" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PartVenderCoursePassRate">
+      <soap12:operation soapAction="http://tempuri.org/PartVenderCoursePassRate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AllVenderCoursePassRate">
+      <soap12:operation soapAction="http://tempuri.org/AllVenderCoursePassRate" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1187,13 +1616,22 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="UpdateTestOrg">
+      <soap12:operation soapAction="http://tempuri.org/UpdateTestOrg" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="SkdService">
     <wsdl:port name="SkdServiceSoap" binding="tns:SkdServiceSoap">
-      <soap:address location="http://localhost:6416/SkdService.asmx" />
+      <soap:address location="http://139.196.58.114:8023/SkdService.asmx" />
     </wsdl:port>
     <wsdl:port name="SkdServiceSoap12" binding="tns:SkdServiceSoap12">
-      <soap12:address location="http://localhost:6416/SkdService.asmx" />
+      <soap12:address location="http://139.196.58.114:8023/SkdService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

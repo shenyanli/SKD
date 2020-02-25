@@ -13,33 +13,49 @@ namespace SkdAdminClient.Tool
     {
         public  static DataTable ToDataTable<T>(List<T> items)
         {
-            var dt = new DataTable(typeof(T).Name);
-
-            PropertyInfo[] props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-
-            foreach (PropertyInfo prop in props)
+            try
             {
-                Type t = GetCoreType(prop.PropertyType);
-                object[] attrs = prop.GetCustomAttributes(typeof(RemarkAttribute), false);         
-                foreach (RemarkAttribute attr in attrs)
-                {
-                   dt.Columns.Add(attr.Remark,t) ;
-                }
-            }
+                var dt = new DataTable(typeof(T).Name);
 
-            foreach (T item in items)
-            {
-                var values = new object[props.Length];
+                PropertyInfo[] props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-                for (int i = 0; i < props.Length; i++)
+                foreach (PropertyInfo prop in props)
                 {
-                    values[i] = props[i].GetValue(item, null);
+                    Type t = GetCoreType(prop.PropertyType);
+                    object[] attrs = prop.GetCustomAttributes(typeof(RemarkAttribute), false);
+                    foreach (RemarkAttribute attr in attrs)
+                    {
+                        if (attr.NeedExport)
+                            dt.Columns.Add(attr.Remark, t);
+                    }
                 }
 
-                dt.Rows.Add(values);
+                foreach (T item in items)
+                {
+                    List<object> values = new List<object>();
+                    foreach (PropertyInfo prop in props)
+                    {
+                        object valueObg = prop.GetValue(item, null);
+                        string value = valueObg == null ? "" : valueObg.ToString();
+                        object[] attrs = prop.GetCustomAttributes(typeof(RemarkAttribute), false);
+                        if (dt.Columns.Cast<DataColumn>().Select(x => x.Caption).Contains(((RemarkAttribute)attrs[0]).Remark))
+                        {
+                            values.Add(value);
+                        }
+                    }
+                    dt.Rows.Add(values.ToArray());
+                }
+                return dt;
             }
+            catch (Exception err)
+            {
 
-            return dt;
+                XMessageBox.ShowDialog(err.Message,"错误");
+                return null;
+            }
+           
+
+        
         }
 
         /// <summary>

@@ -24,6 +24,7 @@ namespace SkdAdminModel
         /// </summary>
         string _type = "1";
 
+
         /// <summary>
         /// 虚拟实训得分
         /// </summary>
@@ -111,6 +112,7 @@ namespace SkdAdminModel
         [XmlElement(ElementName = "Content")] public string Content = "";
         [XmlElement(ElementName = "Score")] public double Score = 0.0;
         [XmlElement(ElementName = "Remark")] public string Remark = "";
-        [XmlElement(ElementName = "Id")] public string Id = "";
+        [XmlElement(ElementName = "id")] public string Id = "";
+
     }
 }

@@ -19,6 +19,7 @@ namespace SkdAdminModel
         private string _detail = "";
         private string _vender = "";
         private string _id = "";
+        private string _operTime = "";
 
         [Remark("用户名称")]
         [XmlAttribute(AttributeName = "Name")]
@@ -87,6 +88,19 @@ namespace SkdAdminModel
                 _score = value;
             }
         }
+        [Remark("操作日期")]
+        public string OperTime
+        {
+            get
+            {
+                return _operTime;
+            }
+
+            set
+            {
+                _operTime = value;
+            }
+        }
         [Remark("操作时长")]
         public string TotalMinutes
         {
@@ -114,7 +128,7 @@ namespace SkdAdminModel
             }
         }
 
-        [Remark("经销商")]
+        [Remark("经销商",false)]
         [XmlIgnore]
         public string Vender
         {

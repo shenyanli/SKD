@@ -11,8 +11,10 @@ namespace SkdAdminModel
 {
     public class BindProgressDetail
     {
-    
+
+        private string _venderId;
         private string _vender;
+        private string _rbo;
         private string _userName;
         private string _userAccount;
         private string _courseName;
@@ -23,25 +25,31 @@ namespace SkdAdminModel
         private double _totalStamps;
         private string _beginDate;
         private string _endDate;
+        private string _createDate;
+        private string _finishDate;
         private string _status;
-        private string _rbo;
+    
         private bool _haveTrainningRecord;
-        private List<string> _sysIdList; 
+        private List<string> _sysIdList;
 
         private List<CourseStudyDetail> _details = new List<CourseStudyDetail>();
-        [Remark("RBO")]
-        public string Rbo
+
+        [Remark("售后代码")]
+        public string VenderId
         {
             get
             {
-                return _rbo;
+                return _venderId;
             }
 
             set
             {
-                _rbo = value;
+                _venderId = value;
             }
         }
+
+
+
 
 
         [Remark("经销商")]
@@ -51,6 +59,23 @@ namespace SkdAdminModel
 
             set { _vender = value; }
         }
+
+        [Remark("RBO")]
+        public string Rbo
+        {
+            get { return _rbo; }
+
+            set { _rbo = value; }
+        }
+
+        [Remark("课程名称")]
+        public string CourseName
+        {
+            get { return _courseName; }
+
+            set { _courseName = value; }
+        }
+
         [Remark("用户名称")]
         public string UserName
         {
@@ -67,19 +92,6 @@ namespace SkdAdminModel
             set { _userAccount = value; }
         }
 
-        [Remark("课程名称")]
-        public string CourseName
-        {
-            get
-            {
-                return _courseName;
-            }
-
-            set
-            {
-                _courseName = value;
-            }
-        }
 
         [Remark("进度")]
         public string Scheduel
@@ -112,6 +124,7 @@ namespace SkdAdminModel
 
             set { _totalMinutes = value; }
         }
+
         [Remark("学习总次数")]
         public double TotalStamps
         {
@@ -119,8 +132,15 @@ namespace SkdAdminModel
 
             set { _totalStamps = value; }
         }
+        [Remark("课程开始学习时间")]
+        public string CreateDate
+        {
+            get { return _createDate; }
 
-        [Remark("上次学习开始时间")]
+            set { _createDate = value; }
+        }
+
+        [Remark("上次学习开始时间",false)]
         public string BeginDate
         {
             get { return _beginDate; }
@@ -128,53 +148,53 @@ namespace SkdAdminModel
             set { _beginDate = value; }
         }
 
-        [Remark("上次学习结束时间")]
+        [Remark("上次学习结束时间",false)]
         public string EndDate
         {
             get { return _endDate; }
 
             set { _endDate = value; }
         }
+
+
         [Remark("状态")]
         public string Status
         {
-            get
-            {
-                return _status;
-            }
+            get { return _status; }
 
-            set
-            {
-                _status = value;
-            }
+            set { _status = value; }
         }
-        [Remark("是否包含虚拟实训",false)]
-        public bool HaveTrainningRecord
+        [Remark("完成时间")]
+        public string FinishDate
         {
             get
             {
-                return _haveTrainningRecord;
+                return _finishDate;
             }
 
             set
             {
-                _haveTrainningRecord = value;
+                _finishDate = value;
             }
         }
+
+        [Remark("是否包含虚拟实训", false)]
+        public bool HaveTrainningRecord
+        {
+            get { return _haveTrainningRecord; }
+
+            set { _haveTrainningRecord = value; }
+        }
+
         [Remark("虚拟实训SysId列表", false)]
         public List<string> SysIdList
         {
-            get
-            {
-                return _sysIdList;
-            }
+            get { return _sysIdList; }
 
-            set
-            {
-                _sysIdList = value;
-            }
+            set { _sysIdList = value; }
         }
     }
+
 
     /// <summary>
     /// 单次学习情况
@@ -261,7 +281,7 @@ namespace SkdAdminModel
         }
 
         private string _description = "";
-        [Remark("百分比节点描述")]
+        [Remark("百分比节点描述",false)]
         [XmlElement(ElementName = "description")]
         public string Description //单次学习的百分节点对应的章节信息
         {
