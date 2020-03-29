@@ -315,6 +315,22 @@
                             Kind="XingBox" />
                     </controls:Tile>
 
+                    <controls:Tile
+                        x:Name="ButtonFeedBackHis"
+                        Title="课件反馈查询"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        controls:ControlsHelper.MouseOverBorderBrush="{DynamicResource BlackBrush}"
+                        Background="#FFA9C617"
+                        Click="BtnFeedBack_Click"
+                        HorizontalTitleAlignment="Center"
+                        Style="{StaticResource LargeTileStyle}">
+                        <iconPacks:PackIconMaterial
+                            Width="40"
+                            Height="40"
+                            Kind="XingBox" />
+                    </controls:Tile>
+
                 </Grid>
 
 
