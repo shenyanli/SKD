@@ -43,12 +43,26 @@ namespace SkdAdminClient.Tool
             int[] arrColWidth = new int[dtSource.Columns.Count];
             foreach (DataColumn item in dtSource.Columns)
             {
-                arrColWidth[item.Ordinal] = Encoding.GetEncoding(936).GetBytes(item.ColumnName.ToString()).Length;
+                if (arrColWidth[item.Ordinal] > 255)
+                {
+                    arrColWidth[item.Ordinal] = 254;
+                }
+                else
+                {
+                    arrColWidth[item.Ordinal] = Encoding.GetEncoding(936).GetBytes(item.ColumnName.ToString()).Length;
+                }
+                
             }
+
             for (int i = 0; i < dtSource.Rows.Count; i++)
             {
                 for (int j = 0; j < dtSource.Columns.Count; j++)
                 {
+
+
+
+
+
                     int intTemp = Encoding.GetEncoding(936).GetBytes(dtSource.Rows[i][j].ToString()).Length;
                     if (intTemp > arrColWidth[j] && intTemp < 256)
                     {
@@ -56,6 +70,7 @@ namespace SkdAdminClient.Tool
                     }
                 }
             }
+
             int rowIndex = 0;
 
             foreach (DataRow row in dtSource.Rows)
