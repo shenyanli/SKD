@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="GHN/NVVTHjYx44Q/hG/uJVRtfAg=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="GH2LXSNop7eXnhngfMY0JPlJ8AY=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="SkdServiceSoap">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="SkdServiceSoap" contract="SkdWebService.SkdServiceSoap" bindingType="basicHttpBinding" address="http://139.196.58.114:8023/SkdService.asmx" bindingConfiguration="SkdServiceSoap">
+    <endpoint name="SkdServiceSoap" contract="SkdWebService.SkdServiceSoap" bindingType="basicHttpBinding" address="http://localhost:6416/SkdService.asmx" bindingConfiguration="SkdServiceSoap">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://139.196.58.114:8023/SkdService.asmx</serializedValue>
+          <serializedValue>http://localhost:6416/SkdService.asmx</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

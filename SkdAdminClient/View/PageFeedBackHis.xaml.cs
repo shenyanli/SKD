@@ -159,11 +159,21 @@ namespace SkdAdminClient.View
         {
             BindFeedBack p = DgvLoginTotal.SelectedItem as BindFeedBack;
             if (p==null) return;
-            System.Drawing.Image img = p.Image;
-            Bitmap map = new Bitmap(img);
-            ViewPicture viewPicture = new ViewPicture();
-            viewPicture.ShowImage = BitmapToBitmapImage2(map);
-            viewPicture.Show();
+            try
+            {
+                ViewPicture viewPicture = new ViewPicture();
+                viewPicture.ImagePath = p.ImagePath;// BitmapToBitmapImage2(map);
+                viewPicture.Show();
+            }
+            catch (Exception)
+            {
+
+               
+            }
+           // System.Drawing.Image img = p.Image;
+           
+            //Bitmap map = new Bitmap(p.ImagePath);
+          
         }
 
         private BitmapImage BitmapToBitmapImage(System.Drawing.Bitmap bitmap)

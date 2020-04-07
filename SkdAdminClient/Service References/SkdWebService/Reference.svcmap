@@ -18,11 +18,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://139.196.58.114:8023/" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:6416/SkdService.asmx" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="SkdService1.disco" MetadataType="Disco" ID="288d7f3e-7474-40a5-b3e0-f2a7e2be7ddf" SourceId="1" SourceUrl="http://139.196.58.114:8023/SkdService.asmx?disco" />
-    <MetadataFile FileName="SkdService1.wsdl" MetadataType="Wsdl" ID="988efeb4-b619-4ae8-ac51-57c9f61264ef" SourceId="1" SourceUrl="http://139.196.58.114:8023/SkdService.asmx?wsdl" />
+    <MetadataFile FileName="SkdService.wsdl" MetadataType="Wsdl" ID="2fe5fe52-7360-49d8-9868-9e17359b0bba" SourceId="1" SourceUrl="http://localhost:6416/SkdService.asmx?wsdl" />
+    <MetadataFile FileName="SkdService.disco" MetadataType="Disco" ID="ddfbd5f2-933e-4824-9a39-6c6c450b534c" SourceId="1" SourceUrl="http://localhost:6416/SkdService.asmx?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

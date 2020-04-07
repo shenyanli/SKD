@@ -326,7 +326,7 @@
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="Resource\Template.xls" />
-    <None Include="Service References\SkdWebService\SkdService1.wsdl" />
+    <None Include="Service References\SkdWebService\SkdService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -410,7 +410,7 @@
     <Resource Include="SKD.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\SkdWebService\SkdService1.disco" />
+    <None Include="Service References\SkdWebService\SkdService.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
