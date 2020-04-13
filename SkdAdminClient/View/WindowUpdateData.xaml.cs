@@ -141,7 +141,7 @@ namespace SkdAdminClient.View
 
                 #region 通过接口更新数据，并显示进度
 
-                List<string> venderIds = GetAllVenderId();
+                List<string> venderIds = client.GetAllVenderId().ToList();
                 List<string[]> venders = new List<string[]>();
                 List<string> userIds = new List<string>();
                 List<string[]> users = new List<string[]>();
@@ -157,8 +157,8 @@ namespace SkdAdminClient.View
                     List<string> currentCircleVenders = venderIds.Skip(i * onceUpdateNumber).Take(onceUpdateNumber).ToList();
                     foreach (string venderId in currentCircleVenders)
                     {
-                        VenderResult venderResult = GetVenderDetailByVenderId(venderId);
-                        userIds = GetUserIdByVenderId(venderId);
+                        SkdWebService.VenderResult venderResult = client.GetVenderDetailByVenderId(venderId);
+                        userIds = client.GetUserIdByVenderId(venderId).ToList();
                         string[] vender =
                         {
                         venderResult.Name, venderResult.Type, venderResult.Area, venderResult.Code,
@@ -171,7 +171,7 @@ namespace SkdAdminClient.View
                         {
                             #region 根据userId获取用户详细信息
 
-                            UserResult userResult = GetUserDetailByUserId(userId);
+                            SkdWebService.UserResult userResult = client.GetUserDetailByUserId(userId);
                             if (userResult == null) continue;
                             string[] user =
                             {
@@ -179,7 +179,7 @@ namespace SkdAdminClient.View
                             userResult.MechanismName,userResult.Enabled?"1":"0",userResult.IdCardNumber,userResult.Mobile,userResult.Email
                         };
                             users.Add(user);
-                            List<string> courseNameList = GetCourseNameByUserId(userId);
+                            List<string> courseNameList = client.GetCourseNameByUserId(userId).ToList();
                             foreach (var courseName in courseNameList)
                             {
                                 string[] courseMap = { userResult.LoginName, courseName };
@@ -333,97 +333,98 @@ namespace SkdAdminClient.View
                 frm.Show();
             }
         }
+        SkdServiceSoapClient client = new SkdServiceSoapClient();
 
-        List<string> GetAllVenderId()
-        {
-            //List<string> venderIdList = new List<string>();
-            string str = "skoda_2016";
-            string token = GetMd5String(str);
-            string url = ConfigurationManager.AppSettings["GetActiveVenderId"] + token;
-            LmsDataInteractive interactive = new LmsDataInteractive();
-            string result = interactive.GetPostInfo(url, "", "get");
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            VenderIdResult venderIdResult= js.Deserialize<VenderIdResult>(result);
-            return venderIdResult.Mechanisms;
-        }
+        //List<string> GetAllVenderId()
+        //{
+        //    //List<string> venderIdList = new List<string>();
+        //    string str = "skoda_2016";
+        //    string token = GetMd5String(str);
+        //    string url = ConfigurationManager.AppSettings["GetActiveVenderId"] + token;
+        //    LmsDataInteractive interactive = new LmsDataInteractive();
+        //    string result = interactive.GetPostInfo(url, "", "get");
+        //    JavaScriptSerializer js = new JavaScriptSerializer();
+        //    VenderIdResult venderIdResult= js.Deserialize<VenderIdResult>(result);
+        //    return venderIdResult.Mechanisms;
+        //}
 
-        VenderResult GetVenderDetailByVenderId(string venderId)
-        {
+        //VenderResult GetVenderDetailByVenderId(string venderId)
+        //{
 
-            string str = venderId + "skoda_2016";
-            string token = GetMd5String(str);
-            string url = ConfigurationManager.AppSettings["GetVenderDetail"] + "Code=" + venderId + "&token=" + token;
-            LmsDataInteractive interactive = new LmsDataInteractive();
-            string result = interactive.GetPostInfo(url, "", "get");
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            VenderResult vender = js.Deserialize<VenderResult>(result);
-            return vender;
-        }
+        //    string str = venderId + "skoda_2016";
+        //    string token = GetMd5String(str);
+        //    string url = ConfigurationManager.AppSettings["GetVenderDetail"] + "Code=" + venderId + "&token=" + token;
+        //    LmsDataInteractive interactive = new LmsDataInteractive();
+        //    string result = interactive.GetPostInfo(url, "", "get");
+        //    JavaScriptSerializer js = new JavaScriptSerializer();
+        //    VenderResult vender = js.Deserialize<VenderResult>(result);
+        //    return vender;
+        //}
 
-        List<string> GetUserIdByVenderId(string venderId)
-        {
-            string str = venderId+"skoda_2016";
-            string token = GetMd5String(str);
-            string url = ConfigurationManager.AppSettings["GetVenderUserId"] + "Code=" +venderId + "&token=" + token;
-            LmsDataInteractive interactive = new LmsDataInteractive();
-           string result= interactive.GetPostInfo(url, "", "get");
-            JavaScriptSerializer js=new  JavaScriptSerializer();
-            UserIdsResult userIdResult = js.Deserialize<UserIdsResult>(result);
-            return userIdResult.UserId;
-        }
+        //List<string> GetUserIdByVenderId(string venderId)
+        //{
+        //    string str = venderId+"skoda_2016";
+        //    string token = GetMd5String(str);
+        //    string url = ConfigurationManager.AppSettings["GetVenderUserId"] + "Code=" +venderId + "&token=" + token;
+        //    LmsDataInteractive interactive = new LmsDataInteractive();
+        //   string result= interactive.GetPostInfo(url, "", "get");
+        //    JavaScriptSerializer js=new  JavaScriptSerializer();
+        //    UserIdsResult userIdResult = js.Deserialize<UserIdsResult>(result);
+        //    return userIdResult.UserId;
+        //}
 
-        UserResult GetUserDetailByUserId(string userId)
-        {
+        //UserResult GetUserDetailByUserId(string userId)
+        //{
 
-            string str = userId.ToUpper() + "skoda_2016";
-            string token = GetMd5String(str);
-            string url = ConfigurationManager.AppSettings["GetUserDetail"] + "UserId=" + userId.ToUpper() + "&token=" +token;
-            LmsDataInteractive interactive = new LmsDataInteractive();
-            string result = interactive.GetPostInfo(url, "", "get");
-            JavaScriptSerializer js = new JavaScriptSerializer();
-            UserResult userResult = js.Deserialize<UserResult>(result);
-            if (userResult.ResultCode == "0")
-                return userResult;
-            else return null;
-        }
+        //    string str = userId.ToUpper() + "skoda_2016";
+        //    string token = GetMd5String(str);
+        //    string url = ConfigurationManager.AppSettings["GetUserDetail"] + "UserId=" + userId.ToUpper() + "&token=" +token;
+        //    LmsDataInteractive interactive = new LmsDataInteractive();
+        //    string result = interactive.GetPostInfo(url, "", "get");
+        //    JavaScriptSerializer js = new JavaScriptSerializer();
+        //    UserResult userResult = js.Deserialize<UserResult>(result);
+        //    if (userResult.ResultCode == "0")
+        //        return userResult;
+        //    else return null;
+        //}
 
-        List<string> GetCourseNameByUserId(string userId)
-        {
-            try
-            {
-                string str = userId.ToUpper() + "skoda_2016";
-                string token = GetMd5String(str);
-                string url = ConfigurationManager.AppSettings["GetUserCourse"] + "UserId=" + userId.ToUpper() + "&token=" + token;
-                Console.WriteLine(url);
-                LmsDataInteractive interactive = new LmsDataInteractive();
-                string result = interactive.GetPostInfo(url, "", "get");
-                Console.WriteLine(result);
-                JavaScriptSerializer js = new JavaScriptSerializer();
-                CourseMap courseMap = js.Deserialize<CourseMap>(result);
-                return courseMap.CourseNames;
-            }
-            catch (Exception err)
-            {
-                return new List<string>() {};
-            }
+        //List<string> GetCourseNameByUserId(string userId)
+        //{
+        //    try
+        //    {
+        //        string str = userId.ToUpper() + "skoda_2016";
+        //        string token = GetMd5String(str);
+        //        string url = ConfigurationManager.AppSettings["GetUserCourse"] + "UserId=" + userId.ToUpper() + "&token=" + token;
+        //        Console.WriteLine(url);
+        //        LmsDataInteractive interactive = new LmsDataInteractive();
+        //        string result = interactive.GetPostInfo(url, "", "get");
+        //        Console.WriteLine(result);
+        //        JavaScriptSerializer js = new JavaScriptSerializer();
+        //        CourseMap courseMap = js.Deserialize<CourseMap>(result);
+        //        return courseMap.CourseNames;
+        //    }
+        //    catch (Exception err)
+        //    {
+        //        return new List<string>() {};
+        //    }
            
-        }
+        //}
 
-        public string GetMd5String(string str)
-        {
-            MD5 md5 = new MD5CryptoServiceProvider();
-            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(str);
-            bytes = md5.ComputeHash(bytes);
-            md5.Clear();
+        //public string GetMd5String(string str)
+        //{
+        //    MD5 md5 = new MD5CryptoServiceProvider();
+        //    byte[] bytes = System.Text.Encoding.UTF8.GetBytes(str);
+        //    bytes = md5.ComputeHash(bytes);
+        //    md5.Clear();
 
-            string ret = "";
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                ret += Convert.ToString(bytes[i], 16).PadLeft(2, '0');
-            }
+        //    string ret = "";
+        //    for (int i = 0; i < bytes.Length; i++)
+        //    {
+        //        ret += Convert.ToString(bytes[i], 16).PadLeft(2, '0');
+        //    }
 
-            return ret.PadLeft(32, '0').ToUpper();
-        }
+        //    return ret.PadLeft(32, '0').ToUpper();
+        //}
 
 
 

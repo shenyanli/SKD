@@ -326,6 +326,12 @@
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="Resource\Template.xls" />
+    <None Include="Service References\SkdWebService\SkdAdminClient.SkdWebService.UserResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\SkdWebService\SkdAdminClient.SkdWebService.VenderResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\SkdWebService\SkdService.wsdl" />
   </ItemGroup>
   <ItemGroup>

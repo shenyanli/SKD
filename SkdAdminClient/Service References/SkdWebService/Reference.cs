@@ -16,6 +16,51 @@ namespace SkdAdminClient.SkdWebService {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="SkdWebService.SkdServiceSoap")]
     public interface SkdServiceSoap {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetVenderDetailByVenderId", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        SkdAdminClient.SkdWebService.VenderResult GetVenderDetailByVenderId(string venderId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetVenderDetailByVenderId", ReplyAction="*")]
+        System.IAsyncResult BeginGetVenderDetailByVenderId(string venderId, System.AsyncCallback callback, object asyncState);
+        
+        SkdAdminClient.SkdWebService.VenderResult EndGetVenderDetailByVenderId(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetUserIdByVenderId", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string[] GetUserIdByVenderId(string venderId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetUserIdByVenderId", ReplyAction="*")]
+        System.IAsyncResult BeginGetUserIdByVenderId(string venderId, System.AsyncCallback callback, object asyncState);
+        
+        string[] EndGetUserIdByVenderId(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetUserDetailByUserId", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        SkdAdminClient.SkdWebService.UserResult GetUserDetailByUserId(string userId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetUserDetailByUserId", ReplyAction="*")]
+        System.IAsyncResult BeginGetUserDetailByUserId(string userId, System.AsyncCallback callback, object asyncState);
+        
+        SkdAdminClient.SkdWebService.UserResult EndGetUserDetailByUserId(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetCourseNameByUserId", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string[] GetCourseNameByUserId(string userId);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetCourseNameByUserId", ReplyAction="*")]
+        System.IAsyncResult BeginGetCourseNameByUserId(string userId, System.AsyncCallback callback, object asyncState);
+        
+        string[] EndGetCourseNameByUserId(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetAllVenderId", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        string[] GetAllVenderId();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GetAllVenderId", ReplyAction="*")]
+        System.IAsyncResult BeginGetAllVenderId(System.AsyncCallback callback, object asyncState);
+        
+        string[] EndGetAllVenderId(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GetCourseReleaseDate", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
         System.Data.DataTable GetCourseReleaseDate();
@@ -324,6 +369,350 @@ namespace SkdAdminClient.SkdWebService {
         bool EndUpdateTestOrg(System.IAsyncResult result);
     }
     
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class VenderResult : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string nameField;
+        
+        private string codeField;
+        
+        private string resultCodeField;
+        
+        private string resultMsgField;
+        
+        private string typeField;
+        
+        private string areaField;
+        
+        private string mailField;
+        
+        private string userNameField;
+        
+        private string phoneField;
+        
+        private string operatingStateField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+                this.RaisePropertyChanged("Name");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public string Code {
+            get {
+                return this.codeField;
+            }
+            set {
+                this.codeField = value;
+                this.RaisePropertyChanged("Code");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public string resultCode {
+            get {
+                return this.resultCodeField;
+            }
+            set {
+                this.resultCodeField = value;
+                this.RaisePropertyChanged("resultCode");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public string resultMsg {
+            get {
+                return this.resultMsgField;
+            }
+            set {
+                this.resultMsgField = value;
+                this.RaisePropertyChanged("resultMsg");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public string Type {
+            get {
+                return this.typeField;
+            }
+            set {
+                this.typeField = value;
+                this.RaisePropertyChanged("Type");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public string Area {
+            get {
+                return this.areaField;
+            }
+            set {
+                this.areaField = value;
+                this.RaisePropertyChanged("Area");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public string Mail {
+            get {
+                return this.mailField;
+            }
+            set {
+                this.mailField = value;
+                this.RaisePropertyChanged("Mail");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public string UserName {
+            get {
+                return this.userNameField;
+            }
+            set {
+                this.userNameField = value;
+                this.RaisePropertyChanged("UserName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public string Phone {
+            get {
+                return this.phoneField;
+            }
+            set {
+                this.phoneField = value;
+                this.RaisePropertyChanged("Phone");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public string OperatingState {
+            get {
+                return this.operatingStateField;
+            }
+            set {
+                this.operatingStateField = value;
+                this.RaisePropertyChanged("OperatingState");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.8.3752.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://tempuri.org/")]
+    public partial class UserResult : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string idCardNumberField;
+        
+        private string emailField;
+        
+        private string mobileField;
+        
+        private bool enabledField;
+        
+        private string displayNameField;
+        
+        private string idField;
+        
+        private string loginNameField;
+        
+        private string mechanismCodeField;
+        
+        private string resultCodeField;
+        
+        private string resultMsgField;
+        
+        private string userTypeField;
+        
+        private string mechanismNameField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=0)]
+        public string IdCardNumber {
+            get {
+                return this.idCardNumberField;
+            }
+            set {
+                this.idCardNumberField = value;
+                this.RaisePropertyChanged("IdCardNumber");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=1)]
+        public string Email {
+            get {
+                return this.emailField;
+            }
+            set {
+                this.emailField = value;
+                this.RaisePropertyChanged("Email");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=2)]
+        public string Mobile {
+            get {
+                return this.mobileField;
+            }
+            set {
+                this.mobileField = value;
+                this.RaisePropertyChanged("Mobile");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=3)]
+        public bool Enabled {
+            get {
+                return this.enabledField;
+            }
+            set {
+                this.enabledField = value;
+                this.RaisePropertyChanged("Enabled");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=4)]
+        public string DisplayName {
+            get {
+                return this.displayNameField;
+            }
+            set {
+                this.displayNameField = value;
+                this.RaisePropertyChanged("DisplayName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=5)]
+        public string Id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("Id");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=6)]
+        public string LoginName {
+            get {
+                return this.loginNameField;
+            }
+            set {
+                this.loginNameField = value;
+                this.RaisePropertyChanged("LoginName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=7)]
+        public string MechanismCode {
+            get {
+                return this.mechanismCodeField;
+            }
+            set {
+                this.mechanismCodeField = value;
+                this.RaisePropertyChanged("MechanismCode");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=8)]
+        public string ResultCode {
+            get {
+                return this.resultCodeField;
+            }
+            set {
+                this.resultCodeField = value;
+                this.RaisePropertyChanged("ResultCode");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=9)]
+        public string ResultMsg {
+            get {
+                return this.resultMsgField;
+            }
+            set {
+                this.resultMsgField = value;
+                this.RaisePropertyChanged("ResultMsg");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=10)]
+        public string UserType {
+            get {
+                return this.userTypeField;
+            }
+            set {
+                this.userTypeField = value;
+                this.RaisePropertyChanged("UserType");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
+        public string MechanismName {
+            get {
+                return this.mechanismNameField;
+            }
+            set {
+                this.mechanismNameField = value;
+                this.RaisePropertyChanged("MechanismName");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
@@ -374,6 +763,101 @@ namespace SkdAdminClient.SkdWebService {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface SkdServiceSoapChannel : SkdAdminClient.SkdWebService.SkdServiceSoap, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetVenderDetailByVenderIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetVenderDetailByVenderIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public SkdAdminClient.SkdWebService.VenderResult Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((SkdAdminClient.SkdWebService.VenderResult)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetUserIdByVenderIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetUserIdByVenderIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetUserDetailByUserIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetUserDetailByUserIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public SkdAdminClient.SkdWebService.UserResult Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((SkdAdminClient.SkdWebService.UserResult)(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetCourseNameByUserIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetCourseNameByUserIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetAllVenderIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetAllVenderIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public string[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((string[])(this.results[0]));
+            }
+        }
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -1007,6 +1491,36 @@ namespace SkdAdminClient.SkdWebService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class SkdServiceSoapClient : System.ServiceModel.ClientBase<SkdAdminClient.SkdWebService.SkdServiceSoap>, SkdAdminClient.SkdWebService.SkdServiceSoap {
         
+        private BeginOperationDelegate onBeginGetVenderDetailByVenderIdDelegate;
+        
+        private EndOperationDelegate onEndGetVenderDetailByVenderIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetVenderDetailByVenderIdCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetUserIdByVenderIdDelegate;
+        
+        private EndOperationDelegate onEndGetUserIdByVenderIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetUserIdByVenderIdCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetUserDetailByUserIdDelegate;
+        
+        private EndOperationDelegate onEndGetUserDetailByUserIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetUserDetailByUserIdCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetCourseNameByUserIdDelegate;
+        
+        private EndOperationDelegate onEndGetCourseNameByUserIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetCourseNameByUserIdCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetAllVenderIdDelegate;
+        
+        private EndOperationDelegate onEndGetAllVenderIdDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetAllVenderIdCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetCourseReleaseDateDelegate;
         
         private EndOperationDelegate onEndGetCourseReleaseDateDelegate;
@@ -1230,6 +1744,16 @@ namespace SkdAdminClient.SkdWebService {
                 base(binding, remoteAddress) {
         }
         
+        public event System.EventHandler<GetVenderDetailByVenderIdCompletedEventArgs> GetVenderDetailByVenderIdCompleted;
+        
+        public event System.EventHandler<GetUserIdByVenderIdCompletedEventArgs> GetUserIdByVenderIdCompleted;
+        
+        public event System.EventHandler<GetUserDetailByUserIdCompletedEventArgs> GetUserDetailByUserIdCompleted;
+        
+        public event System.EventHandler<GetCourseNameByUserIdCompletedEventArgs> GetCourseNameByUserIdCompleted;
+        
+        public event System.EventHandler<GetAllVenderIdCompletedEventArgs> GetAllVenderIdCompleted;
+        
         public event System.EventHandler<GetCourseReleaseDateCompletedEventArgs> GetCourseReleaseDateCompleted;
         
         public event System.EventHandler<ExcuteSpCompletedEventArgs> ExcuteSpCompleted;
@@ -1297,6 +1821,254 @@ namespace SkdAdminClient.SkdWebService {
         public event System.EventHandler<InsertNewMapCompletedEventArgs> InsertNewMapCompleted;
         
         public event System.EventHandler<UpdateTestOrgCompletedEventArgs> UpdateTestOrgCompleted;
+        
+        public SkdAdminClient.SkdWebService.VenderResult GetVenderDetailByVenderId(string venderId) {
+            return base.Channel.GetVenderDetailByVenderId(venderId);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetVenderDetailByVenderId(string venderId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetVenderDetailByVenderId(venderId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public SkdAdminClient.SkdWebService.VenderResult EndGetVenderDetailByVenderId(System.IAsyncResult result) {
+            return base.Channel.EndGetVenderDetailByVenderId(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetVenderDetailByVenderId(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string venderId = ((string)(inValues[0]));
+            return this.BeginGetVenderDetailByVenderId(venderId, callback, asyncState);
+        }
+        
+        private object[] OnEndGetVenderDetailByVenderId(System.IAsyncResult result) {
+            SkdAdminClient.SkdWebService.VenderResult retVal = this.EndGetVenderDetailByVenderId(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetVenderDetailByVenderIdCompleted(object state) {
+            if ((this.GetVenderDetailByVenderIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetVenderDetailByVenderIdCompleted(this, new GetVenderDetailByVenderIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetVenderDetailByVenderIdAsync(string venderId) {
+            this.GetVenderDetailByVenderIdAsync(venderId, null);
+        }
+        
+        public void GetVenderDetailByVenderIdAsync(string venderId, object userState) {
+            if ((this.onBeginGetVenderDetailByVenderIdDelegate == null)) {
+                this.onBeginGetVenderDetailByVenderIdDelegate = new BeginOperationDelegate(this.OnBeginGetVenderDetailByVenderId);
+            }
+            if ((this.onEndGetVenderDetailByVenderIdDelegate == null)) {
+                this.onEndGetVenderDetailByVenderIdDelegate = new EndOperationDelegate(this.OnEndGetVenderDetailByVenderId);
+            }
+            if ((this.onGetVenderDetailByVenderIdCompletedDelegate == null)) {
+                this.onGetVenderDetailByVenderIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetVenderDetailByVenderIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetVenderDetailByVenderIdDelegate, new object[] {
+                        venderId}, this.onEndGetVenderDetailByVenderIdDelegate, this.onGetVenderDetailByVenderIdCompletedDelegate, userState);
+        }
+        
+        public string[] GetUserIdByVenderId(string venderId) {
+            return base.Channel.GetUserIdByVenderId(venderId);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetUserIdByVenderId(string venderId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetUserIdByVenderId(venderId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string[] EndGetUserIdByVenderId(System.IAsyncResult result) {
+            return base.Channel.EndGetUserIdByVenderId(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetUserIdByVenderId(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string venderId = ((string)(inValues[0]));
+            return this.BeginGetUserIdByVenderId(venderId, callback, asyncState);
+        }
+        
+        private object[] OnEndGetUserIdByVenderId(System.IAsyncResult result) {
+            string[] retVal = this.EndGetUserIdByVenderId(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetUserIdByVenderIdCompleted(object state) {
+            if ((this.GetUserIdByVenderIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetUserIdByVenderIdCompleted(this, new GetUserIdByVenderIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetUserIdByVenderIdAsync(string venderId) {
+            this.GetUserIdByVenderIdAsync(venderId, null);
+        }
+        
+        public void GetUserIdByVenderIdAsync(string venderId, object userState) {
+            if ((this.onBeginGetUserIdByVenderIdDelegate == null)) {
+                this.onBeginGetUserIdByVenderIdDelegate = new BeginOperationDelegate(this.OnBeginGetUserIdByVenderId);
+            }
+            if ((this.onEndGetUserIdByVenderIdDelegate == null)) {
+                this.onEndGetUserIdByVenderIdDelegate = new EndOperationDelegate(this.OnEndGetUserIdByVenderId);
+            }
+            if ((this.onGetUserIdByVenderIdCompletedDelegate == null)) {
+                this.onGetUserIdByVenderIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetUserIdByVenderIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetUserIdByVenderIdDelegate, new object[] {
+                        venderId}, this.onEndGetUserIdByVenderIdDelegate, this.onGetUserIdByVenderIdCompletedDelegate, userState);
+        }
+        
+        public SkdAdminClient.SkdWebService.UserResult GetUserDetailByUserId(string userId) {
+            return base.Channel.GetUserDetailByUserId(userId);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetUserDetailByUserId(string userId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetUserDetailByUserId(userId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public SkdAdminClient.SkdWebService.UserResult EndGetUserDetailByUserId(System.IAsyncResult result) {
+            return base.Channel.EndGetUserDetailByUserId(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetUserDetailByUserId(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string userId = ((string)(inValues[0]));
+            return this.BeginGetUserDetailByUserId(userId, callback, asyncState);
+        }
+        
+        private object[] OnEndGetUserDetailByUserId(System.IAsyncResult result) {
+            SkdAdminClient.SkdWebService.UserResult retVal = this.EndGetUserDetailByUserId(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetUserDetailByUserIdCompleted(object state) {
+            if ((this.GetUserDetailByUserIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetUserDetailByUserIdCompleted(this, new GetUserDetailByUserIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetUserDetailByUserIdAsync(string userId) {
+            this.GetUserDetailByUserIdAsync(userId, null);
+        }
+        
+        public void GetUserDetailByUserIdAsync(string userId, object userState) {
+            if ((this.onBeginGetUserDetailByUserIdDelegate == null)) {
+                this.onBeginGetUserDetailByUserIdDelegate = new BeginOperationDelegate(this.OnBeginGetUserDetailByUserId);
+            }
+            if ((this.onEndGetUserDetailByUserIdDelegate == null)) {
+                this.onEndGetUserDetailByUserIdDelegate = new EndOperationDelegate(this.OnEndGetUserDetailByUserId);
+            }
+            if ((this.onGetUserDetailByUserIdCompletedDelegate == null)) {
+                this.onGetUserDetailByUserIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetUserDetailByUserIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetUserDetailByUserIdDelegate, new object[] {
+                        userId}, this.onEndGetUserDetailByUserIdDelegate, this.onGetUserDetailByUserIdCompletedDelegate, userState);
+        }
+        
+        public string[] GetCourseNameByUserId(string userId) {
+            return base.Channel.GetCourseNameByUserId(userId);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetCourseNameByUserId(string userId, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetCourseNameByUserId(userId, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string[] EndGetCourseNameByUserId(System.IAsyncResult result) {
+            return base.Channel.EndGetCourseNameByUserId(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetCourseNameByUserId(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            string userId = ((string)(inValues[0]));
+            return this.BeginGetCourseNameByUserId(userId, callback, asyncState);
+        }
+        
+        private object[] OnEndGetCourseNameByUserId(System.IAsyncResult result) {
+            string[] retVal = this.EndGetCourseNameByUserId(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetCourseNameByUserIdCompleted(object state) {
+            if ((this.GetCourseNameByUserIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetCourseNameByUserIdCompleted(this, new GetCourseNameByUserIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetCourseNameByUserIdAsync(string userId) {
+            this.GetCourseNameByUserIdAsync(userId, null);
+        }
+        
+        public void GetCourseNameByUserIdAsync(string userId, object userState) {
+            if ((this.onBeginGetCourseNameByUserIdDelegate == null)) {
+                this.onBeginGetCourseNameByUserIdDelegate = new BeginOperationDelegate(this.OnBeginGetCourseNameByUserId);
+            }
+            if ((this.onEndGetCourseNameByUserIdDelegate == null)) {
+                this.onEndGetCourseNameByUserIdDelegate = new EndOperationDelegate(this.OnEndGetCourseNameByUserId);
+            }
+            if ((this.onGetCourseNameByUserIdCompletedDelegate == null)) {
+                this.onGetCourseNameByUserIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetCourseNameByUserIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetCourseNameByUserIdDelegate, new object[] {
+                        userId}, this.onEndGetCourseNameByUserIdDelegate, this.onGetCourseNameByUserIdCompletedDelegate, userState);
+        }
+        
+        public string[] GetAllVenderId() {
+            return base.Channel.GetAllVenderId();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetAllVenderId(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetAllVenderId(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public string[] EndGetAllVenderId(System.IAsyncResult result) {
+            return base.Channel.EndGetAllVenderId(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetAllVenderId(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetAllVenderId(callback, asyncState);
+        }
+        
+        private object[] OnEndGetAllVenderId(System.IAsyncResult result) {
+            string[] retVal = this.EndGetAllVenderId(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetAllVenderIdCompleted(object state) {
+            if ((this.GetAllVenderIdCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetAllVenderIdCompleted(this, new GetAllVenderIdCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetAllVenderIdAsync() {
+            this.GetAllVenderIdAsync(null);
+        }
+        
+        public void GetAllVenderIdAsync(object userState) {
+            if ((this.onBeginGetAllVenderIdDelegate == null)) {
+                this.onBeginGetAllVenderIdDelegate = new BeginOperationDelegate(this.OnBeginGetAllVenderId);
+            }
+            if ((this.onEndGetAllVenderIdDelegate == null)) {
+                this.onEndGetAllVenderIdDelegate = new EndOperationDelegate(this.OnEndGetAllVenderId);
+            }
+            if ((this.onGetAllVenderIdCompletedDelegate == null)) {
+                this.onGetAllVenderIdCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAllVenderIdCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetAllVenderIdDelegate, null, this.onEndGetAllVenderIdDelegate, this.onGetAllVenderIdCompletedDelegate, userState);
+        }
         
         public System.Data.DataTable GetCourseReleaseDate() {
             return base.Channel.GetCourseReleaseDate();
